@@ -1,0 +1,20 @@
+katana_arm_position_controller1:
+  type: "effort_controllers/JointPositionController"
+  joint: katana_motor1_pan_joint
+  pid: {p: 10.0, d: 4.0, i: 0.01}
+katana_arm_position_controller2:
+  type: "effort_controllers/JointPositionController"
+  joint: katana_motor2_lift_joint
+  pid: {p: 10.0, d: 3.0, i: 0.01}
+katana_arm_position_controller3:
+  type: "effort_controllers/JointPositionController"
+  joint: katana_motor3_lift_joint
+  pid: {p: 10.0, d: 3.0, i: 0.01}
+katana_arm_position_controller4:
+  type: "effort_controllers/JointPositionController"
+  joint: katana_motor4_lift_joint
+  pid: {p: 10.0, d: 2.0, i: 0.01}
+katana_arm_position_controller5:
+  type: "effort_controllers/JointPositionController"
+  joint: katana_motor5_wrist_roll_joint
+  pid: {p: 10.0, d: 1.0, i: 0.005}

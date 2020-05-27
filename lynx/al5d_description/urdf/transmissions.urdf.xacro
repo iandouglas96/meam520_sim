@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+  <!-- transmissions are required by the controller manager (here: for simulation in gazebo) -->
+
+  <xacro:macro name="al5d_transmission" params="name">
+    <transmission name="${name}_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${name}">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="${name}_motor">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+  </xacro:macro>
+
+  <xacro:al5d_transmission name="base_rotate" />
+  <xacro:al5d_transmission name="shoulder_tilt" />
+  <xacro:al5d_transmission name="elbow_tilt" />
+  <xacro:al5d_transmission name="wrist_tilt" />
+  <xacro:al5d_transmission name="wrist_rotate" />
+  <xacro:al5d_transmission name="open_gripperright" />
+  <xacro:al5d_transmission name="open_gripperleft" />
+</robot>

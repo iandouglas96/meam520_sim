@@ -1,0 +1,28 @@
+al5d_arm_position_controller1:
+  type: "effort_controllers/JointPositionController"
+  joint: base_rotate
+  pid: {p: 50.0, d: 4.0, i: 0.01}
+al5d_arm_position_controller2:
+  type: "effort_controllers/JointPositionController"
+  joint: shoulder_tilt
+  pid: {p: 50.0, d: 3.0, i: 0.01}
+al5d_arm_position_controller3:
+  type: "effort_controllers/JointPositionController"
+  joint: elbow_tilt
+  pid: {p: 50.0, d: 3.0, i: 0.01}
+al5d_arm_position_controller4:
+  type: "effort_controllers/JointPositionController"
+  joint: wrist_tilt
+  pid: {p: 50.0, d: 2.0, i: 0.01}
+al5d_arm_position_controller5:
+  type: "effort_controllers/JointPositionController"
+  joint: wrist_rotate
+  pid: {p: 50.0, d: 1.0, i: 0.005}
+al5d_gripper_controller1:
+  type: "effort_controllers/JointPositionController"
+  joint: open_gripperright
+  pid: {p: 500.0, d: 50.0, i: 10.0}
+al5d_gripper_controller2:
+  type: "effort_controllers/JointPositionController"
+  joint: open_gripperleft
+  pid: {p: 500.0, d: 50.0, i: 10.0}
