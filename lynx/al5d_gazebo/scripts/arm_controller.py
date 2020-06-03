@@ -1,6 +1,8 @@
 import rospy
+from al5d_gazebo.msg import TransformStampedList
 from std_msgs.msg import Float64
 from sensor_msgs.msg import JointState
+from scipy.spatial.transform import Rotation
 import threading
 from queue import Queue
 import numpy as np
@@ -8,10 +10,11 @@ import time
 
 #class managing separate ROS loop
 class ROSInterface:
-    def __init__(self, cmd_q, status_q, num_joints):
+    def __init__(self, cmd_q, status_q, pose_q, num_joints):
         #load up queues for async comm
         self.cmd_q = cmd_q
         self.status_q = status_q
+        self.pose_q = pose_q
         self.num_joints = num_joints
         self.pos = None
         self.vel = None
@@ -40,6 +43,27 @@ class ROSInterface:
             self.status_q.get()
         self.status_q.put((self.pos, self.vel))
 
+    def pose_cb(self, pose):
+        #we know the transforms are already in the order we want
+        transforms = []
+        for trans in pose.transforms:
+            translation = 1000*np.array([trans.transform.translation.x,
+                                         trans.transform.translation.y,
+                                         trans.transform.translation.z])
+            rotation = Rotation.from_quat([trans.transform.rotation.x,
+                                           trans.transform.rotation.y,
+                                           trans.transform.rotation.z,
+                                           trans.transform.rotation.w])
+            trans_m = np.eye(4)
+            trans_m[:3,:3] = rotation.as_matrix()
+            trans_m[:3,3] = translation
+            transforms.append(trans_m)
+
+        #clear queue
+        while not self.pose_q.empty():
+            self.pose_q.get()
+        self.pose_q.put(transforms)
+
     def start_command(self, state):
         if state[0] == "move":
             if self.pos is not None:
@@ -48,6 +72,7 @@ class ROSInterface:
                 dist = np.max(np.abs(diff))
                 interp = np.linspace(0, 1, (100*dist).astype(np.int))
                 self.move_seq = self.pos + interp[:,None]*diff[None,:]
+                self.move_ind = 0
 
     def update_move(self):
         if self.move_seq is not 0:
@@ -82,12 +107,13 @@ class ROSInterface:
             self.gripper_pubs.append(pub)
 
         state_sub = rospy.Subscriber("/joint_states", JointState, self.state_cb)
+        pose_sub = rospy.Subscriber("/joint_poses", TransformStampedList, self.pose_cb)
 
         #poll at 100Hz
-        rate = rospy.Rate(100)
+        rate = rospy.Rate(50)
         while not rospy.is_shutdown():
             try:
-                if self.pos is not None:
+                if not self.status_q.empty() and not self.pose_q.empty():
                     if not self.cmd_q.empty():
                         cmd = self.cmd_q.get() 
                         if cmd == "stop": 
@@ -104,8 +130,10 @@ class ArmController:
     def __init__(self, num_joints=5):
         self.num_joints = num_joints
         self.cur_state = ()
+        self.cur_pose = ()
         self.cmd_q = Queue()
         self.status_q = Queue()
+        self.pose_q = Queue()
 
         self.joint_limits = np.array([[-1.4, 1.4],
                                       [-1.2, 1.4],
@@ -117,7 +145,7 @@ class ArmController:
         #ROS runs in a separate thread because it needs to always
         #check the message buffers
         print("starting ros thread...")
-        self.ros = ROSInterface(self.cmd_q, self.status_q, num_joints)
+        self.ros = ROSInterface(self.cmd_q, self.status_q, self.pose_q, num_joints)
         self.spin_t = threading.Thread(target=self.ros.loop)
         self.spin_t.start()
         print("ros thread started")
@@ -146,15 +174,22 @@ class ArmController:
             raise Exception("Invalid state command")
 
     def get_state(self):
-        scaled_state = []
         if not self.status_q.empty():
-            self.cur_state = self.status_q.get()
-            scaled_state.append(self.cur_state[0].copy())
-            scaled_state.append(self.cur_state[1].copy())
-            scaled_state[0][-1] = -scaled_state[0][-1]*45./0.03 + 30.
-            scaled_state[1][-1] = -scaled_state[1][-1]*45./0.03
+            self.cur_state = self.status_q.queue[0]
+
+        scaled_state = []
+        scaled_state.append(self.cur_state[0].copy())
+        scaled_state.append(self.cur_state[1].copy())
+        scaled_state[0][-1] = -scaled_state[0][-1]*45./0.03 + 30.
+        scaled_state[1][-1] = -scaled_state[1][-1]*45./0.03
 
         return scaled_state
+    
+    def get_poses(self):
+        if not self.pose_q.empty():
+            self.cur_pose = self.pose_q.queue[0]
+            
+        return self.cur_pose
     
     def stop(self):
         self.cmd_q.put("stop")

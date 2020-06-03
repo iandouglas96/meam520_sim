@@ -2,7 +2,7 @@
 <launch>
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <!--arg name="world_name" value="$(find al5d_gazebo)/worlds/al5d.world"/-->
+    <arg name="world_name" value="$(find al5d_gazebo)/worlds/al5d.world"/>
     <!-- more default parameters can be changed here -->
   </include>
   <!-- Convert an xacro and put on parameter server -->
@@ -17,6 +17,9 @@
   <node name="default_loaded_controllers_spawner"
     pkg="controller_manager" type="spawner" output="screen"
     args="--wait-for=/calibrated al5d_arm_position_controller1 al5d_arm_position_controller2 al5d_arm_position_controller3 al5d_arm_position_controller4 al5d_arm_position_controller5 al5d_gripper_controller1 al5d_gripper_controller2 joint_state_controller" /> 
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen"/>
+  <node name="robot_tf_translator" pkg="al5d_gazebo" type="tf_translator.py" output="screen"/>
 
   <!-- Fake calib -->
   <node pkg="rostopic" type="rostopic" name="fake_joint_calibration"

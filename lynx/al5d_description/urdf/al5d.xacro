@@ -4,10 +4,10 @@
 
     <xacro:property name="M_PI" value="3.14159"/>
 
-    <xacro:property name="base_height" value="0.43" />
+    <xacro:property name="base_height" value="0.02" />
     <xacro:property name="base_radius" value="0.048" />
-    <xacro:property name="upper_base_height" value="0.006" />
-    <xacro:property name="upper_arm_offset" value="0.022" />
+    <xacro:property name="upper_base_height" value="0.07" />
+    <xacro:property name="upper_arm_offset" value="0.006" />
     <xacro:property name="upper_arm_length" value="0.14605" />
     <xacro:property name="upper_arm_width" value="0.05" />
     <xacro:property name="lower_arm_length" value="0.187325" />
@@ -48,17 +48,17 @@
     </link>
     <link name="upper_base">
       <visual>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+	<origin xyz="0 0 ${(upper_base_height - base_height - 0.02)/2 + base_height + 0.02}" rpy="0 0 0"/>
         <geometry>
-          <cylinder length="${upper_base_height}" radius="${base_radius}"/>
+          <cylinder length="${upper_base_height - base_height - 0.02}" radius="${base_radius}"/>
         </geometry>
         <material name="black">
         </material>
       </visual>
       <collision>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+	<origin xyz="0 0 ${(upper_base_height - base_height - 0.02)/2 + base_height + 0.02}" rpy="0 0 0"/>
         <geometry>
-           <cylinder length="${upper_base_height}" radius="${base_radius}"/>
+          <cylinder length="${upper_base_height - base_height - 0.02}" radius="${base_radius}"/>
         </geometry>
       </collision>
       <xacro:insert_block name="inertia_block" />
@@ -180,14 +180,14 @@
       <child link="base"/>
     </joint>
     <joint name="base_rotate" type="revolute">
-      <origin xyz="0 0 ${base_height + upper_base_height}" rpy="0 0 0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
       <parent link="base"/>
       <child link="upper_base"/>
       <axis xyz="0 0 1"/>
       <limit lower="-1.4" upper="1.4" effort="10" velocity="3.67"/>
     </joint>
     <joint name="shoulder_tilt" type="revolute">
-      <origin xyz="0 0 ${upper_arm_offset}" rpy="${M_PI/2} -${M_PI/2} 0 "/>
+      <origin xyz="0 0 ${upper_arm_offset + upper_base_height}" rpy="${M_PI/2} -${M_PI/2} 0 "/>
       <parent link="upper_base"/>
       <child link="upper_arm"/>
       <axis xyz="0 0 -1"/>
@@ -229,7 +229,7 @@
       <limit lower="0" upper="0.03" effort="100" velocity="6.98"/>
     </joint>
     <joint name="end" type="fixed">
-      <origin xyz="${wrist_length} 0 0" rpy="0 0 0"/>
+      <origin xyz="${wrist_length} 0 0" rpy="0 ${M_PI/2} 0"/>
       <parent link="gripper_base"/>
       <child link="end"/>
     </joint>

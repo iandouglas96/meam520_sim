@@ -5,11 +5,11 @@ al5d_arm_position_controller1:
 al5d_arm_position_controller2:
   type: "effort_controllers/JointPositionController"
   joint: shoulder_tilt
-  pid: {p: 50.0, d: 3.0, i: 0.01}
+  pid: {p: 50.0, d: 3.0, i: 100.0, i_clamp: 5.0}
 al5d_arm_position_controller3:
   type: "effort_controllers/JointPositionController"
   joint: elbow_tilt
-  pid: {p: 50.0, d: 3.0, i: 0.01}
+  pid: {p: 50.0, d: 3.0, i: 100.0, i_clamp: 5.0}
 al5d_arm_position_controller4:
   type: "effort_controllers/JointPositionController"
   joint: wrist_tilt
