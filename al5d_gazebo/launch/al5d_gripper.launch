@@ -24,6 +24,10 @@
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen"/>
   <node name="robot_tf_translator" pkg="al5d_gazebo" type="tf_translator.py" output="screen"/>
 
+
+  <node name="reset_world" pkg="al5d_gazebo" type="reset_world.py" output="screen"/>
+
+
   <!-- Fake calib -->
   <node pkg="rostopic" type="rostopic" name="fake_joint_calibration"
     args="pub /calibrated std_msgs/Bool true" />

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <robot name="al5d" xmlns:xacro="http://ros.org/wiki/xacro">
-    <xacro:include filename="$(find al5d_description)/urdf/transmissions.urdf.xacro"/>
+    <xacro:include filename="$(find al5d_description)/urdf/transmissions_lidar.urdf.xacro"/>
 
     <xacro:property name="M_PI" value="3.14159"/>
 

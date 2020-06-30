@@ -173,6 +173,11 @@
     <link name="end">
     </link>
 
+
+
+
+
+
     <!-- joints -->
     <joint name="base" type="fixed">
       <origin xyz="0 0 0" rpy="0 0 0"/>

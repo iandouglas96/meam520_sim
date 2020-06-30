@@ -20,6 +20,7 @@ class TfTranslator:
 
     def tf_cb(self, timer):
         joint_poses = TransformStampedList()
+        rospy.sleep(1)
         try:
             for joint in JOINT_NAMES:
                 trans = self.tf_buffer.lookup_transform("base", joint, rospy.Time())
