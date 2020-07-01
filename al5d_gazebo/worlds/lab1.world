@@ -4,6 +4,9 @@
     <include>
       <uri>model://sun</uri>
     </include>
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
 
     <model name="marker1">
       <pose>0.115 -0.328 0.322 -0.98 -0.44 -3.08</pose>
@@ -16,6 +19,14 @@
             </box>
           </geometry>
         </visual>
+        <collision name='collision'>
+          <laser_retro>0</laser_retro>
+          <geometry>
+            <box>
+              <size>0.01 0.04 0.08</size>
+            </box>
+          </geometry>
+        </collision>
       </link>
     </model>
 
@@ -30,6 +41,14 @@
             </box>
           </geometry>
         </visual>
+        <collision name='collision'>
+          <laser_retro>0</laser_retro>
+          <geometry>
+            <box>
+              <size>0.01 0.04 0.08</size>
+            </box>
+          </geometry>
+        </collision>
       </link>
     </model>
 
@@ -44,6 +63,14 @@
             </box>
           </geometry>
         </visual>
+        <collision name='collision'>
+          <laser_retro>0</laser_retro>
+          <geometry>
+            <box>
+              <size>0.01 0.04 0.08</size>
+            </box>
+          </geometry>
+        </collision>
       </link>
     </model>
 
@@ -58,6 +85,14 @@
             </box>
           </geometry>
         </visual>
+        <collision name='collision'>
+          <laser_retro>0</laser_retro>
+          <geometry>
+            <box>
+              <size>0.01 0.04 0.08</size>
+            </box>
+          </geometry>
+        </collision>
       </link>
     </model>
   </world>
