@@ -6,12 +6,12 @@ This is the ros package for MEMA 520 course in Fall
 
 ## Usage
 
-1. For Lab 0 - lab 2 
+1. for Lab0-Lab2, the model is with the gripper 
 
 run:
 
 ```
-roslaunch al5d_gazebo al5d_gripper.launch
+roslaunch al5d_gazebo lab#.launch
 ```
 
 the robot model is with the gripper
@@ -23,7 +23,7 @@ the gripper is replaced by LIDAR, the arm model is changed
 
 
 ```
-roslaunch al5d_gazebo al5d_lidar.launch
+roslaunch al5d_gazebo lab3.launch
 ```
 
 then will launch the revised model
