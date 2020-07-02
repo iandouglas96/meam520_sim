@@ -3,19 +3,7 @@
   <model name='obs2'>
     <link name='link_0'>
       <pose frame=''>0 0 0 0 -0 0</pose>
-      <inertial>
-        <mass>1</mass>
-        <inertia>
-          <ixx>0.166667</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>0.166667</iyy>
-          <iyz>0</iyz>
-          <izz>0.166667</izz>
-        </inertia>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-      </inertial>
-      <gravity>1</gravity>
+
       <self_collide>0</self_collide>
       <kinematic>0</kinematic>
       <visual name='visual'>
@@ -29,7 +17,7 @@
           <lighting>1</lighting>
           <script>
             <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Blue</name>
+            <name>Gazebo/Grey</name>
           </script>
           <ambient>0.3 0.3 0.3 1</ambient>
           <diffuse>0.7 0.7 0.7 1</diffuse>
