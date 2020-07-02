@@ -4,8 +4,8 @@ This is the ros package for MEMA 520 course in Fall
 
 ## Set up
 
-see wiki for details
-
+- see wiki for details
+- systems requirements: Ubuntu 16.04 and ROS Kinetics or Ubuntu 18.04 and ROS Melodic
 
 
 
