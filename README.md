@@ -2,11 +2,16 @@
 
 This is the ros package for MEMA 520 course in Fall
 
+## Set up
+
+see wiki for details
+
+
 
 
 ## Usage
 
-### 1 launch file
+### 1. Launch the simulator
 
 
 #### For Lab0-Lab2, the model is with the gripper 
@@ -31,8 +36,9 @@ roslaunch al5d_gazebo al5d_lidar.launch
 
 then will launch the revised model
 
+### 2. Run your python code
 
-### 2 add markers in lab1
+### 3. Add markers in lab1
 
 
 open the lanuch file "al5d_.launch" in the launch folder, in line 4-7 you will see:
