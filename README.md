@@ -1,10 +1,10 @@
 # MEAM 520 Robot Arm Simulator
 
-This is the ros package for MEMA 520 course in Fall
+This is the ROS package for MEMA 520 course in Fall
 
 ## Set up
 
-- see wiki for details
+- see [wiki](https://github.com/yuwei-wu/meam520_sim/wiki) for details
 - systems requirements: Ubuntu 16.04 and ROS Kinetics or Ubuntu 18.04 and ROS Melodic
 
 
