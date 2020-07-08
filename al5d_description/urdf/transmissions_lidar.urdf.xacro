@@ -21,16 +21,14 @@
   <xacro:al5d_transmission name="elbow_tilt" />
   <xacro:al5d_transmission name="wrist_tilt" />
   <xacro:al5d_transmission name="wrist_rotate" />
-  <xacro:al5d_transmission name="open_gripperright" />
-  <xacro:al5d_transmission name="open_gripperleft" />
+  <xacro:al5d_transmission name="lidar_rotate" />
 
 
-  <!-- hokuyo -->
-<gazebo reference="hokuyo">
+<gazebo reference="lidar">
     <sensor type="ray" name="head_hokuyo_sensor">
-      <pose>0 0 0 0 0 0</pose>
+      <pose>0.0 0 0 0 0 0</pose>
       <visualize>true</visualize>
-      <update_rate>40</update_rate>
+      <update_rate>200</update_rate>
       <ray>
         <scan>
           <horizontal>
@@ -41,9 +39,9 @@
           </horizontal>
         </scan>
         <range>
-          <min>0.01</min>
+          <min>0.04</min>
           <max>10.0</max>
-          <resolution>0.01</resolution>
+          <resolution>0.01</resolution>    
         </range>
         <noise>
           <type>gaussian</type>

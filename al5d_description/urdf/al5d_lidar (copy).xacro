@@ -17,7 +17,8 @@
     <xacro:property name="gripper_length" value="0.06" />
     <xacro:property name="gripper_width" value="0.05" />
     <xacro:property name="gripper_height" value="0.01" />
-
+    <xacro:property name="finger_length" value="0.04" />
+  
     <xacro:property name="inertia_block">
       <inertial>
         <mass value="0.3"/>
@@ -27,8 +28,6 @@
 
     <link name="world">
     </link>
-
-
     <link name="base">
       <visual>
         <origin xyz="0 0 ${base_height/2}" rpy="0 0 0"/>
@@ -117,16 +116,6 @@
       </collision>
       <xacro:insert_block name="inertia_block" />
     </link>
-
-
-
-
-
-
-
-
-
-
     <link name="gripper_base">
       <visual>
 	<origin xyz="${gripper_height/2} 0 0" rpy="0 0 0"/>
@@ -145,39 +134,6 @@
       </collision>
       <xacro:insert_block name="inertia_block" />
     </link>
-
-
-
-
-    <link name="lidar">
-      <visual>
-	<origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-          <box size="0.0212 0.0522 0.024"/>
-        </geometry>
-        <material name="red">
-          <color rgba="1 0.3 0.3 0.85"/>
-        </material>
-      </visual>
-      <collision>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-          <box size="0.0212 0.0522 0.024"/>
-        </geometry>
-      </collision>
-      <xacro:insert_block name="inertia_block" />
-    </link>
-
-
-  <joint name="lidar_rotate" type="revolute">
-    <origin xyz="0 0 -0.035" rpy="0 0 0" />
-    <parent link="gripper_base"/>
-    <child link="lidar" />  
-    <axis xyz="0 0 1"/> 
-    <limit lower="-1.4" upper="1.4" effort="10" velocity="3.67"/>
-  </joint>
-
-
 
 
 
@@ -221,8 +177,6 @@
       <axis xyz="0 0 -1"/>
       <limit lower="-1.9" upper="1.7" effort="10" velocity="6.98"/>
     </joint>
-
-
     <joint name="wrist_rotate" type="revolute">
       <origin xyz="${wrist_length} 0 0" rpy="${M_PI/2} 0 0"/>
       <parent link="wrist"/>
@@ -233,9 +187,49 @@
 
     <joint name="end" type="fixed">
       <origin xyz="${wrist_length} 0 0" rpy="0 ${M_PI/2} 0"/>
-      <parent link="lidar"/>
+      <parent link="gripper_base"/>
       <child link="end"/>
     </joint>
+
+
+
+ <link name="hokuyo">
+    <inertial>
+      <mass value="1e-5"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia
+        ixx="1e-8" ixy="0.0" ixz="0.0"
+        iyy="1e-8" iyz="0.0"
+        izz="1e-8"
+      />
+    </inertial>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.01 0.01"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://al5d_description/meshes/hokuyo.dae"/>
+      </geometry>
+    </visual>
+
+  </link>
+
+  <joint name="hokuyo_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="gripper_base"/>
+    <child link="hokuyo" />  
+    <axis xyz="0 1 0"/> 
+  </joint>
+
+
+
+
 
 
 

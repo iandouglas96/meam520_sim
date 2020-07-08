@@ -12,7 +12,7 @@
           <iyz>0</iyz>
           <izz>0.166667</izz>
         </inertia>
-        <pose frame=''>0.25 0 0.11 0 -0 0</pose>
+        <pose frame='world'>0.25 0 0.11 0 -0 0</pose>
       </inertial>
       <pose frame=''>0 0 -0 0 -0 0</pose>
       <gravity>1</gravity>
@@ -20,7 +20,7 @@
       <kinematic>0</kinematic>
       <enable_wind>0</enable_wind>
       <visual name='visual'>
-        <pose frame=''>0 0 0 0 -0 0</pose>
+        <pose frame='world'>0.25 0 0.11 0 -0 0</pose>
         <geometry>
           <box>
             <size>0.3 0.6 0.00635</size>
