@@ -13,28 +13,18 @@ This is the ROS package for MEMA 520 course in Fall
 
 ### 1. Launch the simulator
 
-
-#### For Lab0-Lab2, the model is with the gripper 
-
 run:
 
 ```
-roslaunch al5d_gazebo al5d.launch
+roslaunch al5d_gazebo lab#.launch
 ```
 
-the robot model is with the gripper
-
-
-#### For Lab 3 
-
-the gripper is replaced by LIDAR, the arm model is changed 
-
-
+eg:
 ```
-roslaunch al5d_gazebo al5d_lidar.launch
+roslaunch al5d_gazebo lab3.launch
 ```
 
-then will launch the revised model
+
 
 ### 2. Run your python code
 
