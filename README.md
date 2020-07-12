@@ -1,6 +1,6 @@
 # MEAM 520 Robot Arm Simulator
 
-This is the ROS package for MEMA 520 course in Fall
+This is the ROS package for MEAM 520 course in Fall
 
 ## Set up
 
