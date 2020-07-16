@@ -2,16 +2,25 @@
 
 This is the ROS package for MEAM 520 course in Fall
 
-## Set up
+## 1. Set up
 
 - see [wiki](https://github.com/yuwei-wu/meam520_sim/wiki) for details
 - systems requirements: Ubuntu 16.04 and ROS Kinetics or Ubuntu 18.04 and ROS Melodic
 
 
 
-## Usage
+## 2. Usage
 
-### 1. Launch the simulator
+
+## 2.1 clone this repo in your src of the workspace
+
+```
+$ git clone https://github.com/yuwei-wu/meam520_sim.git
+$ cd ..
+$ catkin_make
+```
+
+### 2.1 Launch the simulator
 
 run:
 
@@ -26,9 +35,9 @@ roslaunch al5d_gazebo lab3.launch
 
 
 
-### 2. Run your python code
+### 2.2 Run your python code
 
-### 3. Add markers in lab1
+### 2.3 Add markers in lab1
 
 
 open the lanuch file "al5d_.launch" in the launch folder, in line 4-7 you will see:
@@ -52,6 +61,12 @@ change the al5d.world to la1.world as below:
 
 then you can relaunch it and see four markers in the environment
 
+
+
+## 3 Interact with Matlab
+
+
+[Tutorials here](https://www.mathworks.com/help/ros/ug/get-started-with-ros.html)
 
 
 
