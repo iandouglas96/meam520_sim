@@ -5,14 +5,13 @@ This is the ROS package for MEAM 520 course in Fall
 ## 1. Set up
 
 - see [wiki](https://github.com/yuwei-wu/meam520_sim/wiki) for details
-- systems requirements: Ubuntu 16.04 and ROS Kinetics or Ubuntu 18.04 and ROS Melodic
-
+- systems requirements for VM: Ubuntu 16.04 and ROS Kinetics or Ubuntu 18.04 and ROS Melodic
 
 
 ## 2. Usage
 
 
-## 2.1 clone this repo in your src of the workspace
+## 2.1 clone this repo in the src of your workspace
 
 ```
 $ git clone https://github.com/yuwei-wu/meam520_sim.git
