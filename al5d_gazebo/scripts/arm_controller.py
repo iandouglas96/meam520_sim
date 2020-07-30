@@ -1,6 +1,6 @@
 import rospy
 from al5d_gazebo.msg import TransformStampedList
-from std_msgs.msg import Float64
+from std_msgs.msg import Float64, Float64MultiArray
 from sensor_msgs.msg import JointState
 import threading
 from Queue import Queue
@@ -23,6 +23,8 @@ class ROSInterface:
         self.move_ind = 0
         self.move_seq = 0
         node = rospy.init_node('arm_controller', disable_signals=True)
+        self.matrix = rospy.Publisher("/matrix", 
+                                  Float64MultiArray, queue_size=1, latch=True)
 
         # set publisher
         self.set_pub()
@@ -153,7 +155,8 @@ class ROSInterface:
                     self.update_move()
 
                 else:
-                    rospy.loginfo("Waiting for Gazebo...")
+                    #rospy.loginfo("Waiting for Gazebo...")
+                    a = 1
                 rate.sleep()
             except KeyboardInterrupt:
                 break
