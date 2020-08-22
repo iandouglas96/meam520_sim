@@ -1,0 +1,160 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <world name="default">
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+
+
+ <!-- map1 --> 
+    <model name="obs1">
+      <pose>0.25 0 0.11 0 -0 0</pose>
+      <static>1</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.3 0.6 0.00635</size>
+            </box>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <laser_retro>0</laser_retro>
+          <geometry>
+            <box>
+              <size>0.3 0.6 0.00635</size>
+            </box>
+          </geometry>
+        </collision>
+      </link>
+    </model>
+
+ <!---->
+
+ <!-- map2 
+    <model name="obs1">
+      <pose>0.275 0.06335 0.2 0 -0 0</pose>
+      <static>1</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.25 0.0067 0.4</size>
+            </box>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <laser_retro>0</laser_retro>
+          <geometry>
+            <box>
+              <size>0.25 0.0067 0.4</size>
+            </box>
+          </geometry>
+        </collision>
+      </link>
+    </model>
+
+    <model name="obs2">
+      <pose>0.275 -0.06335 0.2 0 -0 0</pose>
+      <static>1</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.25 0.0067 0.4</size>
+            </box>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <laser_retro>0</laser_retro>
+          <geometry>
+            <box>
+              <size>0.25 0.0067 0.4</size>
+            </box>
+          </geometry>
+        </collision>
+      </link>
+    </model>
+  -->
+
+
+<!-- map3 
+    <model name="obs1">
+      <pose>0.2 0.2 0.25 0 0 0</pose>
+      <static>1</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.2 0.2 0.5</size>
+            </box>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <laser_retro>0</laser_retro>
+          <geometry>
+            <box>
+              <size>0.2 0.2 0.5</size>
+            </box>
+          </geometry>
+        </collision>
+      </link>
+    </model>
+ -->
+
+
+
+
+<!-- map4
+    <model name="obs1">
+      <pose>0.3 0 0.35 0 0 0</pose>
+      <static>1</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.2 0.6 0.1</size>
+            </box>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <laser_retro>0</laser_retro>
+          <geometry>
+            <box>
+              <size>0.2 0.6 0.1</size>
+            </box>
+          </geometry>
+        </collision>
+      </link>
+    </model>
+
+
+
+    <model name="obs2">
+      <pose>0.15 -0.1 0 0 0 0</pose>
+      <static>1</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.4</size>
+            </box>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <laser_retro>0</laser_retro>
+          <geometry>
+            <box>
+              <size>0.1 0.4 0.4</size>
+            </box>
+          </geometry>
+        </collision>
+      </link>
+    </model>
+ -->
+
+
+
+  </world>
+</sdf>

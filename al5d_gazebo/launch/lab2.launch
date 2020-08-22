@@ -1,10 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
-  <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find al5d_gazebo)/worlds/al5d.world"/>
-    <!-- more default parameters can be changed here -->
-  </include>
+
 
 
 
@@ -26,6 +22,12 @@
 
 
   <node name="reset_world" pkg="al5d_gazebo" type="reset_world.py" output="screen"/>
+
+  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find al5d_gazebo)/worlds/lab2.world"/>
+    <!-- more default parameters can be changed here -->
+  </include>
 
 
   <!-- Fake calib -->
