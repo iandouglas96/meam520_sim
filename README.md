@@ -65,6 +65,8 @@ then you can relaunch it and see four markers in the environment
 ## 3 Interact with Matlab
 
 
+If you need to connect to a different ros Nework, check here: https://github.com/yuwei-wu/meam520_sim/wiki/Connect-to-a-different-ros-Nework
+
 [Tutorials here](https://www.mathworks.com/help/ros/ug/get-started-with-ros.html)
 
 
