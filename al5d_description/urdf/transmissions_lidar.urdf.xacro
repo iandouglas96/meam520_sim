@@ -25,7 +25,7 @@
 
 
 <gazebo reference="lidar">
-    <sensor type="ray" name="head_lidar_sensor">
+    <sensor type="ray" name="Lite_lidar_sensor">
       <!-- the start point of the beam -->
       <pose>0 0 0 0 0 0</pose> 
       <visualize>true</visualize>
@@ -67,7 +67,7 @@
           <stddev>0.01</stddev>
         </noise>
       </ray>
-      <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
+      <plugin name="gazebo_ros_controller" filename="libgazebo_ros_laser.so">
         <topicName>/scan</topicName>
         <frameName>Lidar-lite</frameName>
       </plugin>
