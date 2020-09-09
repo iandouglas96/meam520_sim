@@ -6,19 +6,20 @@
 
     <xacro:property name="base_height" value="0.02" />
     <xacro:property name="base_radius" value="0.048" />
-    <xacro:property name="upper_base_height" value="0.07" />
+    <xacro:property name="upper_base_height" value="0.0702" />
     <xacro:property name="upper_arm_offset" value="0.006" />
     <xacro:property name="upper_arm_length" value="0.14605" />
     <xacro:property name="upper_arm_width" value="0.05" />
     <xacro:property name="lower_arm_length" value="0.187325" />
     <xacro:property name="lower_arm_width" value="0.035" />
-    <xacro:property name="wrist_length" value="0.055" />
+    <xacro:property name="wrist_length" value="0.034" />
+    <xacro:property name="gripper_length" value="${gripper_height + finger_length/2}" />
     <xacro:property name="wrist_width" value="0.025" />
-    <xacro:property name="gripper_length" value="0.06" />
     <xacro:property name="gripper_width" value="0.05" />
     <xacro:property name="gripper_height" value="0.01" />
     <xacro:property name="finger_length" value="0.04" />
-  
+    <xacro:property name="point" value="0.003" />
+
     <xacro:property name="inertia_block">
       <inertial>
         <mass value="0.3"/>
@@ -26,8 +27,7 @@
       </inertial>
     </xacro:property>
 
-    <link name="world">
-    </link>
+    <link name="world"></link>
     <link name="base">
       <visual>
         <origin xyz="0 0 ${base_height/2}" rpy="0 0 0"/>
@@ -150,7 +150,10 @@
 		<box size="${gripper_width} ${gripper_height} ${gripper_height}"/>
         </geometry>
       </collision>
-      <xacro:insert_block name="inertia_block" />
+      <inertial>
+        <mass value="0.05"/>
+        <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+      </inertial>
     </link>
     <link name="gripper_leftfinger">
       <visual>
@@ -168,9 +171,20 @@
           <box size="${gripper_width} ${gripper_height} ${gripper_height}"/>
         </geometry>
       </collision>
-      <xacro:insert_block name="inertia_block" />
+      <inertial>
+        <mass value="0.05"/>
+        <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+      </inertial>
     </link>
     <link name="end">
+      <!-- <visual>
+        <geometry>
+          <box size="${point} ${point} ${point}"/>
+        </geometry>
+        <material name="red">
+          <color rgba="1 0.3 0.3 0.85"/>
+        </material>
+      </visual> -->
     </link>
 
 
@@ -243,6 +257,10 @@
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
       <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
     </plugin>
+  </gazebo>
+
+  <gazebo reference="end">
+    <material value="Gazebo/Red" />
   </gazebo>
 
   <gazebo reference="base_rotate">
