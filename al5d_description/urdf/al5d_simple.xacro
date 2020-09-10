@@ -118,7 +118,7 @@
     </link>
     <link name="gripper_base">
       <visual>
-	<origin xyz="${gripper_height/2} 0 0" rpy="0 0 0"/>
+	      <origin xyz="${gripper_height/2} 0 0" rpy="0 0 0"/>
         <geometry>
           <box size="${gripper_height} ${gripper_height} ${gripper_width}"/>
         </geometry>

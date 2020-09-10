@@ -9,7 +9,8 @@
 
 
   <!-- Convert an xacro and put on parameter server -->
-  <param name="robot_description" command="$(find xacro)/xacro $(find al5d_description)/urdf/al5d.xacro" />
+  <!-- <param name="robot_description" command="$(find xacro)/xacro $(find al5d_description)/urdf/al5d_simple.xacro" /> -->
+  <param name="robot_description" command="$(find xacro)/xacro $(find al5d_description)/urdf/al5d_cad.xacro" />
 
   <rosparam command="load" file="$(find al5d_gazebo)/config/al5d_position_controller.yaml" />
   <rosparam command="load" file="$(find al5d_gazebo)/config/joint_state_controller.yaml" />
@@ -19,7 +20,7 @@
 
   <node name="default_loaded_controllers_spawner"
     pkg="controller_manager" type="spawner" output="screen"
-    args="--wait-for=/calibrated al5d_arm_position_controller1 al5d_arm_position_controller2 al5d_arm_position_controller3 al5d_arm_position_controller4 al5d_arm_position_controller5 al5d_gripper_controller1 al5d_gripper_controller2 joint_state_controller" /> 
+    args="--wait-for=/calibrated al5d_arm_position_controller1 al5d_arm_position_controller2 al5d_arm_position_controller3 al5d_arm_position_controller4 al5d_arm_position_controller5 al5d_gripper_controller1 al5d_gripper_controller2 joint_state_controller" />
 
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen"/>
   <node name="robot_tf_translator" pkg="al5d_gazebo" type="tf_translator.py" output="screen"/>
