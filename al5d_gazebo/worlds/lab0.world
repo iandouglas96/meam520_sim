@@ -4,5 +4,10 @@
     <include>
       <uri>model://sun</uri>
     </include>
+    <gui>
+        <camera name="user_camera">
+          <pose>.55 -.61 .65 0 .6 2.2</pose>
+        </camera>
+    </gui>
   </world>
 </sdf>
