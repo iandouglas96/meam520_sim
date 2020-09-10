@@ -30,12 +30,13 @@
     <link name="world"></link>
     <link name="base">
       <visual>
+        <origin xyz="0 0 ${base_height/2}" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://al5d_description/mesh/base/Base.STL"/>
+          <cylinder length="${base_height}" radius="${base_radius}"/>
         </geometry>
-        <!-- <material name="silver">
-          <color rgba="0.2 0.2 0.2 0.85"/>
-        </material> -->
+        <material name="black">
+          <color rgba="0 0 0 0.85"/>
+        </material>
       </visual>
       <collision>
         <origin xyz="0 0 ${base_height/2}" rpy="0 0 0"/>
@@ -47,19 +48,11 @@
     </link>
     <link name="upper_base">
       <visual>
+	<origin xyz="0 0 ${(upper_base_height - base_height - 0.02)/2 + base_height + 0.02}" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://al5d_description/mesh/upper_base/Waist - HS805BB-1.STL"/>
+          <cylinder length="${upper_base_height - base_height - 0.02}" radius="${base_radius}"/>
         </geometry>
-        <material name="silver">
-          <color rgba="0.8 0.8 0.8 0.85"/>
-        </material>
-      </visual>
-      <visual>
-        <geometry>
-          <mesh filename="package://al5d_description/mesh/upper_base/Waist - Turntable-1.STL"/>
-        </geometry>
-        <material name="silver">
-          <color rgba="0.8 0.8 0.8 0.85"/>
+        <material name="black">
         </material>
       </visual>
       <collision>
@@ -72,16 +65,9 @@
     </link>
     <link name="upper_arm">
       <visual>
+        <origin xyz="${upper_arm_length/2} 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://al5d_description/mesh/upper_arm/UpperArm - Bracket-1.STL"/>
-        </geometry>
-        <material name="silver">
-          <color rgba="0.8 0.8 0.8 0.85"/>
-        </material>
-      </visual>
-      <visual>
-        <geometry>
-          <mesh filename="package://al5d_description/mesh/upper_arm/UpperArm - Bracket-2.STL"/>
+          <box size="${upper_arm_length} ${upper_arm_width} ${upper_arm_width}"/>
         </geometry>
         <material name="silver">
           <color rgba="0.8 0.8 0.8 0.85"/>
@@ -97,27 +83,12 @@
     </link>
     <link name="lower_arm">
       <visual>
+        <origin xyz="${lower_arm_length/2} 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://al5d_description/mesh/lower_arm/LowerArm - HS422-1.STL"/>
+          <box size="${lower_arm_length} ${lower_arm_width} ${lower_arm_width}"/>
         </geometry>
-        <material name="silver">
-          <color rgba="0.8 0.8 0.8 0.85"/>
-        </material>
-      </visual>
-      <visual>
-        <geometry>
-          <mesh filename="package://al5d_description/mesh/lower_arm/LowerArm - HS805BB-1.STL"/>
-        </geometry>
-        <material name="silver">
-          <color rgba="0.8 0.8 0.8 0.85"/>
-        </material>
-      </visual>
-      <visual>
-        <geometry>
-          <mesh filename="package://al5d_description/mesh/lower_arm/LowerArm - Rod-1.STL"/>
-        </geometry>
-        <material name="silver">
-          <color rgba="0.8 0.8 0.8 0.85"/>
+        <material name="blue">
+          <color rgba="0.4 0.4 1 0.85"/>
         </material>
       </visual>
       <collision>
@@ -130,11 +101,11 @@
     </link>
     <link name="wrist">
       <visual>
+        <origin xyz="${wrist_length/2} 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://al5d_description/mesh/wrist/WristLink.STL"/>
+          <box size="${wrist_length} ${wrist_width} ${wrist_width}"/>
         </geometry>
         <material name="silver">
-          <color rgba="0.8 0.8 0.8 0.85"/>
         </material>
       </visual>
       <collision>
@@ -147,19 +118,12 @@
     </link>
     <link name="gripper_base">
       <visual>
+	<origin xyz="${gripper_height/2} 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://al5d_description/mesh/gripper_base/Gripper - WristTurn-1.STL"/>
+          <box size="${gripper_height} ${gripper_height} ${gripper_width}"/>
         </geometry>
-        <material name="silver">
-          <color rgba="0.8 0.8 0.8 0.85"/>
-        </material>
-      </visual>
-      <visual>
-        <geometry>
-          <mesh filename="package://al5d_description/mesh/gripper_base/Gripper - GripperBase-1.STL"/>
-        </geometry>
-        <material name="silver">
-          <color rgba="0.8 0.8 0.8 0.85"/>
+        <material name="red">
+          <color rgba="1 0.3 0.3 0.85"/>
         </material>
       </visual>
       <collision>
@@ -172,11 +136,12 @@
     </link>
     <link name="gripper_rightfinger">
       <visual>
+	<origin xyz="${finger_length/2} 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://al5d_description/mesh/right_finger/RightFinger.STL"/>
+          <box size="${finger_length} ${gripper_height} ${gripper_height}"/>
         </geometry>
-        <material name="silver">
-          <color rgba="0.8 0.8 0.8 0.85"/>
+        <material name="red">
+          <color rgba="1 0.3 0.3 0.85"/>
         </material>
       </visual>
       <collision>
@@ -192,9 +157,13 @@
     </link>
     <link name="gripper_leftfinger">
       <visual>
+	<origin xyz="${finger_length/2} 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://al5d_description/mesh/left_finger/LeftFinger.STL"/>
+          <box size="${finger_length} ${gripper_height} ${gripper_height}"/>
         </geometry>
+        <material name="red">
+          <color rgba="1 0.3 0.3 0.85"/>
+        </material>
       </visual>
       <collision>
         <origin xyz="${gripper_width/2} 0 0" rpy="0 0 0"/>
@@ -290,48 +259,42 @@
     </plugin>
   </gazebo>
 
+  <gazebo reference="end">
+    <material value="Gazebo/Red" />
+  </gazebo>
+
+  <gazebo reference="base_rotate">
+    <material value="Gazebo/Grey" />
+  </gazebo>
+
   <gazebo reference="shoulder_tilt">
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-  <gazebo reference="elbow_tilt">
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-  <gazebo reference="wrist_tilt">
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-  <gazebo reference="wrist_rotate">
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-  <gazebo reference="open_gripperright">
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-  <gazebo reference="open_gripperleft">
+    <material value="Gazebo/Grey" />
     <turnGravityOff>true</turnGravityOff>
   </gazebo>
 
-  <gazebo reference="base">
-    <material>Gazebo/DarkGrey</material>
+  <gazebo reference="elbow_tilt">
+    <material value="Gazebo/Grey" />
+    <turnGravityOff>true</turnGravityOff>
   </gazebo>
-  <!-- <gazebo reference="upper_base">
-    <material>Gazebo/DarkGrey</material>
-  </gazebo> -->
-  <gazebo reference="upper_arm">
-    <material>Gazebo/DarkGrey</material>
+
+  <gazebo reference="wrist_tilt">
+    <material value="Gazebo/Grey" />
+    <turnGravityOff>true</turnGravityOff>
   </gazebo>
-  <!-- <gazebo reference="lower_arm">
-    <material>Gazebo/DarkGrey</material>
-  </gazebo> -->
-  <gazebo reference="wrist">
-    <material>Gazebo/DarkGrey</material>
+
+  <gazebo reference="wrist_rotate">
+    <material value="Gazebo/Grey" />
+    <turnGravityOff>true</turnGravityOff>
   </gazebo>
-  <!-- <gazebo reference="gripper_base">
-    <material>Gazebo/DarkGrey</material>
-  </gazebo> -->
-  <gazebo reference="gripper_leftfinger">
-    <material>Gazebo/DarkGrey</material>
+
+  <gazebo reference="open_gripperright">
+    <material value="Gazebo/Grey" />
+    <turnGravityOff>true</turnGravityOff>
   </gazebo>
-  <gazebo reference="gripper_rightfinger">
-    <material>Gazebo/DarkGrey</material>
+
+  <gazebo reference="open_gripperleft">
+    <material value="Gazebo/Grey" />
+    <turnGravityOff>true</turnGravityOff>
   </gazebo>
 
 </robot>

@@ -1,0 +1,86 @@
+solid LowerArm - HS805BB-1
+   facet normal -1.000000e+00 -6.823614e-18 1.370729e-17
+      outer loop
+         vertex -5.485000e-02 -1.500000e-02 -2.540000e-02
+         vertex -5.485000e-02 -1.500000e-02 2.540000e-02
+         vertex -5.485000e-02 1.500000e-02 -2.540000e-02
+      endloop
+   endfacet
+   facet normal -1.000000e+00 -6.823614e-18 1.370729e-17
+      outer loop
+         vertex -5.485000e-02 1.500000e-02 -2.540000e-02
+         vertex -5.485000e-02 -1.500000e-02 2.540000e-02
+         vertex -5.485000e-02 1.500000e-02 2.540000e-02
+      endloop
+   endfacet
+   facet normal -1.370729e-17 -9.353324e-35 -1.000000e+00
+      outer loop
+         vertex 1.500000e-02 -1.500000e-02 -2.540000e-02
+         vertex -5.485000e-02 -1.500000e-02 -2.540000e-02
+         vertex 1.500000e-02 1.500000e-02 -2.540000e-02
+      endloop
+   endfacet
+   facet normal -1.370729e-17 -9.353324e-35 -1.000000e+00
+      outer loop
+         vertex 1.500000e-02 1.500000e-02 -2.540000e-02
+         vertex -5.485000e-02 -1.500000e-02 -2.540000e-02
+         vertex -5.485000e-02 1.500000e-02 -2.540000e-02
+      endloop
+   endfacet
+   facet normal 1.000000e+00 6.823614e-18 -1.370729e-17
+      outer loop
+         vertex 1.500000e-02 -1.500000e-02 2.540000e-02
+         vertex 1.500000e-02 -1.500000e-02 -2.540000e-02
+         vertex 1.500000e-02 1.500000e-02 2.540000e-02
+      endloop
+   endfacet
+   facet normal 1.000000e+00 6.823614e-18 -1.370729e-17
+      outer loop
+         vertex 1.500000e-02 1.500000e-02 2.540000e-02
+         vertex 1.500000e-02 -1.500000e-02 -2.540000e-02
+         vertex 1.500000e-02 1.500000e-02 -2.540000e-02
+      endloop
+   endfacet
+   facet normal 1.370729e-17 9.353324e-35 1.000000e+00
+      outer loop
+         vertex -5.485000e-02 -1.500000e-02 2.540000e-02
+         vertex 1.500000e-02 -1.500000e-02 2.540000e-02
+         vertex -5.485000e-02 1.500000e-02 2.540000e-02
+      endloop
+   endfacet
+   facet normal 1.370729e-17 9.353324e-35 1.000000e+00
+      outer loop
+         vertex -5.485000e-02 1.500000e-02 2.540000e-02
+         vertex 1.500000e-02 -1.500000e-02 2.540000e-02
+         vertex 1.500000e-02 1.500000e-02 2.540000e-02
+      endloop
+   endfacet
+   facet normal 6.823614e-18 -1.000000e+00 0.000000e+00
+      outer loop
+         vertex 1.500000e-02 -1.500000e-02 -2.540000e-02
+         vertex 1.500000e-02 -1.500000e-02 2.540000e-02
+         vertex -5.485000e-02 -1.500000e-02 -2.540000e-02
+      endloop
+   endfacet
+   facet normal 6.823614e-18 -1.000000e+00 0.000000e+00
+      outer loop
+         vertex -5.485000e-02 -1.500000e-02 -2.540000e-02
+         vertex 1.500000e-02 -1.500000e-02 2.540000e-02
+         vertex -5.485000e-02 -1.500000e-02 2.540000e-02
+      endloop
+   endfacet
+   facet normal -6.823614e-18 1.000000e+00 -0.000000e+00
+      outer loop
+         vertex 1.500000e-02 1.500000e-02 2.540000e-02
+         vertex 1.500000e-02 1.500000e-02 -2.540000e-02
+         vertex -5.485000e-02 1.500000e-02 2.540000e-02
+      endloop
+   endfacet
+   facet normal -6.823614e-18 1.000000e+00 -0.000000e+00
+      outer loop
+         vertex -5.485000e-02 1.500000e-02 2.540000e-02
+         vertex 1.500000e-02 1.500000e-02 -2.540000e-02
+         vertex -5.485000e-02 1.500000e-02 -2.540000e-02
+      endloop
+   endfacet
+endsolid
