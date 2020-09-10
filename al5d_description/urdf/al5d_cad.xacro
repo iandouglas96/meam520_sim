@@ -16,9 +16,13 @@
     <xacro:property name="gripper_length" value="${gripper_height + finger_length/2}" />
     <xacro:property name="wrist_width" value="0.025" />
     <xacro:property name="gripper_width" value="0.05" />
-    <xacro:property name="gripper_height" value="0.01" />
+    <xacro:property name="gripper_height" value="0.021" />
+    <!-- <xacro:property name="gripper_height" value="0.01" /> -->
     <xacro:property name="finger_length" value="0.04" />
     <xacro:property name="point" value="0.003" />
+
+    <xacro:property name="axis_length" value="0.03" />
+    <xacro:property name="axis_width" value="0.001" />
 
     <xacro:property name="inertia_block">
       <inertial>
@@ -63,7 +67,7 @@
         </material>
       </visual>
       <collision>
-	<origin xyz="0 0 ${(upper_base_height - base_height - 0.02)/2 + base_height + 0.02}" rpy="0 0 0"/>
+	       <origin xyz="0 0 ${(upper_base_height - base_height - 0.02)/2 + base_height + 0.02}" rpy="0 0 0"/>
         <geometry>
           <cylinder length="${upper_base_height - base_height - 0.02}" radius="${base_radius}"/>
         </geometry>
@@ -120,6 +124,12 @@
           <color rgba="0.8 0.8 0.8 0.85"/>
         </material>
       </visual>
+      <!-- <visual>
+        <origin xyz="${lower_arm_length/2} 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="${lower_arm_length} ${lower_arm_width} ${lower_arm_width}"/>
+        </geometry>
+      </visual> -->
       <collision>
         <origin xyz="${lower_arm_length/2} 0 0" rpy="0 0 0"/>
         <geometry>
@@ -137,6 +147,12 @@
           <color rgba="0.8 0.8 0.8 0.85"/>
         </material>
       </visual>
+      <!-- <visual>
+        <origin xyz="${wrist_length/2} 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="${wrist_length} ${wrist_width} ${wrist_width}"/>
+        </geometry>
+      </visual> -->
       <collision>
         <origin xyz="${wrist_length/2} 0 0" rpy="0 0 0"/>
         <geometry>
@@ -150,18 +166,18 @@
         <geometry>
           <mesh filename="package://al5d_description/mesh/gripper_base/Gripper - WristTurn-1.STL"/>
         </geometry>
-        <material name="silver">
-          <color rgba="0.8 0.8 0.8 0.85"/>
-        </material>
       </visual>
       <visual>
         <geometry>
           <mesh filename="package://al5d_description/mesh/gripper_base/Gripper - GripperBase-1.STL"/>
         </geometry>
-        <material name="silver">
-          <color rgba="0.8 0.8 0.8 0.85"/>
-        </material>
       </visual>
+      <!-- <visual>
+	      <origin xyz="${gripper_height/2} 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="${gripper_height} ${gripper_height} ${gripper_width}"/>
+        </geometry>
+      </visual> -->
       <collision>
         <origin xyz="${gripper_width/2} 0 0" rpy="0 0 0"/>
         <geometry>
@@ -175,14 +191,17 @@
         <geometry>
           <mesh filename="package://al5d_description/mesh/right_finger/RightFinger.STL"/>
         </geometry>
-        <material name="silver">
-          <color rgba="0.8 0.8 0.8 0.85"/>
-        </material>
       </visual>
+      <!-- <visual>
+        <origin xyz="${gripper_width/2} 0 0" rpy="0 0 0"/>
+        <geometry>
+		      <box size="${gripper_width} ${gripper_height} ${gripper_height}"/>
+        </geometry>
+      </visual> -->
       <collision>
         <origin xyz="${gripper_width/2} 0 0" rpy="0 0 0"/>
         <geometry>
-		<box size="${gripper_width} ${gripper_height} ${gripper_height}"/>
+		      <box size="${gripper_width} ${gripper_height} ${gripper_height}"/>
         </geometry>
       </collision>
       <inertial>
@@ -196,6 +215,12 @@
           <mesh filename="package://al5d_description/mesh/left_finger/LeftFinger.STL"/>
         </geometry>
       </visual>
+      <!-- <visual>
+        <origin xyz="${gripper_width/2} 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="${gripper_width} ${gripper_height} ${gripper_height}"/>
+        </geometry>
+      </visual> -->
       <collision>
         <origin xyz="${gripper_width/2} 0 0" rpy="0 0 0"/>
         <geometry>
@@ -210,12 +235,33 @@
     <link name="end">
       <!-- <visual>
         <geometry>
-          <box size="${point} ${point} ${point}"/>
+          <sphere radius=".001" />
         </geometry>
-        <material name="red">
-          <color rgba="1 0.3 0.3 0.85"/>
-        </material>
       </visual> -->
+    </link>
+    <link name="xaxis">
+      <visual>
+        <origin xyz="${axis_length/2} 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="${axis_length} ${axis_width} ${axis_width}"/>
+        </geometry>
+      </visual>
+    </link>
+    <link name="yaxis">
+      <visual>
+        <origin xyz="0 ${axis_length/2} 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="${axis_width} ${axis_length} ${axis_width}"/>
+        </geometry>
+      </visual>
+    </link>
+    <link name="zaxis">
+      <visual>
+        <origin xyz="0 0 ${axis_length/2}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${axis_width} ${axis_width} ${axis_length}"/>
+        </geometry>
+      </visual>
     </link>
 
 
@@ -283,6 +329,21 @@
       <parent link="gripper_base"/>
       <child link="end"/>
     </joint>
+    <joint name="axis1" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <parent link="end"/>
+      <child link="xaxis"/>
+    </joint>
+    <joint name="axis2" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <parent link="end"/>
+      <child link="yaxis"/>
+    </joint>
+    <joint name="axis3" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <parent link="end"/>
+      <child link="zaxis"/>
+    </joint>
 
   <gazebo>
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
@@ -290,48 +351,47 @@
     </plugin>
   </gazebo>
 
-  <gazebo reference="shoulder_tilt">
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-  <gazebo reference="elbow_tilt">
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-  <gazebo reference="wrist_tilt">
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-  <gazebo reference="wrist_rotate">
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-  <gazebo reference="open_gripperright">
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-  <gazebo reference="open_gripperleft">
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-
   <gazebo reference="base">
     <material>Gazebo/DarkGrey</material>
+    <turnGravityOff>true</turnGravityOff>
   </gazebo>
-  <!-- <gazebo reference="upper_base">
-    <material>Gazebo/DarkGrey</material>
-  </gazebo> -->
+  <gazebo reference="upper_base">
+    <turnGravityOff>true</turnGravityOff>
+  </gazebo>
   <gazebo reference="upper_arm">
+    <turnGravityOff>true</turnGravityOff>
     <material>Gazebo/DarkGrey</material>
   </gazebo>
-  <!-- <gazebo reference="lower_arm">
-    <material>Gazebo/DarkGrey</material>
-  </gazebo> -->
+  <gazebo reference="lower_arm">
+    <turnGravityOff>true</turnGravityOff>
+  </gazebo>
   <gazebo reference="wrist">
+    <turnGravityOff>true</turnGravityOff>
     <material>Gazebo/DarkGrey</material>
   </gazebo>
-  <!-- <gazebo reference="gripper_base">
-    <material>Gazebo/DarkGrey</material>
-  </gazebo> -->
+  <gazebo reference="gripper_base">
+    <turnGravityOff>true</turnGravityOff>
+  </gazebo>
   <gazebo reference="gripper_leftfinger">
+    <turnGravityOff>true</turnGravityOff>
     <material>Gazebo/DarkGrey</material>
   </gazebo>
   <gazebo reference="gripper_rightfinger">
+    <turnGravityOff>true</turnGravityOff>
     <material>Gazebo/DarkGrey</material>
   </gazebo>
+  <gazebo reference="end"></gazebo>
+
+  <gazebo reference="xaxis">
+    <material>Gazebo/RedTransparentOverlay</material>
+  </gazebo>
+  <gazebo reference="yaxis">
+    <material>Gazebo/GreenTransparentOverlay</material>
+  </gazebo>
+  <gazebo reference="zaxis">
+    <material>Gazebo/BlueTransparentOverlay</material>
+  </gazebo>
+
+
 
 </robot>
