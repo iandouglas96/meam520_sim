@@ -2,14 +2,14 @@
 <launch>
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find al5d_gazebo)/worlds/lab1.world"/>
+    <arg name="world_name" value="$(find al5d_gazebo)/worlds/lab2.world"/>
     <!-- more default parameters can be changed here -->
   </include>
 
 
 
   <!-- Convert an xacro and put on parameter server -->
-  <param name="robot_description" command="$(find xacro)/xacro $(find al5d_description)/urdf/al5d.xacro" />
+  <param name="robot_description" command="$(find xacro)/xacro $(find al5d_description)/urdf/al5d_cad.xacro" />
 
   <rosparam command="load" file="$(find al5d_gazebo)/config/al5d_position_controller.yaml" />
   <rosparam command="load" file="$(find al5d_gazebo)/config/joint_state_controller.yaml" />
