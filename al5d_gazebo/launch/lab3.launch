@@ -10,7 +10,7 @@
 
 
   <!-- Convert an xacro and put on parameter server -->
-  <param name="robot_description" command="$(find xacro)/xacro $(find al5d_description)/urdf/al5d.xacro" />
+  <param name="robot_description" command="$(find xacro)/xacro $(find al5d_description)/urdf/al5d_cad.xacro" />
 
   <rosparam command="load" file="$(find al5d_gazebo)/config/al5d_position_controller.yaml" />
   <rosparam command="load" file="$(find al5d_gazebo)/config/joint_state_controller.yaml" />
