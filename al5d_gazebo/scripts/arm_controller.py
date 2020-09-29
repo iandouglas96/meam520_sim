@@ -249,7 +249,7 @@ class ArmController:
         vel = np.array(vel)
         norm = np.linalg.norm(vel * (2*3.14159/30), np.inf) # fairly weight the gripper
 
-        return norm < tolerance and self.ros.move_seq is 0 and
+        return norm < tolerance and self.ros.move_seq is 0
         # if we are interpolating, we are not done
         # if we have a target velocity, we may be up against joint limits,
         # so we may still be stopped
@@ -295,10 +295,11 @@ if __name__ == '__main__':
 
         while not rospy.is_shutdown():
             try:
+
                 collision_pub.publish(Bool(lynx.is_collided()))
                 stopped_pub.publish(Bool(lynx.is_stopped()))
 
-                # we republish joint data due to reordering and scaling 
+                # we republish joint data due to reordering and scaling
                 msg = JointState();
                 pos, vel = lynx.get_state()
                 msg.position = pos
@@ -310,6 +311,7 @@ if __name__ == '__main__':
                 joint_pub.publish(msg)
 
                 rate.sleep()
+
             except KeyboardInterrupt:
                 break
 
