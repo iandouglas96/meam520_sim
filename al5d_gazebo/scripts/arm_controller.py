@@ -91,7 +91,6 @@ class ROSInterface:
             self.move_seq = 0
             self.vel_target = deepcopy(state[1])
             self.pos_target = deepcopy(self.pos)
-            rospy.loginfo(self.vel_target)
 
     def update_move(self):
         if self.move_seq is not 0:
