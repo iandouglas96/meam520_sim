@@ -386,12 +386,12 @@
   <gazebo reference="gripper_leftfinger">
     <turnGravityOff>true</turnGravityOff>
     <material>Gazebo/DarkGrey</material>
-    <!-- <self_collide>1</self_collide> -->
+    <self_collide>1</self_collide>
   </gazebo>
   <gazebo reference="gripper_rightfinger">
     <turnGravityOff>true</turnGravityOff>
     <material>Gazebo/DarkGrey</material>
-    <!-- <self_collide>1</self_collide> -->
+    <self_collide>1</self_collide>
   </gazebo>
   <gazebo reference="end">
     <turnGravityOff>true</turnGravityOff>

@@ -89,14 +89,9 @@ class ROSInterface:
                 self.move_ind = 0
         elif state[0] == "velocity":
             self.move_seq = 0
-            self.vel_target = state[1]
-            # if self.pos is not None:
-            #     #interpolate states between current state and goal
-            #     diff = state[1] - self.pos
-            #     dist = np.max(np.abs(diff))
-            #     interp = np.linspace(0, 1, max(np.ceil(80*dist), 2))
-            #     self.move_seq = self.pos + interp[:,None]*diff[None,:]
-            #     self.move_ind = 0
+            self.vel_target = deepcopy(state[1])
+            self.pos_target = deepcopy(self.pos)
+            rospy.loginfo(self.vel_target)
 
     def update_move(self):
         if self.move_seq is not 0:
@@ -109,7 +104,8 @@ class ROSInterface:
                 self.move_seq = 0
         elif self.vel_target is not None:
             dt = self.rate.sleep_dur.to_sec()
-            self.set_state(np.array(self.pos) + dt * np.array(self.vel_target))
+            self.pos_target = self.pos_target + dt * np.array(self.vel_target)
+            self.set_state(self.pos_target)
 
 
     def set_state(self, state):
@@ -249,7 +245,7 @@ class ArmController:
         vel = np.array(vel)
         norm = np.linalg.norm(vel * (2*3.14159/30), np.inf) # fairly weight the gripper
 
-        return norm < tolerance and self.ros.move_seq is 0
+        return norm < tolerance and self.ros.move_seq is 0 and self.ros.cmd_q.empty()
         # if we are interpolating, we are not done
         # if we have a target velocity, we may be up against joint limits,
         # so we may still be stopped
@@ -291,11 +287,10 @@ if __name__ == '__main__':
         stopped_pub = rospy.Publisher("/arm_interface/stopped", Bool, queue_size=1, latch=True)
         joint_pub = rospy.Publisher("/arm_interface/state", JointState, queue_size=1, latch=True)
 
-        rate = rospy.Rate(50)
+        rate = rospy.Rate(100)
 
         while not rospy.is_shutdown():
             try:
-
                 collision_pub.publish(Bool(lynx.is_collided()))
                 stopped_pub.publish(Bool(lynx.is_stopped()))
 
@@ -311,7 +306,6 @@ if __name__ == '__main__':
                 joint_pub.publish(msg)
 
                 rate.sleep()
-
             except KeyboardInterrupt:
                 break
 
