@@ -34,9 +34,13 @@
     <link name="world"></link>
     <link name="base">
       <visual>
+        <origin xyz="0 0 ${base_height/2}" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://al5d_description/mesh/base/Base.STL"/>
+          <cylinder length="${base_height}" radius="${base_radius}"/>
         </geometry>
+        <!-- <geometry>
+          <mesh filename="package://al5d_description/mesh/base/Base.STL"/>
+        </geometry> -->
         <!-- <material name="silver">
           <color rgba="0.2 0.2 0.2 0.85"/>
         </material> -->
@@ -188,8 +192,9 @@
     </link>
     <link name="gripper_rightfinger">
       <visual>
+        <origin xyz="${gripper_width/4} 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://al5d_description/mesh/right_finger/RightFinger.STL"/>
+          <box size="${gripper_width/2} ${gripper_height} ${gripper_height/4}"/>
         </geometry>
       </visual>
       <!-- <visual>
@@ -199,9 +204,9 @@
         </geometry>
       </visual> -->
       <collision>
-        <origin xyz="${gripper_width/2} 0 0" rpy="0 0 0"/>
+        <origin xyz="${gripper_width/4} 0 0" rpy="0 0 0"/>
         <geometry>
-		      <box size="${gripper_width} ${gripper_height} ${gripper_height}"/>
+          <box size="${gripper_width/2} ${gripper_height} ${gripper_height/4}"/>
         </geometry>
       </collision>
       <inertial>
@@ -210,22 +215,26 @@
       </inertial>
     </link>
     <link name="gripper_leftfinger">
-      <visual>
+      <!-- <visual>
         <geometry>
           <mesh filename="package://al5d_description/mesh/left_finger/LeftFinger.STL"/>
         </geometry>
-      </visual>
-      <!-- <visual>
-        <origin xyz="${gripper_width/2} 0 0" rpy="0 0 0"/>
-        <geometry>
-          <box size="${gripper_width} ${gripper_height} ${gripper_height}"/>
-        </geometry>
       </visual> -->
+      <visual>
+        <origin xyz="${gripper_width/4} 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="${gripper_width/2} ${gripper_height} ${gripper_height/4}"/>
+        </geometry>
+      </visual>
       <collision>
-        <origin xyz="${gripper_width/2} 0 0" rpy="0 0 0"/>
+        <origin xyz="${gripper_width/4} 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="${gripper_width/2} ${gripper_height} ${gripper_height/4}"/>
+        </geometry>
+        <!-- <origin xyz="${gripper_width/2} 0 0" rpy="0 0 0"/>
         <geometry>
           <box size="${gripper_width} ${gripper_height} ${gripper_height}"/>
-        </geometry>
+        </geometry> -->
       </collision>
       <inertial>
         <mass value="0.05"/>
@@ -355,6 +364,7 @@
   <gazebo reference="base">
     <material>Gazebo/DarkGrey</material>
     <turnGravityOff>true</turnGravityOff>
+    <!-- <self_collide>1</self_collide> -->
   </gazebo>
   <gazebo reference="upper_base">
     <turnGravityOff>true</turnGravityOff>
@@ -376,10 +386,12 @@
   <gazebo reference="gripper_leftfinger">
     <turnGravityOff>true</turnGravityOff>
     <material>Gazebo/DarkGrey</material>
+    <!-- <self_collide>1</self_collide> -->
   </gazebo>
   <gazebo reference="gripper_rightfinger">
     <turnGravityOff>true</turnGravityOff>
     <material>Gazebo/DarkGrey</material>
+    <!-- <self_collide>1</self_collide> -->
   </gazebo>
   <gazebo reference="end">
     <turnGravityOff>true</turnGravityOff>

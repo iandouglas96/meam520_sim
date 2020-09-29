@@ -8,6 +8,7 @@ find_package(catkin REQUIRED COMPONENTS
    rospy
    std_msgs
    geometry_msgs
+   sensor_msgs
    message_generation
 )
 
@@ -69,6 +70,7 @@ generate_messages(
   DEPENDENCIES
   std_msgs  # Or other packages containing msgs
   geometry_msgs
+  sensor_msgs
 )
 
 ################################################
@@ -103,7 +105,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES al5d_gazebo
-  CATKIN_DEPENDS message_runtime 
+  CATKIN_DEPENDS message_runtime
 #  DEPENDS system_lib
 )
 
@@ -146,10 +148,10 @@ catkin_package(
 
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
-# install(PROGRAMS
-#   scripts/my_python_script
-#   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
+install(PROGRAMS
+   scripts/arm_controller.py
+   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 
 ## Mark executables and/or libraries for installation
 # install(TARGETS al5d_gazebo al5d_gazebo_node
