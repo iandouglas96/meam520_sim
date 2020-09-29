@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-  <arg name = "map_loc" default="$(find al5d_gazebo)/../../code/meam520_student/matlab/Lab3/maps/"/>
+  <arg name = "map_loc" default="$(find al5d_gazebo)/../../python_code/Lab3/maps/"/>
   <arg name = "map_name" default="map1.txt"/>
   <param name = "map_file" type = "str" value = "$(arg map_loc)$(arg map_name)"/>
 
