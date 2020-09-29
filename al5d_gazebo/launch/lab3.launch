@@ -1,5 +1,10 @@
 <?xml version="1.0"?>
 <launch>
+  <arg name = "map_loc" default="$(find al5d_gazebo)/../../code/meam520_student/matlab/Lab3/maps/"/>
+  <arg name = "map_name" default="map1.txt"/>
+  <param name = "map_file" type = "str" value = "$(arg map_loc)$(arg map_name)"/>
+
+  <node name ="mapConverter" pkg="al5d_gazebo" type="worldConverter.py" />
 
 
 
@@ -12,6 +17,7 @@
 
   <!-- Spawn a robot into Gazebo -->
   <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model al5d" />
+  <node name="spawn_urdf2" pkg="gazebo_ros" type="spawn_model" args="-param obstacle_urdf -urdf -model obstacles" />
 
   <node name="default_loaded_controllers_spawner"
     pkg="controller_manager" type="spawner" output="screen"
@@ -25,7 +31,7 @@
 
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find al5d_gazebo)/worlds/lab2.world"/>
+    <arg name="world_name" value="$(find al5d_gazebo)/worlds/lab0.world"/>
     <!-- more default parameters can be changed here -->
   </include>
 
