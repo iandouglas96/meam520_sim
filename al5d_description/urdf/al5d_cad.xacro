@@ -34,16 +34,13 @@
     <link name="world"></link>
     <link name="base">
       <visual>
-        <origin xyz="0 0 ${base_height/2}" rpy="0 0 0"/>
+        <!-- <origin xyz="0 0 ${base_height/2}" rpy="0 0 0"/>
         <geometry>
           <cylinder length="${base_height}" radius="${base_radius}"/>
-        </geometry>
-        <!-- <geometry>
-          <mesh filename="package://al5d_description/mesh/base/Base.STL"/>
         </geometry> -->
-        <!-- <material name="silver">
-          <color rgba="0.2 0.2 0.2 0.85"/>
-        </material> -->
+        <geometry>
+          <mesh filename="package://al5d_description/mesh/base/Base.STL"/>
+        </geometry>
       </visual>
       <collision>
         <origin xyz="0 0 ${base_height/2}" rpy="0 0 0"/>
