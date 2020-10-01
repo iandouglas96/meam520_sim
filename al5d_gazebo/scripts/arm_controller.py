@@ -15,9 +15,6 @@ np.set_printoptions(suppress=True)
 
 from std_msgs.msg import Empty, Bool, Header
 from sensor_msgs.msg import JointState
-# from std_srvs.srv import Empty, EmptyResponse
-# from std_srvs.srv import Trigger, TriggerResponse
-# from al5d_gazebo.srv import ArmCommand, ArmCommandResponse
 
 #class managing separate ROS loop
 class ROSInterface:
@@ -32,6 +29,13 @@ class ROSInterface:
         self.move_ind = 0
         self.move_seq = 0
         self.vel_target = None
+
+        self.joint_limits = np.array([[-1.4, 1.4],
+                                      [-1.2, 1.4],
+                                      [-1.8, 1.7],
+                                      [-1.9, 1.7],
+                                      [-2, 1.5],
+                                      [-15, 30]]).T
 
     def state_cb(self, state):
         #add state to queue
@@ -77,6 +81,7 @@ class ROSInterface:
             self.pose_q.get()
         self.pose_q.put(transforms)
 
+    # handle starting either an interpolating waypoint list or a target velocity
     def start_command(self, state):
         if state[0] == "move":
             self.vel_target = None
@@ -92,6 +97,7 @@ class ROSInterface:
             self.vel_target = deepcopy(state[1])
             self.pos_target = deepcopy(self.pos)
 
+    # update the waypoint list or integrate the targeted pose due to target velocity
     def update_move(self):
         if self.move_seq is not 0:
             #if we are interpolating, move to next state
@@ -102,11 +108,19 @@ class ROSInterface:
                 self.move_ind = 0
                 self.move_seq = 0
         elif self.vel_target is not None:
+            # integrate
             dt = self.rate.sleep_dur.to_sec()
             self.pos_target = self.pos_target + dt * np.array(self.vel_target)
+            # keep target within the joint limits
+            self.pos_target[-1] = self.pos_target[-1] * 45.0/0.03
+            # if we go all the way to the edge, it causes jitter, so we don't
+            self.pos_target = np.maximum(self.pos_target, self.joint_limits[0]+.1)
+            self.pos_target = np.minimum(self.pos_target, self.joint_limits[1]-.1)
+            self.pos_target[-1] = self.pos_target[-1] * 0.03 / 45.0
+
             self.set_state(self.pos_target)
 
-
+    # actually send the set points over ROS interface
     def set_state(self, state):
         for ind, s in enumerate(state[:-1]):
             msg = Float64(s)
@@ -158,12 +172,6 @@ class ArmController:
         self.status_q = Queue()
         self.pose_q = Queue()
 
-        self.joint_limits = np.array([[-1.4, 1.4],
-                                      [-1.2, 1.4],
-                                      [-1.8, 1.7],
-                                      [-1.9, 1.7],
-                                      [-2, 1.5],
-                                      [-15, 30]]).T
 
         #ROS runs in a separate thread because it needs to always
         #check the message buffers
@@ -173,34 +181,40 @@ class ArmController:
         self.spin_t.start()
         rospy.loginfo("Ros thread started")
 
+    # set a commanded velocity in joint space
     def set_vel(self, state):
         scaled_state = deepcopy(state)
         scaled_state[-1] = (-scaled_state[-1])/45.*0.03
         self.cmd_q.put(("velocity", scaled_state))
 
+    # set a commanded joint torque
     def set_tau(self, state):
         rospy.logwarn("Torque control not yet implemented")
 
+    # set a commanded position in joint space
     def set_pos(self, state):
         self.set_state(state)
 
+    # handle joint limits and scaling for gripper. Note that we left this function
+    # interface intact (despite "state" being a misnomer) for some level of
+    # backwards compatibility
     def set_state(self, state):
         #num joints + gripper
         if len(state) == self.num_joints + 1:
             scaled_state = deepcopy(state)
             #check limits
-            if np.any(scaled_state < self.joint_limits[0]):
-                bad_joints = np.where(scaled_state < self.joint_limits[0])[0]
+            if np.any(scaled_state < self.ros.joint_limits[0]):
+                bad_joints = np.where(scaled_state < self.ros.joint_limits[0])[0]
                 for bad_joint in bad_joints:
                     rospy.logwarn("Joint " + str(bad_joint) + " is below the limit " +
-                          str(self.joint_limits[0, bad_joint]))
+                          str(self.ros.joint_limits[0, bad_joint]))
                 scaled_state = np.maximum(scaled_state, self.joint_limits[0])
-            if np.any(scaled_state > self.joint_limits[1]):
-                bad_joints = np.where(scaled_state > self.joint_limits[1])[0]
+            if np.any(scaled_state > self.ros.joint_limits[1]):
+                bad_joints = np.where(scaled_state > self.ros.joint_limits[1])[0]
                 for bad_joint in bad_joints:
                     rospy.logwarn("Joint " + str(bad_joint) + " is above the limit " +
-                          str(self.joint_limits[1, bad_joint]))
-                scaled_state = np.minimum(scaled_state, self.joint_limits[1])
+                          str(self.ros.joint_limits[1, bad_joint]))
+                scaled_state = np.minimum(scaled_state, self.ros.joint_limits[1])
 
 
             scaled_state[-1] = (-scaled_state[-1]+30.)/45.*0.03
@@ -209,11 +223,16 @@ class ArmController:
         else:
             raise Exception("Invalid state command")
 
+    # output: the joint value and its velocity
     def get_state(self):
 
-        # output: the joint value and its velocity
         if not self.status_q.empty():
-            self.cur_state = self.status_q.queue[0]
+            # catching exception which might be due to multithreading
+            try:
+                self.cur_state = self.status_q.queue[0]
+            except IndexError as error:
+                rospy.logwarn(error) # should remove before giving to students
+                # don't update the current state, keep old value
 
 
         scaled_state = []
@@ -227,31 +246,26 @@ class ArmController:
 
         return pos, vel
 
+    # output: the T matrix of each joint
     def get_poses(self):
 
-        # output: the T matrix of each joint
         if not self.pose_q.empty():
             self.cur_pose = self.pose_q.queue[0]
 
         return np.around(self.cur_pose, decimals=3)
 
+    # halt ROS interface so script can terminate
     def stop(self):
         self.cmd_q.put("stop")
         self.spin_t.join()
 
-    def is_stopped(self, tolerance=1e-2):
-        pos, vel = self.get_state()
-        vel = np.array(vel)
-        norm = np.linalg.norm(vel * (2*3.14159/30), np.inf) # fairly weight the gripper
-
-        return norm < tolerance and self.ros.move_seq is 0 and self.ros.cmd_q.empty()
-        # if we are interpolating, we are not done
-        # if we have a target velocity, we may be up against joint limits,
-        # so we may still be stopped
-
     def is_collided(self):
         # TODO: implement
         return False
+
+
+
+# We run an arm controller node to expose the API to MATLAB over the ROS messaging interface
 
 if __name__ == '__main__':
     try:
@@ -283,15 +297,15 @@ if __name__ == '__main__':
         stop_sub = rospy.Subscriber("/arm_interface/stop", Empty, stop)
 
         collision_pub = rospy.Publisher("/arm_interface/collided", Bool, queue_size=1, latch=True)
-        stopped_pub = rospy.Publisher("/arm_interface/stopped", Bool, queue_size=1, latch=True)
+        # stopped_pub = rospy.Publisher("/arm_interface/stopped", Bool, queue_size=1, latch=True)
         joint_pub = rospy.Publisher("/arm_interface/state", JointState, queue_size=1, latch=True)
 
         rate = rospy.Rate(100)
 
+        # loop to publish data for MATLAB
         while not rospy.is_shutdown():
             try:
                 collision_pub.publish(Bool(lynx.is_collided()))
-                stopped_pub.publish(Bool(lynx.is_stopped()))
 
                 # we republish joint data due to reordering and scaling
                 msg = JointState();

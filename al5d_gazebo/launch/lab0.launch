@@ -26,6 +26,9 @@
   <node name="robot_tf_translator" pkg="al5d_gazebo" type="tf_translator.py" output="screen"/>
 
 
+  <!-- Expose ArmController API over ROS messages for MATLAB -->
+  <node pkg="al5d_gazebo" name="arm_controller_interface" type="arm_controller.py" output="screen" />
+
   <node name="reset_world" pkg="al5d_gazebo" type="reset_world.py" output="screen"/>
 
 
