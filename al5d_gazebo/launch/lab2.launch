@@ -29,7 +29,7 @@
 
 
   <!-- Expose ArmController API over ROS messages for MATLAB -->
-  <node pkg="al5d_gazebo" name="arm_controller_interface" type="arm_controller.py" output="screen" />
+  <!-- <node pkg="al5d_gazebo" name="arm_controller_interface" type="arm_controller.py" output="screen" /> -->
 
   <!-- Fake calib -->
   <node pkg="rostopic" type="rostopic" name="fake_joint_calibration"
