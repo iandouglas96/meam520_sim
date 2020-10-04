@@ -108,6 +108,9 @@ catkin_package(
   CATKIN_DEPENDS message_runtime
 #  DEPENDS system_lib
 )
+catkin_install_python(PROGRAMS scripts/worldConverter.py
+        DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+        )
 
 ###########
 ## Build ##
