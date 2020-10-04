@@ -17,7 +17,6 @@
     <xacro:property name="wrist_width" value="0.025" />
     <xacro:property name="gripper_width" value="0.05" />
     <xacro:property name="gripper_height" value="0.021" />
-    <!-- <xacro:property name="gripper_height" value="0.01" /> -->
     <xacro:property name="finger_length" value="0.04" />
     <xacro:property name="point" value="0.003" />
 
@@ -34,43 +33,42 @@
     <link name="world"></link>
     <link name="base">
       <visual>
-        <!-- <origin xyz="0 0 ${base_height/2}" rpy="0 0 0"/>
+        <origin xyz="0 0 ${.0532/2}" rpy="0 0 0"/>
         <geometry>
-          <cylinder length="${base_height}" radius="${base_radius}"/>
-        </geometry> -->
-        <geometry>
-          <mesh filename="package://al5d_description/mesh/base/Base.STL"/>
+          <cylinder length=".0532" radius="${base_radius}"/>
         </geometry>
       </visual>
       <collision>
-        <origin xyz="0 0 ${base_height/2}" rpy="0 0 0"/>
+        <origin xyz="0 0 ${.0532/2}" rpy="0 0 0"/>
         <geometry>
-          <cylinder length="${base_height}" radius="${base_radius}"/>
+          <cylinder length=".0532" radius="${base_radius}"/>
         </geometry>
       </collision>
       <xacro:insert_block name="inertia_block" />
     </link>
     <link name="upper_base">
       <visual>
+	      <origin xyz="0 0 .0582" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://al5d_description/mesh/upper_base/Waist - HS805BB-1.STL"/>
+          <cylinder length=".004" radius="${base_radius}"/>
         </geometry>
-        <material name="silver">
-          <color rgba="0.8 0.8 0.8 0.85"/>
-        </material>
       </visual>
       <visual>
+	      <origin xyz="-.01487 0 .0752" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://al5d_description/mesh/upper_base/Waist - Turntable-1.STL"/>
+          <box size=".06985 .0508 .030"/>
         </geometry>
-        <material name="silver">
-          <color rgba="0.8 0.8 0.8 0.85"/>
-        </material>
       </visual>
       <collision>
-	       <origin xyz="0 0 ${(upper_base_height - base_height - 0.02)/2 + base_height + 0.02}" rpy="0 0 0"/>
+	      <origin xyz="0 0 .0582" rpy="0 0 0"/>
         <geometry>
-          <cylinder length="${upper_base_height - base_height - 0.02}" radius="${base_radius}"/>
+          <cylinder length=".004" radius="${base_radius}"/>
+        </geometry>
+      </collision>
+      <collision>
+	      <origin xyz="-.01487 0 .0752" rpy="0 0 0"/>
+        <geometry>
+          <box size=".06985 .0508 .030"/>
         </geometry>
       </collision>
       <xacro:insert_block name="inertia_block" />
@@ -80,109 +78,134 @@
         <geometry>
           <mesh filename="package://al5d_description/mesh/upper_arm/UpperArm - Bracket-1.STL"/>
         </geometry>
-        <material name="silver">
-          <color rgba="0.8 0.8 0.8 0.85"/>
-        </material>
       </visual>
       <visual>
         <geometry>
           <mesh filename="package://al5d_description/mesh/upper_arm/UpperArm - Bracket-2.STL"/>
         </geometry>
-        <material name="silver">
-          <color rgba="0.8 0.8 0.8 0.85"/>
-        </material>
       </visual>
       <collision>
         <origin xyz="${upper_arm_length/2} 0 0" rpy="0 0 0"/>
         <geometry>
-          <box size="${upper_arm_length} ${upper_arm_width} ${upper_arm_width}"/>
+          <box size=".02 .020 .068"/>
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="${upper_arm_length/2} 0 .033" rpy="0 0 0"/>
+        <geometry>
+          <box size=".166 .020 .002"/>
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="${upper_arm_length/2} 0 -.033" rpy="0 0 0"/>
+        <geometry>
+          <box size=".166 .020 .002"/>
         </geometry>
       </collision>
       <xacro:insert_block name="inertia_block" />
     </link>
     <link name="lower_arm">
       <visual>
+        <origin xyz="${lower_arm_length/2} 0 0" rpy="0 ${3.14158/2} 0"/>
         <geometry>
-          <mesh filename="package://al5d_description/mesh/lower_arm/LowerArm - HS422-1.STL"/>
+          <cylinder length="${lower_arm_length}" radius=".00635"/>
         </geometry>
-        <material name="silver">
-          <color rgba="0.8 0.8 0.8 0.85"/>
-        </material>
       </visual>
       <visual>
+        <origin xyz="-.01982 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://al5d_description/mesh/lower_arm/LowerArm - HS805BB-1.STL"/>
+          <box size=".06985 .030 .0508"/>
         </geometry>
-        <material name="silver">
-          <color rgba="0.8 0.8 0.8 0.85"/>
-        </material>
       </visual>
       <visual>
+        <origin xyz=".1759 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://al5d_description/mesh/lower_arm/LowerArm - Rod-1.STL"/>
+          <box size=".0508 .0279 .0381"/>
         </geometry>
-        <material name="silver">
-          <color rgba="0.8 0.8 0.8 0.85"/>
-        </material>
       </visual>
-      <!-- <visual>
-        <origin xyz="${lower_arm_length/2} 0 0" rpy="0 0 0"/>
-        <geometry>
-          <box size="${lower_arm_length} ${lower_arm_width} ${lower_arm_width}"/>
-        </geometry>
-      </visual> -->
       <collision>
-        <origin xyz="${lower_arm_length/2} 0 0" rpy="0 0 0"/>
+        <origin xyz="${lower_arm_length/2} 0 0" rpy="0 ${3.14158/2} 0"/>
         <geometry>
-          <box size="${lower_arm_length} ${lower_arm_width} ${lower_arm_width}"/>
+          <cylinder length="${lower_arm_length}" radius=".00635"/>
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="-.01982 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size=".06985 .030 .0508"/>
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz=".1759 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size=".0508 .0279 .0381"/>
         </geometry>
       </collision>
       <xacro:insert_block name="inertia_block" />
     </link>
     <link name="wrist">
       <visual>
+        <origin xyz=".026 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://al5d_description/mesh/wrist/WristLink.STL"/>
+          <box size=".002 .020 .05788"/>
         </geometry>
-        <material name="silver">
-          <color rgba="0.8 0.8 0.8 0.85"/>
-        </material>
       </visual>
-      <!-- <visual>
-        <origin xyz="${wrist_length/2} 0 0" rpy="0 0 0"/>
+      <visual>
+        <origin xyz="${.025-.0377/2} 0 ${.05788/2-.001}" rpy="0 0 0"/>
         <geometry>
-          <box size="${wrist_length} ${wrist_width} ${wrist_width}"/>
+          <box size="${.0377} .020 .002"/>
         </geometry>
-      </visual> -->
-      <collision>
-        <origin xyz="${wrist_length/2} 0 0" rpy="0 0 0"/>
+      </visual>
+      <visual>
+        <origin xyz="${.025-.0377/2} 0 ${-.05788/2+.001}" rpy="0 0 0"/>
         <geometry>
-          <box size="${wrist_length} ${wrist_width} ${wrist_width}"/>
+          <box size="${.0377} .020 .002"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz=".026 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size=".002 .020 .05788"/>
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="${.025-.0377/2} 0 ${.05788/2-.001}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${.0377} .020 .002"/>
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="${.025-.0377/2} 0 ${-.05788/2+.001}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${.0377} .020 .002"/>
         </geometry>
       </collision>
       <xacro:insert_block name="inertia_block" />
     </link>
     <link name="gripper_base">
       <visual>
+        <origin xyz=".014 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://al5d_description/mesh/gripper_base/Gripper - WristTurn-1.STL"/>
+          <box size=".014 .018 .05"/>
         </geometry>
       </visual>
       <visual>
+        <origin xyz="0 0 0" rpy="0 ${3.14159/2} 0"/>
         <geometry>
-          <mesh filename="package://al5d_description/mesh/gripper_base/Gripper - GripperBase-1.STL"/>
+          <cylinder length=".014" radius=".009"/>
         </geometry>
       </visual>
-      <!-- <visual>
-	      <origin xyz="${gripper_height/2} 0 0" rpy="0 0 0"/>
-        <geometry>
-          <box size="${gripper_height} ${gripper_height} ${gripper_width}"/>
-        </geometry>
-      </visual> -->
       <collision>
-        <origin xyz="${gripper_width/2} 0 0" rpy="0 0 0"/>
+        <origin xyz=".014 0 0" rpy="0 0 0"/>
         <geometry>
-          <box size="${gripper_height} ${gripper_height} ${gripper_width}"/>
+          <box size=".014 .018 .05"/>
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 ${3.14159/2} 0"/>
+        <geometry>
+          <!-- shorter to avoid numerical issues -->
+          <cylinder length=".013" radius=".009"/>
         </geometry>
       </collision>
       <xacro:insert_block name="inertia_block" />
@@ -212,11 +235,6 @@
       </inertial>
     </link>
     <link name="gripper_leftfinger">
-      <!-- <visual>
-        <geometry>
-          <mesh filename="package://al5d_description/mesh/left_finger/LeftFinger.STL"/>
-        </geometry>
-      </visual> -->
       <visual>
         <origin xyz="${gripper_width/4} 0 0" rpy="0 0 0"/>
         <geometry>
@@ -228,10 +246,6 @@
         <geometry>
           <box size="${gripper_width/2} ${gripper_height} ${gripper_height/4}"/>
         </geometry>
-        <!-- <origin xyz="${gripper_width/2} 0 0" rpy="0 0 0"/>
-        <geometry>
-          <box size="${gripper_width} ${gripper_height} ${gripper_height}"/>
-        </geometry> -->
       </collision>
       <inertial>
         <mass value="0.05"/>
@@ -276,7 +290,7 @@
 
 
     <!-- joints -->
-    <joint name="base" type="fixed">
+    <joint name="base_joint" type="fixed">
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <parent link="world"/>
       <child link="base"/>
@@ -361,23 +375,30 @@
   <gazebo reference="base">
     <material>Gazebo/DarkGrey</material>
     <turnGravityOff>true</turnGravityOff>
-    <!-- <self_collide>1</self_collide> -->
+    <self_collide>1</self_collide>
   </gazebo>
   <gazebo reference="upper_base">
+    <material>Gazebo/LightGrey</material>
     <turnGravityOff>true</turnGravityOff>
+    <self_collide>1</self_collide>
   </gazebo>
   <gazebo reference="upper_arm">
-    <turnGravityOff>true</turnGravityOff>
     <material>Gazebo/DarkGrey</material>
+    <turnGravityOff>true</turnGravityOff>
+    <self_collide>1</self_collide>
   </gazebo>
   <gazebo reference="lower_arm">
+    <material>Gazebo/LightGrey</material>
     <turnGravityOff>true</turnGravityOff>
+    <self_collide>1</self_collide>
   </gazebo>
   <gazebo reference="wrist">
     <turnGravityOff>true</turnGravityOff>
     <material>Gazebo/DarkGrey</material>
+    <self_collide>1</self_collide>
   </gazebo>
   <gazebo reference="gripper_base">
+    <material>Gazebo/LightGrey</material>
     <turnGravityOff>true</turnGravityOff>
   </gazebo>
   <gazebo reference="gripper_leftfinger">
