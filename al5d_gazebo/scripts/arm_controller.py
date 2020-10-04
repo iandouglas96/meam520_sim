@@ -208,7 +208,7 @@ class ArmController:
                 for bad_joint in bad_joints:
                     rospy.logwarn("Joint " + str(bad_joint) + " is below the limit " +
                           str(self.ros.joint_limits[0, bad_joint]))
-                scaled_state = np.maximum(scaled_state, self.joint_limits[0])
+                scaled_state = np.maximum(scaled_state, self.ros.joint_limits[0])
             if np.any(scaled_state > self.ros.joint_limits[1]):
                 bad_joints = np.where(scaled_state > self.ros.joint_limits[1])[0]
                 for bad_joint in bad_joints:
