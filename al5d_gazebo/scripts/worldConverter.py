@@ -89,7 +89,7 @@ def convertTextString(origin, size, number):
     output = output + indent + indent + "<child link =\"obstacle_" + str(number) + "\"/>\n"
     output = output + indent + "</joint> \n"
 
-    output = output + indent + "<gazebo reference=\"obstacle_" + str(number) + "\"><material>Gazebo/SkyBlue</material></gazebo>\n"
+    output = output + indent + "<gazebo reference=\"obstacle_" + str(number) + "\"><material>Gazebo/Wood</material></gazebo>\n"
 
     return output
 
