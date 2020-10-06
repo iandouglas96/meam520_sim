@@ -23,6 +23,48 @@
             </box>
           </geometry>
         </visual>
+        <visual name="ax">
+          <pose>.0075 0 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>.015 .001 .001</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/RedTransparentOverlay</name>
+            </script>
+          </material>
+        </visual>
+        <visual name="ay">
+          <pose>0 .0075 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>.001 .015 .001</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/GreenTransparentOverlay</name>
+            </script>
+          </material>
+        </visual>
+        <visual name="az">
+          <pose>0 0 .0075 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>.001 .001 .015</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/BlueTransparentOverlay</name>
+            </script>
+          </material>
+        </visual>
       </link>
     </model>
 
@@ -36,6 +78,48 @@
               <size>0.01 0.04 0.08</size>
             </box>
           </geometry>
+        </visual>
+        <visual name="ax">
+          <pose>.0075 0 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>.015 .001 .001</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/RedTransparentOverlay</name>
+            </script>
+          </material>
+        </visual>
+        <visual name="ay">
+          <pose>0 .0075 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>.001 .015 .001</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/GreenTransparentOverlay</name>
+            </script>
+          </material>
+        </visual>
+        <visual name="az">
+          <pose>0 0 .0075 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>.001 .001 .015</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/BlueTransparentOverlay</name>
+            </script>
+          </material>
         </visual>
       </link>
     </model>
@@ -51,6 +135,48 @@
             </box>
           </geometry>
         </visual>
+        <visual name="ax">
+          <pose>.0075 0 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>.015 .001 .001</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/RedTransparentOverlay</name>
+            </script>
+          </material>
+        </visual>
+        <visual name="ay">
+          <pose>0 .0075 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>.001 .015 .001</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/GreenTransparentOverlay</name>
+            </script>
+          </material>
+        </visual>
+        <visual name="az">
+          <pose>0 0 .0075 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>.001 .001 .015</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/BlueTransparentOverlay</name>
+            </script>
+          </material>
+        </visual>
       </link>
     </model>
 
@@ -64,6 +190,48 @@
               <size>0.01 0.04 0.08</size>
             </box>
           </geometry>
+        </visual>
+        <visual name="ax">
+          <pose>.0075 0 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>.015 .001 .001</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/RedTransparentOverlay</name>
+            </script>
+          </material>
+        </visual>
+        <visual name="ay">
+          <pose>0 .0075 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>.001 .015 .001</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/GreenTransparentOverlay</name>
+            </script>
+          </material>
+        </visual>
+        <visual name="az">
+          <pose>0 0 .0075 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>.001 .001 .015</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/BlueTransparentOverlay</name>
+            </script>
+          </material>
         </visual>
       </link>
     </model>
