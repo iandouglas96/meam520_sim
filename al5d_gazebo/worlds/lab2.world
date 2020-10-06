@@ -13,7 +13,7 @@
 
 
     <model name="marker1">
-      <pose> 0.047046 .073269 .100547 -2.9366226 0.4072252 -1.5507487</pose>
+      <pose> 0.047046 .073269 .100547 2.9027 -0.4094 1.5501</pose>
       <static>1</static>
       <link name="link">
         <visual name="visual">
@@ -69,7 +69,7 @@
     </model>
 
     <model name="marker2">
-      <pose> -0.0953156 0 0.402366 0 -0.1014028 -3.1415927</pose>
+      <pose> -0.0953156 0 0.402366 0   -0.1193    3.1416</pose>
       <static>1</static>
       <link name="link">
         <visual name="visual">
@@ -125,7 +125,7 @@
     </model>
 
     <model name="marker3">
-      <pose>0.28296 -0.048302 0.235071 -0.661183 1.2052668 2.8361599</pose>
+      <pose>0.28296 -0.048302 0.235071 1.2346   -0.5449    1.9808</pose>
       <static>1</static>
       <link name="link">
         <visual name="visual">
@@ -181,7 +181,7 @@
     </model>
 
     <model name="marker4">
-      <pose>-0.045 -0.3 0.063 1.4804097 -0.2110753 1.0275927</pose>
+      <pose>-0.045 -0.3 0.063 1.3956   -1.0399   -0.0604</pose>
       <static>1</static>
       <link name="link">
         <visual name="visual">
@@ -195,7 +195,7 @@
           <pose>.0075 0 0 0 0 0</pose>
           <geometry>
             <box>
-              <size>.015 .001 .001</size>
+              <size>.015 .0005 .0005</size>
             </box>
           </geometry>
           <material>
@@ -209,7 +209,7 @@
           <pose>0 .0075 0 0 0 0</pose>
           <geometry>
             <box>
-              <size>.001 .015 .001</size>
+              <size>.0005 .015 .0005</size>
             </box>
           </geometry>
           <material>
@@ -223,7 +223,7 @@
           <pose>0 0 .0075 0 0 0</pose>
           <geometry>
             <box>
-              <size>.001 .001 .015</size>
+              <size>.0005 .0005 .015</size>
             </box>
           </geometry>
           <material>
