@@ -370,92 +370,51 @@
 
   <gazebo reference="base">
     <material>Gazebo/DarkGrey</material>
-    <!-- <turnGravityOff>true</turnGravityOff> -->
     <self_collide>1</self_collide>
   </gazebo>
   <gazebo reference="upper_base">
     <material>Gazebo/LightGrey</material>
-    <!-- <turnGravityOff>true</turnGravityOff> -->
     <self_collide>1</self_collide>
   </gazebo>
   <gazebo reference="upper_arm">
     <material>Gazebo/DarkGrey</material>
-    <!-- <turnGravityOff>true</turnGravityOff> -->
     <self_collide>1</self_collide>
   </gazebo>
   <gazebo reference="lower_arm">
     <material>Gazebo/LightGrey</material>
-    <!-- <turnGravityOff>true</turnGravityOff> -->
     <self_collide>1</self_collide>
   </gazebo>
   <gazebo reference="wrist">
-    <!-- <turnGravityOff>true</turnGravityOff> -->
     <material>Gazebo/DarkGrey</material>
     <self_collide>1</self_collide>
   </gazebo>
   <gazebo reference="gripper_base">
     <material>Gazebo/LightGrey</material>
-    <!-- <turnGravityOff>true</turnGravityOff> -->
   </gazebo>
   <gazebo reference="gripper_leftfinger">
-    <!-- <turnGravityOff>true</turnGravityOff> -->
     <material>Gazebo/DarkGrey</material>
     <self_collide>1</self_collide>
   </gazebo>
   <gazebo reference="gripper_rightfinger">
-    <!-- <turnGravityOff>true</turnGravityOff> -->
     <material>Gazebo/DarkGrey</material>
     <self_collide>1</self_collide>
   </gazebo>
   <gazebo reference="end">
-    <!-- <turnGravityOff>true</turnGravityOff> -->
   </gazebo>
   <gazebo reference="xaxis">
     <material>Gazebo/RedTransparentOverlay</material>
-    <!-- <turnGravityOff>true</turnGravityOff> -->
   </gazebo>
   <gazebo reference="yaxis">
     <material>Gazebo/GreenTransparentOverlay</material>
-    <!-- <turnGravityOff>true</turnGravityOff> -->
   </gazebo>
   <gazebo reference="zaxis">
     <material>Gazebo/BlueTransparentOverlay</material>
-    <!-- <turnGravityOff>true</turnGravityOff> -->
   </gazebo>
 
-<!-- WORKING BASE -->
-  <!-- <gazebo reference="base">
-    <sensor type="contact" name="your_link_contact_sensor">
-      <update_rate>50.0</update_rate>
-      <always_on>1</always_on>
-      <contact>
-        <collision>base_collision_collision</collision>
-      </contact>
-      <plugin name="gazebo_ros_bumper_controller" filename="libgazebo_ros_bumper.so">
-        <alwaysOn>true</alwaysOn>
-        <updateRate>50.0</updateRate>
-        <bumperTopicName>/base/collision</bumperTopicName>
-        <frameName>base</frameName>
-      </plugin>
-    </sensor>
-  </gazebo> -->
-
-  <!-- <gazebo reference="lower_arm">
-    <sensor type="contact" name="lower_arm_contact">
-      <update_rate>10.0</update_rate>
-      <always_on>1</always_on>
-      <contact>
-        <collision>lower_arm_collision_collision</collision>
-        <collision>servo_collision_collision</collision>
-      </contact>
-      <plugin name="gazebo_ros_bumper_controller" filename="libgazebo_ros_bumper.so">
-        <alwaysOn>true</alwaysOn>
-        <updateRate>50.0</updateRate>
-        <bumperTopicName>/collision/lower_arm</bumperTopicName>
-        <frameName>lower_arm</frameName>
-      </plugin>
-    </sensor>
-  </gazebo> -->
+  <!-- TO GET NAMES OF COLLISION: -->
+  <!-- rosrun xacro xacro al5d_cad.xacro > temp.urdf -->
+  <!-- gz sdf -p temp.urdf > temp.sdf -->
+  <!-- Check names in temp.sdf -->
 
   <xacro:include filename="touch.xacro" />
 
@@ -475,6 +434,5 @@
   <xacro:touch frame="gripper_base" collision_geometry="gripper_base_collision_1"/>
   <xacro:touch frame="gripper_leftfinger" collision_geometry="gripper_leftfinger_collision"/>
   <xacro:touch frame="gripper_rightfinger" collision_geometry="gripper_rightfinger_collision"/>
-
 
 </robot>

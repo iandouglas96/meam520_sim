@@ -15,7 +15,7 @@ np.set_printoptions(suppress=True)
 
 from std_msgs.msg import Empty, Bool, Header
 from sensor_msgs.msg import JointState
-
+from gazebo_msgs.msg import ContactsState
 #class managing separate ROS loop
 class ROSInterface:
     def __init__(self, cmd_q, status_q, pose_q, num_joints):
@@ -29,6 +29,8 @@ class ROSInterface:
         self.move_ind = 0
         self.move_seq = 0
         self.vel_target = None
+        self.touch = rospy.Time.from_sec(0)
+
 
         self.joint_limits = np.array([[-1.4, 1.4],
                                       [-1.2, 1.4],
@@ -58,6 +60,22 @@ class ROSInterface:
         while not self.status_q.empty():
             self.status_q.get()
         self.status_q.put((self.pos, self.vel))
+
+    def contact_cb(self, msg):
+
+        collision = False
+        # if any are a true collision, we are in collision. Otherwise not
+        for state in msg.states:
+            if (state.collision1_name == "al5d::gripper_leftfinger::gripper_leftfinger_collision") and (state.collision2_name == "al5d::gripper_rightfinger::gripper_rightfinger_collision"):
+                # don't consider self collisions between gripper jaws
+                pass
+            elif (state.collision2_name == "al5d::gripper_leftfinger::gripper_leftfinger_collision") and (state.collision1_name == "al5d::gripper_rightfinger::gripper_rightfinger_collision"):
+                # order swapped
+                pass
+            else:
+                collision = True
+        if collision:
+            self.touch = rospy.get_rostime()
 
     def pose_cb(self, pose):
         #we know the transforms are already in the order we want
@@ -145,6 +163,7 @@ class ROSInterface:
 
         state_sub = rospy.Subscriber("/joint_states", JointState, self.state_cb)
         pose_sub = rospy.Subscriber("/joint_poses", TransformStampedList, self.pose_cb)
+        contact_sub = rospy.Subscriber("/collision", ContactsState, self.contact_cb)
 
         #poll at 50Hz
 
@@ -259,9 +278,10 @@ class ArmController:
         self.cmd_q.put("stop")
         self.spin_t.join()
 
+    # if there has been a collision event in the last interval, assume collided
     def is_collided(self):
-        # TODO: implement
-        return False
+        since_touch = (rospy.get_rostime() - self.ros.touch).to_sec()
+        return since_touch < .3
 
 
 
@@ -317,6 +337,7 @@ if __name__ == '__main__':
                 msg.header.frame_id = 'world'
                 msg.name = ["upper_base", "upper_arm", "lower_arm", "wrist", "gripper_base", "end"];
                 joint_pub.publish(msg)
+
 
                 rate.sleep()
             except KeyboardInterrupt:
