@@ -16,8 +16,10 @@
   <rosparam command="load" file="$(find al5d_gazebo)/config/joint_state_controller.yaml" />
 
   <!-- Spawn a robot into Gazebo -->
-  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model al5d" />
   <node name="spawn_urdf2" pkg="gazebo_ros" type="spawn_model" args="-param obstacle_urdf -urdf -model obstacles" />
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model al5d
+  -J  shoulder_tilt 0
+  -J  elbow_tilt 0" />
 
   <node name="default_loaded_controllers_spawner"
     pkg="controller_manager" type="spawner" output="screen"
@@ -42,4 +44,5 @@
   <!-- Fake calib -->
   <node pkg="rostopic" type="rostopic" name="fake_joint_calibration"
     args="pub /calibrated std_msgs/Bool true" />
+
 </launch>

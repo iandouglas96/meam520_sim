@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<robot name="touch" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:macro name="touch" params="frame collision_geometry">
+    <gazebo reference="${frame}">
+      <sensor type="contact" name="${collision_geometry}_contact">
+        <update_rate>10.0</update_rate>
+        <always_on>1</always_on>
+        <contact>
+          <collision>${collision_geometry}</collision>
+        </contact>
+        <plugin name="gazebo_ros_bumper_controller" filename="libgazebo_ros_bumper.so">
+          <alwaysOn>true</alwaysOn>
+          <updateRate>10.0</updateRate>
+          <bumperTopicName>/collision</bumperTopicName>
+          <frameName>${frame}</frameName>
+        </plugin>
+      </sensor>
+    </gazebo>
+  </xacro:macro>
+</robot>
