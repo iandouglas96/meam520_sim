@@ -254,14 +254,20 @@ class ArmController:
                 # don't update the current state, keep old value
 
 
-        scaled_state = []
-        scaled_state.append(deepcopy(self.cur_state[0]))
-        scaled_state.append(deepcopy(self.cur_state[1]))
-        scaled_state[0][-1] = -scaled_state[0][-1]*45./0.03 + 30.
-        scaled_state[1][-1] = -scaled_state[1][-1]*45./0.03
+        try:
+            scaled_state = []
+            scaled_state.append(deepcopy(self.cur_state[0]))
+            scaled_state.append(deepcopy(self.cur_state[1]))
+            scaled_state[0][-1] = -scaled_state[0][-1]*45./0.03 + 30.
+            scaled_state[1][-1] = -scaled_state[1][-1]*45./0.03
 
-        pos = np.around(scaled_state[0], decimals=3).tolist()
-        vel = np.around(scaled_state[1], decimals=3).tolist()
+            pos = np.around(scaled_state[0], decimals=3).tolist()
+            vel = np.around(scaled_state[1], decimals=3).tolist()
+        except IndexError as error:
+            # have not yet received state from Gazebo
+            rospy.logwarn(error)
+            pos = np.array([])
+            vel = np.array([])
 
         return pos, vel
 
