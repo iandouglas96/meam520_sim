@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot name="touch" xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:macro name="touch" params="frame collision_geometry">
-    <gazebo reference="${frame}">
+    <!-- <gazebo reference="${frame}"> -->
       <sensor type="contact" name="${collision_geometry}_contact">
         <update_rate>10.0</update_rate>
         <always_on>1</always_on>
@@ -15,6 +15,6 @@
           <frameName>${frame}</frameName>
         </plugin>
       </sensor>
-    </gazebo>
+    <!-- </gazebo> -->
   </xacro:macro>
 </robot>

@@ -230,6 +230,14 @@
         <geometry>
           <box size="${gripper_width/2} ${gripper_height} ${gripper_height/4}"/>
         </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>1.0</mu>
+              <mu2>1.0</mu2>
+            </ode>
+          </friction>
+        </surface>
       </collision>
       <inertial>
         <mass value="0.05"/>
@@ -248,6 +256,14 @@
         <geometry>
           <box size="${gripper_width/2} ${gripper_height} ${gripper_height/4}"/>
         </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0.7</mu>
+              <mu2>0.7</mu2>
+            </ode>
+          </friction>
+        </surface>
       </collision>
       <inertial>
         <mass value="0.05"/>
@@ -368,36 +384,58 @@
     </plugin>
   </gazebo>
 
+
+  <xacro:include filename="touch.xacro" />
+
+
   <gazebo reference="base">
     <material>Gazebo/DarkGrey</material>
     <self_collide>1</self_collide>
+    <xacro:touch frame="base" collision_geometry="base_collision"/>
   </gazebo>
   <gazebo reference="upper_base">
     <material>Gazebo/LightGrey</material>
     <self_collide>1</self_collide>
+    <xacro:touch frame="upper_base" collision_geometry="upper_base_collision"/>
+    <xacro:touch frame="upper_base" collision_geometry="upper_base_collision_1"/>
   </gazebo>
   <gazebo reference="upper_arm">
     <material>Gazebo/DarkGrey</material>
     <self_collide>1</self_collide>
+    <xacro:touch frame="upper_arm" collision_geometry="upper_arm_collision"/>
+    <xacro:touch frame="upper_arm" collision_geometry="upper_arm_collision_1"/>
+    <xacro:touch frame="upper_arm" collision_geometry="upper_arm_collision_2"/>
   </gazebo>
   <gazebo reference="lower_arm">
     <material>Gazebo/LightGrey</material>
     <self_collide>1</self_collide>
+    <xacro:touch frame="lower_arm" collision_geometry="lower_arm_collision"/>
+    <xacro:touch frame="lower_arm" collision_geometry="lower_arm_collision_1"/>
+    <xacro:touch frame="lower_arm" collision_geometry="lower_arm_collision_2"/>
   </gazebo>
   <gazebo reference="wrist">
     <material>Gazebo/DarkGrey</material>
     <self_collide>1</self_collide>
+    <xacro:touch frame="wrist" collision_geometry="wrist_collision"/>
+    <xacro:touch frame="wrist" collision_geometry="wrist_collision_1"/>
+    <xacro:touch frame="wrist" collision_geometry="wrist_collision_2"/>
   </gazebo>
   <gazebo reference="gripper_base">
     <material>Gazebo/LightGrey</material>
+    <xacro:touch frame="gripper_base" collision_geometry="gripper_base_collision"/>
+    <xacro:touch frame="gripper_base" collision_geometry="gripper_base_collision_1"/>
   </gazebo>
   <gazebo reference="gripper_leftfinger">
     <material>Gazebo/DarkGrey</material>
     <self_collide>1</self_collide>
+    <turnGravityOff>true</turnGravityOff>
+    <xacro:touch frame="gripper_leftfinger" collision_geometry="gripper_leftfinger_collision"/>
   </gazebo>
   <gazebo reference="gripper_rightfinger">
     <material>Gazebo/DarkGrey</material>
     <self_collide>1</self_collide>
+    <turnGravityOff>true</turnGravityOff>
+    <xacro:touch frame="gripper_rightfinger" collision_geometry="gripper_rightfinger_collision"/>
   </gazebo>
   <gazebo reference="end">
   </gazebo>
@@ -416,7 +454,8 @@
   <!-- gz sdf -p temp.urdf > temp.sdf -->
   <!-- Check names in temp.sdf -->
 
-  <xacro:include filename="touch.xacro" />
+
+  <!-- <xacro:include filename="touch.xacro" />
 
   <xacro:touch frame="base" collision_geometry="base_collision"/>
   <xacro:touch frame="upper_base" collision_geometry="upper_base_collision"/>
@@ -433,6 +472,6 @@
   <xacro:touch frame="gripper_base" collision_geometry="gripper_base_collision"/>
   <xacro:touch frame="gripper_base" collision_geometry="gripper_base_collision_1"/>
   <xacro:touch frame="gripper_leftfinger" collision_geometry="gripper_leftfinger_collision"/>
-  <xacro:touch frame="gripper_rightfinger" collision_geometry="gripper_rightfinger_collision"/>
+  <xacro:touch frame="gripper_rightfinger" collision_geometry="gripper_rightfinger_collision"/> -->
 
 </robot>

@@ -105,10 +105,12 @@ class ROSInterface:
             self.vel_target = None
             if self.pos is not None:
                 #interpolate states between current state and goal
-                diff = state[1] - self.pos
+                start = self.pos
+                diff = state[1] - start
                 dist = np.max(np.abs(diff))
                 interp = np.linspace(0, 1, max(np.ceil(80*dist), 2))
-                self.move_seq = self.pos + interp[:,None]*diff[None,:]
+                self.move_seq = start + interp[:,None]*diff[None,:]
+                self.move_seq[:,5] = self.move_seq[-1,5]; # don't interpolate gripper
                 self.move_ind = 0
         elif state[0] == "velocity":
             self.move_seq = 0
