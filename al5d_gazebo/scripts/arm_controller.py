@@ -1,11 +1,12 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import rospy
 from al5d_gazebo.msg import TransformStampedList
 from std_msgs.msg import Float64
 from sensor_msgs.msg import JointState
 import threading
-from Queue import Queue
+from queue import Queue
+# from Queue import Queue
 import numpy as np
 from tf.transformations import quaternion_matrix
 from copy import deepcopy
@@ -155,17 +156,17 @@ class ROSInterface:
         self.pos_pubs = []
         self.gripper_pubs = []
         for i in range(self.num_joints):
-            pub = rospy.Publisher("/al5d_arm_position_controller"+str(i+1)+"/command",
+            pub = rospy.Publisher("al5d_arm_position_controller"+str(i+1)+"/command",
                                   Float64, queue_size=1, latch=True)
             self.pos_pubs.append(pub)
         for i in range(2):
-            pub = rospy.Publisher("/al5d_gripper_controller"+str(i+1)+"/command",
+            pub = rospy.Publisher("al5d_gripper_controller"+str(i+1)+"/command",
                                   Float64, queue_size=1, latch=True)
             self.gripper_pubs.append(pub)
 
-        state_sub = rospy.Subscriber("/joint_states", JointState, self.state_cb)
-        pose_sub = rospy.Subscriber("/joint_poses", TransformStampedList, self.pose_cb)
-        contact_sub = rospy.Subscriber("/collision", ContactsState, self.contact_cb)
+        state_sub = rospy.Subscriber("joint_states", JointState, self.state_cb)
+        pose_sub = rospy.Subscriber("joint_poses", TransformStampedList, self.pose_cb)
+        contact_sub = rospy.Subscriber("collision", ContactsState, self.contact_cb)
 
         #poll at 50Hz
 
@@ -319,14 +320,13 @@ if __name__ == '__main__':
         # Wait for ROS
         rospy.sleep(rospy.Duration.from_sec(3))
 
-        pos_sub = rospy.Subscriber("/arm_interface/position", JointState, position)
-        vel_sub = rospy.Subscriber("/arm_interface/velocity", JointState, velocity)
-        torque_sub = rospy.Subscriber("/arm_interface/effort", JointState, torque)
-        stop_sub = rospy.Subscriber("/arm_interface/stop", Empty, stop)
+        pos_sub = rospy.Subscriber("arm_interface/position", JointState, position)
+        vel_sub = rospy.Subscriber("arm_interface/velocity", JointState, velocity)
+        torque_sub = rospy.Subscriber("arm_interface/effort", JointState, torque)
+        stop_sub = rospy.Subscriber("arm_interface/stop", Empty, stop)
 
-        collision_pub = rospy.Publisher("/arm_interface/collided", Bool, queue_size=1, latch=True)
-        # stopped_pub = rospy.Publisher("/arm_interface/stopped", Bool, queue_size=1, latch=True)
-        joint_pub = rospy.Publisher("/arm_interface/state", JointState, queue_size=1, latch=True)
+        collision_pub = rospy.Publisher("arm_interface/collided", Bool, queue_size=1, latch=True)
+        joint_pub = rospy.Publisher("arm_interface/state", JointState, queue_size=1, latch=True)
 
         rate = rospy.Rate(100)
 

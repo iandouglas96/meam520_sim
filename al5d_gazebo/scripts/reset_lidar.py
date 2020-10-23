@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 from time import sleep
 import numpy as np
 import rospy

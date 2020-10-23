@@ -23,6 +23,9 @@
     <xacro:property name="axis_length" value="0.03" />
     <xacro:property name="axis_width" value="0.001" />
 
+
+    <xacro:arg name="color" default="black" />
+
     <xacro:property name="inertia_block">
       <inertial>
         <mass value="0.3"/>
@@ -388,8 +391,27 @@
   <xacro:include filename="touch.xacro" />
 
 
+
+  <xacro:macro name="colorize">
+    <visual>
+      <material>
+        <ambient>$(arg color)</ambient>
+        <diffuse>$(arg color)</diffuse>
+        <specular>$(arg color)</specular>
+        <emissive>0 0 0 0</emissive>
+      </material>
+    </visual>
+  </xacro:macro>
+
+<!-- 0.7137254 0.3254902 0.2352941 1 -->
+
+ <!-- TO GET NAMES OF COLLISION GEOMETRY: -->
+ <!-- rosrun xacro xacro al5d_cad.xacro > temp.urdf -->
+ <!-- gz sdf -p temp.urdf > temp.sdf -->
+ <!-- Check names in temp.sdf -->
+
   <gazebo reference="base">
-    <material>Gazebo/DarkGrey</material>
+    <xacro:colorize />
     <self_collide>1</self_collide>
     <xacro:touch frame="base" collision_geometry="base_collision"/>
   </gazebo>
@@ -400,7 +422,7 @@
     <xacro:touch frame="upper_base" collision_geometry="upper_base_collision_1"/>
   </gazebo>
   <gazebo reference="upper_arm">
-    <material>Gazebo/DarkGrey</material>
+    <xacro:colorize />
     <self_collide>1</self_collide>
     <xacro:touch frame="upper_arm" collision_geometry="upper_arm_collision"/>
     <xacro:touch frame="upper_arm" collision_geometry="upper_arm_collision_1"/>
@@ -414,7 +436,7 @@
     <xacro:touch frame="lower_arm" collision_geometry="lower_arm_collision_2"/>
   </gazebo>
   <gazebo reference="wrist">
-    <material>Gazebo/DarkGrey</material>
+    <xacro:colorize />
     <self_collide>1</self_collide>
     <xacro:touch frame="wrist" collision_geometry="wrist_collision"/>
     <xacro:touch frame="wrist" collision_geometry="wrist_collision_1"/>
@@ -426,13 +448,13 @@
     <xacro:touch frame="gripper_base" collision_geometry="gripper_base_collision_1"/>
   </gazebo>
   <gazebo reference="gripper_leftfinger">
-    <material>Gazebo/DarkGrey</material>
+    <xacro:colorize />
     <self_collide>1</self_collide>
     <turnGravityOff>true</turnGravityOff>
     <xacro:touch frame="gripper_leftfinger" collision_geometry="gripper_leftfinger_collision"/>
   </gazebo>
   <gazebo reference="gripper_rightfinger">
-    <material>Gazebo/DarkGrey</material>
+    <xacro:colorize />
     <self_collide>1</self_collide>
     <turnGravityOff>true</turnGravityOff>
     <xacro:touch frame="gripper_rightfinger" collision_geometry="gripper_rightfinger_collision"/>
@@ -449,29 +471,5 @@
     <material>Gazebo/BlueTransparentOverlay</material>
   </gazebo>
 
-  <!-- TO GET NAMES OF COLLISION: -->
-  <!-- rosrun xacro xacro al5d_cad.xacro > temp.urdf -->
-  <!-- gz sdf -p temp.urdf > temp.sdf -->
-  <!-- Check names in temp.sdf -->
-
-
-  <!-- <xacro:include filename="touch.xacro" />
-
-  <xacro:touch frame="base" collision_geometry="base_collision"/>
-  <xacro:touch frame="upper_base" collision_geometry="upper_base_collision"/>
-  <xacro:touch frame="upper_base" collision_geometry="upper_base_collision_1"/>
-  <xacro:touch frame="upper_arm" collision_geometry="upper_arm_collision"/>
-  <xacro:touch frame="upper_arm" collision_geometry="upper_arm_collision_1"/>
-  <xacro:touch frame="upper_arm" collision_geometry="upper_arm_collision_2"/>
-  <xacro:touch frame="lower_arm" collision_geometry="lower_arm_collision"/>
-  <xacro:touch frame="lower_arm" collision_geometry="lower_arm_collision_1"/>
-  <xacro:touch frame="lower_arm" collision_geometry="lower_arm_collision_2"/>
-  <xacro:touch frame="wrist" collision_geometry="wrist_collision"/>
-  <xacro:touch frame="wrist" collision_geometry="wrist_collision_1"/>
-  <xacro:touch frame="wrist" collision_geometry="wrist_collision_2"/>
-  <xacro:touch frame="gripper_base" collision_geometry="gripper_base_collision"/>
-  <xacro:touch frame="gripper_base" collision_geometry="gripper_base_collision_1"/>
-  <xacro:touch frame="gripper_leftfinger" collision_geometry="gripper_leftfinger_collision"/>
-  <xacro:touch frame="gripper_rightfinger" collision_geometry="gripper_rightfinger_collision"/> -->
 
 </robot>

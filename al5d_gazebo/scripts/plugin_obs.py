@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 
 import rospy, tf
 from gazebo_msgs.srv import SpawnModel

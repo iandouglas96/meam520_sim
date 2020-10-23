@@ -99,15 +99,6 @@
                 <ode/>
               </torsional>
             </friction>
-            <!-- <friction>
-              <torsional>
-                <coefficient>1</coefficient>
-                <use_patch_radius>0</use_patch_radius>
-                <surface_radius>0.01</surface_radius>
-                <ode/>
-              </torsional>
-              <ode/>
-            </friction> -->
             <bounce/>
           </surface>
           <max_contacts>10</max_contacts>
