@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <launch>
 
+  <!-- RED TEAM -->
   <include file="$(find al5d_gazebo)/launch/single.launch" ns="red">
     <arg name="namespace" value="red" /> <!-- needed for Gazebo -->
     <arg name="color" value="0.5725\ 0.0667\ 0.109\ 1" />
-    <!-- <arg name="color" value="$(find xacro)/xacro $(find al5d_description)/urdf/red.xacro" />  -->
     <arg name="x" value="-.2"/>
     <arg name="y" value="-.2"/>
     <arg name="z" value="0"/>
@@ -13,11 +13,10 @@
     <arg name="yaw" value="0"/>
   </include>
 
+  <!-- BLUE TEAM -->
   <include file="$(find al5d_gazebo)/launch/single.launch" ns="blue">
     <arg name="namespace" value="blue" /> <!-- needed for Gazebo -->
     <arg name="color" value="0.1137\ 0.2078\ 0.3412\ 1" />
-    <!-- <arg name="color" value="$(find xacro)/xacro $(find al5d_description)/urdf/blue.xacro" /> -->
-    <!-- needed for Gazebo -->
     <arg name="x" value=".2"/>
     <arg name="y" value=".2"/>
     <arg name="z" value="0"/>
@@ -26,11 +25,19 @@
     <arg name="yaw" value="3.141592"/>
   </include>
 
-  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+  <!-- MOVING TURNTABLE -->
+  <include file="$(find al5d_gazebo)/launch/turntable.launch" ns="turntable" />
+
+  <!-- BASIC ENVIRONMENT -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(find al5d_gazebo)/worlds/final.world"/>
-    <!-- more default parameters can be changed here -->
   </include>
 
+  <!-- OBSTACLES / OBJECT PLATFORMS -->
+  <arg name = "map_loc" default="$(find al5d_gazebo)/../../python_code/Lab3/maps/"/>
+  <arg name = "map_name" default="final.txt"/>
+  <param name = "map_file" type = "str" value = "$(arg map_loc)$(arg map_name)"/>
+  <node name ="mapConverter" pkg="al5d_gazebo" type="worldConverter.py" />
+  <node name="spawn_obstacles" pkg="gazebo_ros" type="spawn_model" args="-param obstacle_urdf -urdf -model obstacles" />
 
 </launch>

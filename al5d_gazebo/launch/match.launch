@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="red_code" default="heartbeat.py" />
+  <arg name="blue_code" default="heartbeat.py" />
+
+  <node name="red_team" pkg="al5d_gazebo" type="$(arg red_code)" output="screen" ns="red"/>
+  <node name="blue_team" pkg="al5d_gazebo" type="$(arg blue_code)" output="screen" ns="blue"/>
+
+</launch>

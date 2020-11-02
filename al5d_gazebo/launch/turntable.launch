@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- LAZY SUSAN TURNTABLE -->
+
+  <param name="robot_description" command="$(find xacro)/xacro $(find al5d_description)/urdf/turntable.xacro" />
+
+  <rosparam command="load" file="$(find al5d_gazebo)/config/turntable_controller.yaml" />
+  <!-- <rosparam command="load" file="$(find al5d_gazebo)/config/joint_velocity_controller.yaml" /> -->
+
+  <!-- Spawn a robot into Gazebo -->
+  <node name="spawn_table" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model turntable
+  -x 0 -y 0 -z 0
+  -R 0 -P 0 -Y 0
+  -robot_namespace turntable
+  " />
+
+  <node name="default_loaded_controllers_spawner"
+    pkg="controller_manager" type="spawner" output="screen"
+    args="--wait-for=/calibrated turntable_controller " />
+    <!-- joint_velocity_controller -->
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen" />
+  <!-- <node pkg="al5d_gazebo" name="turntable_controller" type="spin.py" output="screen" args="- -wait-for=/gazebo"/> -->
+  <node pkg="rostopic" type="rostopic" name="fake_joint_calibration" args="pub /calibrated std_msgs/Bool true" />
+
+
+  <arg name="speed" default="1.0"/>
+  <node pkg="rostopic" type="rostopic" name="spin_turntable" args="pub /turntable/turntable_controller/command std_msgs/Float64 'data: $(arg speed)' -r 1" />
+
+
+</launch>
