@@ -1,12 +1,11 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 import rospy
 from al5d_gazebo.msg import TransformStampedList
 from std_msgs.msg import Float64
 from sensor_msgs.msg import JointState
 import threading
-from queue import Queue
-# from Queue import Queue
+from Queue import Queue
 import numpy as np
 from tf.transformations import quaternion_matrix
 from copy import deepcopy
