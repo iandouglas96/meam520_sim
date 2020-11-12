@@ -80,7 +80,7 @@
     <material>Gazebo/LightGrey</material>
   </gazebo>
   <gazebo reference="upper_base">
-    <material>Gazebo/Wood</material>
+    <material>Gazebo/DarkGrey</material>
   </gazebo>
 
 </robot>

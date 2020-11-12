@@ -252,7 +252,8 @@ class ArmController:
             try:
                 self.cur_state = self.status_q.queue[0]
             except IndexError as error:
-                rospy.logwarn(error) # should remove before giving to students
+                pass
+                # rospy.logwarn(error) # should remove before giving to students
                 # don't update the current state, keep old value
 
 
@@ -267,7 +268,7 @@ class ArmController:
             vel = np.around(scaled_state[1], decimals=3).tolist()
         except IndexError as error:
             # have not yet received state from Gazebo
-            rospy.logwarn(error)
+            # rospy.logwarn(error)
             pos = np.array([])
             vel = np.array([])
 

@@ -1,12 +1,32 @@
 <?xml version="1.0"?>
 <launch>
 
+  <!-- BASIC ENVIRONMENT -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find al5d_gazebo)/worlds/final.world"/>
+  </include>
+
+  <!-- OBSTACLES / OBJECT PLATFORMS -->
+  <arg name = "map_loc" default="$(find al5d_gazebo)/../../python_code/Final/maps/"/>
+  <arg name = "map_name" default="final.txt"/>
+  <param name = "map_file" type = "str" value = "$(arg map_loc)$(arg map_name)"/>
+  <node name ="mapConverter" pkg="al5d_gazebo" type="worldConverter.py" />
+  <node name="spawn_obstacles" pkg="gazebo_ros" type="spawn_model" args="-param obstacle_urdf -urdf -model obstacles" />
+
+  <!-- MOVING TURNTABLE -->
+  <include file="$(find al5d_gazebo)/launch/turntable.launch" ns="turntable" />
+
+  <!-- SCORABLE OBJECTS -->
+  <include file="$(find al5d_gazebo)/launch/objects.launch" ns="dynamic1">
+    <!-- <param name="poses" command="$(find some_package)/scripts/generate_random_position.py"/> -->
+  </include>
+
   <!-- RED TEAM -->
   <include file="$(find al5d_gazebo)/launch/single.launch" ns="red">
     <arg name="namespace" value="red" /> <!-- needed for Gazebo -->
     <arg name="color" value="0.5725\ 0.0667\ 0.109\ 1" />
-    <arg name="x" value="-.2"/>
-    <arg name="y" value="-.2"/>
+    <arg name="x" value="-.25"/>
+    <arg name="y" value="-.25"/>
     <arg name="z" value="0"/>
     <arg name="roll" value="0"/>
     <arg name="pitch" value="0"/>
@@ -17,27 +37,17 @@
   <include file="$(find al5d_gazebo)/launch/single.launch" ns="blue">
     <arg name="namespace" value="blue" /> <!-- needed for Gazebo -->
     <arg name="color" value="0.1137\ 0.2078\ 0.3412\ 1" />
-    <arg name="x" value=".2"/>
-    <arg name="y" value=".2"/>
+    <arg name="x" value=".25"/>
+    <arg name="y" value=".25"/>
     <arg name="z" value="0"/>
     <arg name="roll" value="0"/>
     <arg name="pitch" value="0"/>
     <arg name="yaw" value="3.141592"/>
   </include>
 
-  <!-- MOVING TURNTABLE -->
-  <include file="$(find al5d_gazebo)/launch/turntable.launch" ns="turntable" />
 
-  <!-- BASIC ENVIRONMENT -->
-  <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find al5d_gazebo)/worlds/final.world"/>
-  </include>
+  <!-- STUDENT CODE -->
+  <!-- <include file="$(find al5d_gazebo)/launch/match.launch" /> -->
 
-  <!-- OBSTACLES / OBJECT PLATFORMS -->
-  <arg name = "map_loc" default="$(find al5d_gazebo)/../../python_code/Lab3/maps/"/>
-  <arg name = "map_name" default="final.txt"/>
-  <param name = "map_file" type = "str" value = "$(arg map_loc)$(arg map_name)"/>
-  <node name ="mapConverter" pkg="al5d_gazebo" type="worldConverter.py" />
-  <node name="spawn_obstacles" pkg="gazebo_ros" type="spawn_model" args="-param obstacle_urdf -urdf -model obstacles" />
 
 </launch>

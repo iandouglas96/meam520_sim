@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="delay" value="3" />
+
+  <include file="$(find al5d_gazebo)/launch/cube.launch" ns="dynamic1">
+    <arg name="namespace" value="dynamic1" /> <!-- needed for Gazebo -->
+    <arg name="x" value="-.05"/>
+    <arg name="y" value="-.03"/>
+    <arg name="z" value=".15"/>
+    <arg name="roll" value="0"/>
+    <arg name="pitch" value="0"/>
+    <arg name="yaw" value="0.1"/>
+  </include>
+
+  <include file="$(find al5d_gazebo)/launch/cube.launch" ns="dynamic2">
+    <arg name="namespace" value="dynamic2" /> <!-- needed for Gazebo -->
+    <arg name="x" value=".05"/>
+    <arg name="y" value=".06"/>
+    <arg name="z" value=".15"/>
+    <arg name="roll" value="0"/>
+    <arg name="pitch" value="0"/>
+    <arg name="yaw" value="0.4"/>
+  </include>
+
+  <include file="$(find al5d_gazebo)/launch/cube.launch" ns="dynamic3">
+    <arg name="namespace" value="dynamic3" /> <!-- needed for Gazebo -->
+    <arg name="x" value="-.03"/>
+    <arg name="y" value=".05"/>
+    <arg name="z" value=".15"/>
+    <arg name="roll" value="0"/>
+    <arg name="pitch" value="0"/>
+    <arg name="yaw" value="0.6"/>
+  </include>
+
+  <include file="$(find al5d_gazebo)/launch/cube.launch" ns="dynamic4">
+    <arg name="namespace" value="dynamic4" /> <!-- needed for Gazebo -->
+    <arg name="x" value=".04"/>
+    <arg name="y" value="-.03"/>
+    <arg name="z" value=".15"/>
+    <arg name="roll" value="0"/>
+    <arg name="pitch" value="0"/>
+    <arg name="yaw" value="1.5"/>
+  </include>
+
+  <include file="$(find al5d_gazebo)/launch/cube.launch" ns="dynamic5">
+    <arg name="namespace" value="dynamic5" /> <!-- needed for Gazebo -->
+    <arg name="x" value="0"/>
+    <arg name="y" value="0"/>
+    <arg name="z" value=".15"/>
+    <arg name="roll" value="0"/>
+    <arg name="pitch" value="0"/>
+    <arg name="yaw" value="-1"/>
+  </include>
+
+  <include file="$(find al5d_gazebo)/launch/cube.launch" ns="static1">
+    <arg name="namespace" value="static1" /> <!-- needed for Gazebo -->
+    <!-- <arg name="x" value="-.1"/>
+    <arg name="y" value=".25"/> -->
+    <arg name="x" value="-.1"/>
+    <arg name="y" value=".25"/>
+    <arg name="z" value=".2"/>
+    <arg name="roll" value="0"/>
+    <arg name="pitch" value="0"/>
+    <arg name="yaw" value="0.3"/>
+  </include>
+
+  <include file="$(find al5d_gazebo)/launch/cube.launch" ns="static5">
+    <arg name="namespace" value="static5" /> <!-- needed for Gazebo -->
+    <arg name="x" value="-.13"/>
+    <arg name="y" value=".28"/>
+    <arg name="z" value=".2"/>
+    <arg name="roll" value="0"/>
+    <arg name="pitch" value="0"/>
+    <arg name="yaw" value="-0.1"/>
+  </include>
+
+  <include file="$(find al5d_gazebo)/launch/cube.launch" ns="static2">
+    <arg name="namespace" value="static2" /> <!-- needed for Gazebo -->
+    <arg name="x" value="0"/>
+    <arg name="y" value=".375"/>
+    <arg name="z" value=".2"/>
+    <arg name="roll" value="0"/>
+    <arg name="pitch" value="0"/>
+    <arg name="yaw" value="-.1"/>
+  </include>
+
+  <include file="$(find al5d_gazebo)/launch/cube.launch" ns="static6">
+    <arg name="namespace" value="static6" /> <!-- needed for Gazebo -->
+    <arg name="x" value="-.04"/>
+    <arg name="y" value=".373"/>
+    <arg name="z" value=".2"/>
+    <arg name="roll" value="0"/>
+    <arg name="pitch" value="0"/>
+    <arg name="yaw" value="-.1"/>
+  </include>
+
+  <include file="$(find al5d_gazebo)/launch/cube.launch" ns="static3">
+    <arg name="namespace" value="static3" /> <!-- needed for Gazebo -->
+    <arg name="x" value=".1"/>
+    <arg name="y" value="-.25"/>
+    <arg name="z" value=".2"/>
+    <arg name="roll" value="0"/>
+    <arg name="pitch" value="0"/>
+    <arg name="yaw" value="0.3"/>
+  </include>
+
+  <include file="$(find al5d_gazebo)/launch/cube.launch" ns="static4">
+    <arg name="namespace" value="static4" /> <!-- needed for Gazebo -->
+    <arg name="x" value="0"/>
+    <arg name="y" value="-.375"/>
+    <arg name="z" value=".2"/>
+    <arg name="roll" value="0"/>
+    <arg name="pitch" value="0"/>
+    <arg name="yaw" value="-.1"/>
+  </include>
+
+
+
+
+
+  <include file="$(find al5d_gazebo)/launch/cube.launch" ns="static7">
+    <arg name="namespace" value="static7" /> <!-- needed for Gazebo -->
+    <arg name="x" value=".13"/>
+    <arg name="y" value="-.28"/>
+    <arg name="z" value=".2"/>
+    <arg name="roll" value="0"/>
+    <arg name="pitch" value="0"/>
+    <arg name="yaw" value="-0.1"/>
+  </include>
+
+  <include file="$(find al5d_gazebo)/launch/cube.launch" ns="static8">
+    <arg name="namespace" value="static8" /> <!-- needed for Gazebo -->
+    <arg name="x" value=".04"/>
+    <arg name="y" value="-.373"/>
+    <arg name="z" value=".2"/>
+    <arg name="roll" value="0"/>
+    <arg name="pitch" value="0"/>
+    <arg name="yaw" value="-.1"/>
+  </include>
+
+</launch>

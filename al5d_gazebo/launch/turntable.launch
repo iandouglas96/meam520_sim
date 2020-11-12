@@ -25,7 +25,7 @@
   <node pkg="rostopic" type="rostopic" name="fake_joint_calibration" args="pub /calibrated std_msgs/Bool true" />
 
 
-  <arg name="speed" default="1.0"/>
+  <arg name="speed" default="0.5"/>
   <node pkg="rostopic" type="rostopic" name="spin_turntable" args="pub /turntable/turntable_controller/command std_msgs/Float64 'data: $(arg speed)' -r 1" />
 
 

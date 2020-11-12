@@ -6,11 +6,12 @@
     </include>
     <gui>
         <camera name="user_camera">
-          <pose>.55 -.61 .65 0 .6 2.2</pose>
+          <pose>.8 -.2 .9 0 .77 2.86</pose>
         </camera>
     </gui>
 
     <model name='ground_plane'>
+      <pose>0 0 -1 0 0 0</pose>
        <static>1</static>
        <link name='link'>
          <collision name='collision'>
