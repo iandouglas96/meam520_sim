@@ -388,7 +388,8 @@ if __name__ == '__main__':
 
     try:
 
-        if len(sys.argv) < 2:
+
+        if len(sys.argv) < 4:
             lynx = ArmController()
             namespace = ''
         else:
@@ -416,6 +417,7 @@ if __name__ == '__main__':
 
         # Wait for ROS
         rospy.sleep(rospy.Duration.from_sec(3))
+
 
         pos_sub = rospy.Subscriber(namespace + "arm_interface/position", JointState, position)
         vel_sub = rospy.Subscriber(namespace + "arm_interface/velocity", JointState, velocity)
