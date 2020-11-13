@@ -185,14 +185,12 @@ class ROSInterface:
 
         self.model_sub = rospy.Subscriber('/gazebo/model_states', ModelStates, self.model_cb);
 
-        print('namespace='+self.namespace)
 
         for name, type in rospy.get_published_topics():
             match = re.search('(\/.*\/)arm_interface\/state',name)
             if match is not None:
                 name = match.group(1)
                 if name != self.namespace:
-                    print(match.group())
                     self.opponent_sub = rospy.Subscriber(match.group(), JointState, self.opponent_cb);
                     break
 
