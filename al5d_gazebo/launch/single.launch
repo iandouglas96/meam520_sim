@@ -10,7 +10,7 @@
   <arg name="roll" default="0"/>
   <arg name="pitch" default="0"/>
   <arg name="yaw" default="0"/>
-  <arg name="color" default="Gazebo/DarkGrey"/>
+  <arg name="color" default=".3\ .3\ .3\ 1"/>
 
 
 
@@ -35,7 +35,8 @@
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen" />
   <node name="robot_tf_translator" pkg="al5d_gazebo" type="tf_translator.py" output="screen"/>
   <node name="reset_world" pkg="al5d_gazebo" type="reset_world.py" output="screen"/>
-  <node pkg="al5d_gazebo" name="arm_controller_interface" type="arm_controller.py" output="screen" args="--wait-for=/gazebo"/>
   <node pkg="rostopic" type="rostopic" name="fake_joint_calibration" args="pub /calibrated std_msgs/Bool true" />
+
+  <node pkg="al5d_gazebo" name="$(arg namespace)_arm_controller_interface" type="arm_controller.py" output="screen" args="$(arg namespace) --wait-for=/gazebo" ns="/"/>
 
 </launch>

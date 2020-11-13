@@ -11,14 +11,17 @@ from tf.transformations import quaternion_matrix
 from copy import deepcopy
 from time import sleep
 
+import re
+import sys
+
 np.set_printoptions(suppress=True)
 
 from std_msgs.msg import Empty, Bool, Header
 from sensor_msgs.msg import JointState
-from gazebo_msgs.msg import ContactsState
+from gazebo_msgs.msg import ContactsState, ModelStates
 #class managing separate ROS loop
 class ROSInterface:
-    def __init__(self, cmd_q, status_q, pose_q, num_joints):
+    def __init__(self, cmd_q, status_q, pose_q, num_joints,namespace=''):
         #load up queues for async comm
         self.cmd_q = cmd_q
         self.status_q = status_q
@@ -30,6 +33,9 @@ class ROSInterface:
         self.move_seq = 0
         self.vel_target = None
         self.touch = rospy.Time.from_sec(0)
+        self.model_data = None
+
+        self.namespace = namespace
 
 
         self.joint_limits = np.array([[-1.4, 1.4],
@@ -61,7 +67,16 @@ class ROSInterface:
             self.status_q.get()
         self.status_q.put((self.pos, self.vel))
 
+    def model_cb(self, msg):
+        self.model_data = msg;
+
+    def opponent_cb(self, msg):
+        self.q_opponent = msg.position;
+        self.qd_opponent = msg.velocity;
+
     def contact_cb(self, msg):
+
+        # THIS IS PROBABLY BROKEN BY NAMESPACING
 
         collision = False
         # if any are a true collision, we are in collision. Otherwise not
@@ -155,17 +170,50 @@ class ROSInterface:
         self.pos_pubs = []
         self.gripper_pubs = []
         for i in range(self.num_joints):
-            pub = rospy.Publisher("al5d_arm_position_controller"+str(i+1)+"/command",
+            pub = rospy.Publisher(self.namespace+"al5d_arm_position_controller"+str(i+1)+"/command",
                                   Float64, queue_size=1, latch=True)
             self.pos_pubs.append(pub)
         for i in range(2):
-            pub = rospy.Publisher("al5d_gripper_controller"+str(i+1)+"/command",
+            pub = rospy.Publisher(self.namespace+"al5d_gripper_controller"+str(i+1)+"/command",
                                   Float64, queue_size=1, latch=True)
             self.gripper_pubs.append(pub)
 
-        state_sub = rospy.Subscriber("joint_states", JointState, self.state_cb)
-        pose_sub = rospy.Subscriber("joint_poses", TransformStampedList, self.pose_cb)
-        contact_sub = rospy.Subscriber("collision", ContactsState, self.contact_cb)
+        state_sub = rospy.Subscriber(self.namespace+"joint_states", JointState, self.state_cb)
+        pose_sub = rospy.Subscriber(self.namespace+"joint_poses", TransformStampedList, self.pose_cb)
+        contact_sub = rospy.Subscriber(self.namespace+"collision", ContactsState, self.contact_cb)
+
+
+        self.model_sub = rospy.Subscriber('/gazebo/model_states', ModelStates, self.model_cb);
+
+        print('namespace='+self.namespace)
+
+        for name, type in rospy.get_published_topics():
+            match = re.search('(\/.*\/)arm_interface\/state',name)
+            if match is not None:
+                name = match.group(1)
+                if name != self.namespace:
+                    print(match.group())
+                    self.opponent_sub = rospy.Subscriber(match.group(), JointState, self.opponent_cb);
+                    break
+
+
+
+            # % find all namespaced lynx arms in sim with any namespace
+            # topiclist = rostopic("list");
+            # is_state_topic = cellfun(@(s) contains(s,'/arm_interface/state'), topiclist); arms = topiclist(is_state_topic);
+            # % figure out which one is the opponent (chooses the first
+            # % non-matching namespace)
+            # namespaces = cellfun(@(s) regexp(s,'\/(.*)\/arm_interface\/state','tokens'), arms, 'UniformOutput', false);
+            # if  numel([namespaces{:}]) > 0
+            #     namespaces = cellfun(@(C) C{1,1,1},namespaces);
+            #     opponent = find(cellfun(@(name) ~strcmp(name,color), namespaces));
+            #     % subscribe to opponent's state
+            #     if ~isempty(opponent)
+            #         obj.opponent_sub = rossubscriber(arms{opponent},@obj.opponent_cb);
+            #     end
+            # end
+            # % if no opponent, no subscriber is created
+
 
         #poll at 50Hz
 
@@ -185,7 +233,7 @@ class ROSInterface:
                 break
 
 class ArmController:
-    def __init__(self, num_joints=5):
+    def __init__(self,  namespace='', num_joints=5):
         self.num_joints = num_joints
         self.cur_state = ()
         self.cur_pose = ()
@@ -193,11 +241,14 @@ class ArmController:
         self.status_q = Queue()
         self.pose_q = Queue()
 
+        if len(namespace) > 0:
+            namespace = '/' + namespace + '/'
+
 
         #ROS runs in a separate thread because it needs to always
         #check the message buffers
         rospy.loginfo("Starting ros thread...")
-        self.ros = ROSInterface(self.cmd_q, self.status_q, self.pose_q, num_joints)
+        self.ros = ROSInterface(self.cmd_q, self.status_q, self.pose_q, num_joints,namespace=namespace)
         self.spin_t = threading.Thread(target=self.ros.loop)
         self.spin_t.start()
         rospy.loginfo("Ros thread started")
@@ -293,13 +344,61 @@ class ArmController:
         return since_touch < .3
 
 
+    def get_opponent_state(self):
+        return self.ros.q_opponent, self.ros.qd_opponent
+
+    def get_object_state(self):
+
+        data = self.ros.model_data
+
+        if data is None:
+            return [], [], []
+
+        cubes = [i for i, name in enumerate(data.name) if "cube" in name]
+        name =  [name for name in data.name if "cube" in name]
+        twist = []
+        pose = []
+        for cube in cubes:
+            twist.append( np.array([
+                data.twist[cube].linear.x,
+                data.twist[cube].linear.y,
+                data.twist[cube].linear.z,
+                data.twist[cube].angular.x,
+                data.twist[cube].angular.y,
+                data.twist[cube].angular.z ]) )
+            p = 1000*np.array([
+                data.pose[cube].position.x,
+                data.pose[cube].position.y,
+                data.pose[cube].position.z ]) # in mm
+            T = quaternion_matrix([
+                data.pose[cube].orientation.x,
+                data.pose[cube].orientation.y,
+                data.pose[cube].orientation.z,
+                data.pose[cube].orientation.w ])
+            T[:3,3] = p;
+            pose.append(T)
+
+        return name, pose, twist
+
+
+
+
 
 # We run an arm controller node to expose the API to MATLAB over the ROS messaging interface
 
 if __name__ == '__main__':
+
     try:
 
-        lynx = ArmController()
+        if len(sys.argv) < 2:
+            lynx = ArmController()
+            namespace = ''
+        else:
+            namespace = sys.argv[1]
+
+            lynx = ArmController(namespace=namespace)
+
+            namespace = '/' + namespace + '/'
 
         def position(msg):
             pos = np.array(msg.position)
@@ -320,13 +419,13 @@ if __name__ == '__main__':
         # Wait for ROS
         rospy.sleep(rospy.Duration.from_sec(3))
 
-        pos_sub = rospy.Subscriber("arm_interface/position", JointState, position)
-        vel_sub = rospy.Subscriber("arm_interface/velocity", JointState, velocity)
-        torque_sub = rospy.Subscriber("arm_interface/effort", JointState, torque)
-        stop_sub = rospy.Subscriber("arm_interface/stop", Empty, stop)
+        pos_sub = rospy.Subscriber(namespace + "arm_interface/position", JointState, position)
+        vel_sub = rospy.Subscriber(namespace + "arm_interface/velocity", JointState, velocity)
+        torque_sub = rospy.Subscriber(namespace + "arm_interface/effort", JointState, torque)
+        stop_sub = rospy.Subscriber(namespace + "arm_interface/stop", Empty, stop)
 
-        collision_pub = rospy.Publisher("arm_interface/collided", Bool, queue_size=1, latch=True)
-        joint_pub = rospy.Publisher("arm_interface/state", JointState, queue_size=1, latch=True)
+        collision_pub = rospy.Publisher(namespace + "arm_interface/collided", Bool, queue_size=1, latch=True)
+        joint_pub = rospy.Publisher(namespace + "arm_interface/state", JointState, queue_size=1, latch=True)
 
         rate = rospy.Rate(100)
 

@@ -12,9 +12,11 @@ if __name__ == '__main__':
     while True:
         try: # show we're alive but don't do anything
             lynx.set_pos([0,0,0,0,.4,30])
-            sleep(5)
+            print(lynx.get_object_state())
+            sleep(2)
             lynx.set_pos([0,0,0,0,-.4,30])
-            sleep(5)
+            print(lynx.get_object_state())
+            sleep(2)
         except KeyboardInterrupt:
             lynx.stop()
             break

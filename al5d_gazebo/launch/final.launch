@@ -7,26 +7,34 @@
   </include>
 
   <!-- OBSTACLES / OBJECT PLATFORMS -->
-  <arg name = "map_loc" default="$(find al5d_gazebo)/../../python_code/Final/maps/"/>
+  <!-- <arg name = "map_loc" default="$(find al5d_gazebo)/../../python_code/Final/maps/"/>
   <arg name = "map_name" default="final.txt"/>
   <param name = "map_file" type = "str" value = "$(arg map_loc)$(arg map_name)"/>
   <node name ="mapConverter" pkg="al5d_gazebo" type="worldConverter.py" />
-  <node name="spawn_obstacles" pkg="gazebo_ros" type="spawn_model" args="-param obstacle_urdf -urdf -model obstacles" />
+  <node name="spawn_obstacles" pkg="gazebo_ros" type="spawn_model" args="-param obstacle_urdf -urdf -model obstacles" /> -->
 
   <!-- MOVING TURNTABLE -->
   <include file="$(find al5d_gazebo)/launch/turntable.launch" ns="turntable" />
 
   <!-- SCORABLE OBJECTS -->
-  <include file="$(find al5d_gazebo)/launch/objects.launch" ns="dynamic1">
-    <!-- <param name="poses" command="$(find some_package)/scripts/generate_random_position.py"/> -->
-  </include>
+  <include file="$(find al5d_gazebo)/launch/objects.launch" ns="objects" />
+
+  <!-- <arg name="delay" default="5"/> -->
+
+  <!-- <node name="spawn_blocks" pkg="gazebo_ros" type="spawn_model" args=" -file $(find al5d_gazebo)/worlds/scoreables.sdf -sdf -model dynamic_blocks
+  -robot_namespace cubes
+  " launch-prefix="bash -c 'sleep $(arg delay); $0 $@' "/> -->
+  <!-- -x $(arg x) -y $(arg y) -z $(arg z)
+  -R $(arg roll) -P $(arg pitch) -Y $(arg yaw) -->
+
+
 
   <!-- RED TEAM -->
   <include file="$(find al5d_gazebo)/launch/single.launch" ns="red">
     <arg name="namespace" value="red" /> <!-- needed for Gazebo -->
     <arg name="color" value="0.5725\ 0.0667\ 0.109\ 1" />
-    <arg name="x" value="-.25"/>
-    <arg name="y" value="-.25"/>
+    <arg name="x" value="-.2"/>
+    <arg name="y" value="-.2"/>
     <arg name="z" value="0"/>
     <arg name="roll" value="0"/>
     <arg name="pitch" value="0"/>
@@ -37,8 +45,8 @@
   <include file="$(find al5d_gazebo)/launch/single.launch" ns="blue">
     <arg name="namespace" value="blue" /> <!-- needed for Gazebo -->
     <arg name="color" value="0.1137\ 0.2078\ 0.3412\ 1" />
-    <arg name="x" value=".25"/>
-    <arg name="y" value=".25"/>
+    <arg name="x" value=".2"/>
+    <arg name="y" value=".2"/>
     <arg name="z" value="0"/>
     <arg name="roll" value="0"/>
     <arg name="pitch" value="0"/>

@@ -5,6 +5,7 @@
 
   <arg name="namespace" default="object" />
   <arg name="delay" default="5"/>
+  <arg name="color" default=".5\ .5\ .5\ 1"/>
 
   <arg name="x" default="0"/>
   <arg name="y" default="0"/>
@@ -13,8 +14,15 @@
   <arg name="pitch" default="0"/>
   <arg name="yaw" default="0"/>
 
+  <arg name="range" default="0.01"/>
 
-  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-database wood_cube_2_5cm -sdf -model wood_cube_2_5cm -model cube_$(arg namespace)
+  <param name="dx" command='python $(find al5d_gazebo)/scripts/jitter.py'/>
+  <param name="dy" command='python $(find al5d_gazebo)/scripts/jitter.py'/>
+  <param name="dz" command='python $(find al5d_gazebo)/scripts/jitter.py'/>
+
+  <param name="cube_description" command="$(find xacro)/xacro $(find al5d_description)/sdf/cube.xacro color:=$(arg color)" />
+
+  <node name="spawn_cube" pkg="gazebo_ros" type="spawn_model" args=" -param cube_description  -sdf -model wood_cube_2_5cm -model cube_$(arg namespace)
   -x $(arg x) -y $(arg y) -z $(arg z)
   -R $(arg roll) -P $(arg pitch) -Y $(arg yaw)
   -robot_namespace $(arg namespace)

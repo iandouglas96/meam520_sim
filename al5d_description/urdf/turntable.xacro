@@ -17,15 +17,15 @@
     <link name="world"></link>
     <link name="base">
       <visual>
-        <origin xyz="0 0 ${.0532/2}" rpy="0 0 0"/>
+        <origin xyz="0 0 ${.04/2}" rpy="0 0 0"/>
         <geometry>
-          <cylinder length=".0532" radius="${base_radius}"/>
+          <cylinder length=".04" radius="${base_radius}"/>
         </geometry>
       </visual>
       <collision>
-        <origin xyz="0 0 ${.0532/2}" rpy="0 0 0"/>
+        <origin xyz="0 0 ${.04/2}" rpy="0 0 0"/>
         <geometry>
-          <cylinder length=".0532" radius="${base_radius}"/>
+          <cylinder length=".04" radius="${base_radius}"/>
         </geometry>
       </collision>
       <inertial>
@@ -35,15 +35,15 @@
     </link>
     <link name="upper_base">
       <visual>
-	      <origin xyz="0 0 .0582" rpy="0 0 0"/>
+	      <origin xyz="0 0 .045" rpy="0 0 0"/>
         <geometry>
-          <cylinder length=".004" radius="${base_radius}"/>
+          <cylinder length=".01" radius="${base_radius}"/>
         </geometry>
       </visual>
       <collision>
-	      <origin xyz="0 0 .0582" rpy="0 0 0"/>
+	      <origin xyz="0 0 .045" rpy="0 0 0"/>
         <geometry>
-          <cylinder length=".004" radius="${base_radius}"/>
+          <cylinder length=".01" radius="${base_radius}"/>
         </geometry>
       </collision>
       <inertial>
