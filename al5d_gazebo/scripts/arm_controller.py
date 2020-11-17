@@ -19,6 +19,7 @@ np.set_printoptions(suppress=True)
 from std_msgs.msg import Empty, Bool, Header
 from sensor_msgs.msg import JointState
 from gazebo_msgs.msg import ContactsState, ModelStates
+
 #class managing separate ROS loop
 class ROSInterface:
     def __init__(self, cmd_q, status_q, pose_q, num_joints,namespace=''):
@@ -37,13 +38,14 @@ class ROSInterface:
 
         self.namespace = namespace
 
-
         self.joint_limits = np.array([[-1.4, 1.4],
                                       [-1.2, 1.4],
                                       [-1.8, 1.7],
                                       [-1.9, 1.7],
                                       [-2, 1.5],
                                       [-15, 30]]).T
+
+
 
     def state_cb(self, state):
         #add state to queue
@@ -80,11 +82,20 @@ class ROSInterface:
 
         collision = False
         # if any are a true collision, we are in collision. Otherwise not
+        if len(self.namespace) > 0:
+            model_name = "al5d_"+self.namespace[1:-1]
+        else:
+            model_name = "al5d"
+        # print("MODEL:")
+        # print(model_name)
         for state in msg.states:
-            if (state.collision1_name == "al5d::gripper_leftfinger::gripper_leftfinger_collision") and (state.collision2_name == "al5d::gripper_rightfinger::gripper_rightfinger_collision"):
+            if ( not state.collision1_name.startswith(model_name) ) and ( not state.collision2_name.startswith(model_name) ):
+                # not a collision with this robot
+                pass
+            if (state.collision1_name == model_name+"::gripper_leftfinger::gripper_leftfinger_collision") and (state.collision2_name == model_name+"::gripper_rightfinger::gripper_rightfinger_collision"):
                 # don't consider self collisions between gripper jaws
                 pass
-            elif (state.collision2_name == "al5d::gripper_leftfinger::gripper_leftfinger_collision") and (state.collision1_name == "al5d::gripper_rightfinger::gripper_rightfinger_collision"):
+            elif (state.collision2_name == model_name+"al5d::gripper_leftfinger::gripper_leftfinger_collision") and (state.collision1_name == model_name+"::gripper_rightfinger::gripper_rightfinger_collision"):
                 # order swapped
                 pass
             else:
@@ -180,7 +191,7 @@ class ROSInterface:
 
         state_sub = rospy.Subscriber(self.namespace+"joint_states", JointState, self.state_cb)
         pose_sub = rospy.Subscriber(self.namespace+"joint_poses", TransformStampedList, self.pose_cb)
-        contact_sub = rospy.Subscriber(self.namespace+"collision", ContactsState, self.contact_cb)
+        contact_sub = rospy.Subscriber("/collision", ContactsState, self.contact_cb)
 
 
         self.model_sub = rospy.Subscriber('/gazebo/model_states', ModelStates, self.model_cb);

@@ -1,7 +1,18 @@
 <?xml version="1.0"?>
 <launch>
 
-  <arg name="red_code" default="heartbeat.py" />
+  <!--
+
+    (NOTE: most of this functionality is not yet implemented)
+
+    This launch file will be used to actually start the match, after
+    final.launch sets up the environment. It will launch each team's script,
+    wait 60 seconds of simulation time, and then pause gazebo physics and score
+    the match based on the final state of the objects.
+
+  -->
+
+  <arg name="red_code" default="heartbeat.py" /> %
   <arg name="blue_code" default="heartbeat.py" />
 
   <node name="red_team" pkg="al5d_gazebo" type="$(arg red_code)" output="screen" ns="red"/>
