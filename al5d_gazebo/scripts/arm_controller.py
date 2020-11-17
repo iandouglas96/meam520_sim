@@ -193,32 +193,17 @@ class ROSInterface:
 
         self.model_sub = rospy.Subscriber('/gazebo/model_states', ModelStates, self.model_cb);
 
-
+        # identify opponent's state topic from the list of published topics to
+        # allow us to read opponent state
         for name, type in rospy.get_published_topics():
             match = re.search('(\/.*\/)arm_interface\/state',name)
             if match is not None:
                 name = match.group(1)
                 if name != self.namespace:
+                    # choose the first topic that isn't our own
                     self.opponent_sub = rospy.Subscriber(match.group(), JointState, self.opponent_cb);
                     break
 
-
-
-            # % find all namespaced lynx arms in sim with any namespace
-            # topiclist = rostopic("list");
-            # is_state_topic = cellfun(@(s) contains(s,'/arm_interface/state'), topiclist); arms = topiclist(is_state_topic);
-            # % figure out which one is the opponent (chooses the first
-            # % non-matching namespace)
-            # namespaces = cellfun(@(s) regexp(s,'\/(.*)\/arm_interface\/state','tokens'), arms, 'UniformOutput', false);
-            # if  numel([namespaces{:}]) > 0
-            #     namespaces = cellfun(@(C) C{1,1,1},namespaces);
-            #     opponent = find(cellfun(@(name) ~strcmp(name,color), namespaces));
-            #     % subscribe to opponent's state
-            #     if ~isempty(opponent)
-            #         obj.opponent_sub = rossubscriber(arms{opponent},@obj.opponent_cb);
-            #     end
-            # end
-            # % if no opponent, no subscriber is created
 
 
         #poll at 50Hz
