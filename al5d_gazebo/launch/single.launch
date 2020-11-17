@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- SINGLE ROBOT -->
+
+  <arg name="namespace" default="alpha" />
+  <arg name="x" default="0"/>
+  <arg name="y" default="0"/>
+  <arg name="z" default="0"/>
+  <arg name="roll" default="0"/>
+  <arg name="pitch" default="0"/>
+  <arg name="yaw" default="0"/>
+  <arg name="color" default=".3\ .3\ .3\ 1"/>
+
+
+
+
+  <param name="robot_description" command="$(find xacro)/xacro $(find al5d_description)/urdf/al5d_cad.xacro color:=$(arg color)" />
+  <rosparam command="load" file="$(find al5d_gazebo)/config/al5d_position_controller.yaml" />
+  <rosparam command="load" file="$(find al5d_gazebo)/config/joint_state_controller.yaml" />
+
+  <!-- Spawn a robot into Gazebo -->
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model al5d_$(arg namespace)
+  -x $(arg x) -y $(arg y) -z $(arg z)
+  -R $(arg roll) -P $(arg pitch) -Y $(arg yaw)
+  -J  shoulder_tilt 0
+  -J  elbow_tilt -1.57
+  -robot_namespace $(arg namespace)
+  " />
+
+  <node name="default_loaded_controllers_spawner"
+    pkg="controller_manager" type="spawner" output="screen"
+    args="--wait-for=/calibrated al5d_arm_position_controller1 al5d_arm_position_controller2 al5d_arm_position_controller3 al5d_arm_position_controller4 al5d_arm_position_controller5 al5d_gripper_controller1 al5d_gripper_controller2 joint_state_controller" />
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen" />
+  <node name="robot_tf_translator" pkg="al5d_gazebo" type="tf_translator.py" output="screen"/>
+  <node name="reset_world" pkg="al5d_gazebo" type="reset_world.py" output="screen"/>
+  <node pkg="rostopic" type="rostopic" name="fake_joint_calibration" args="pub /calibrated std_msgs/Bool true" />
+
+  <node pkg="al5d_gazebo" name="$(arg namespace)_arm_controller_interface" type="arm_controller.py" output="screen" args="$(arg namespace) --wait-for=/gazebo" ns="/"/>
+
+</launch>

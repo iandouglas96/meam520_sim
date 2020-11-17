@@ -1,0 +1,3 @@
+joint_velocity_controller:
+  type: velocity_controllers/JointVelocityController
+  publish_rate: 50
