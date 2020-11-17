@@ -78,21 +78,18 @@ class ROSInterface:
 
     def contact_cb(self, msg):
 
-        # THIS IS PROBABLY BROKEN BY NAMESPACING
-
         collision = False
         # if any are a true collision, we are in collision. Otherwise not
+
         if len(self.namespace) > 0:
             model_name = "al5d_"+self.namespace[1:-1]
         else:
             model_name = "al5d"
-        # print("MODEL:")
-        # print(model_name)
         for state in msg.states:
             if ( not state.collision1_name.startswith(model_name) ) and ( not state.collision2_name.startswith(model_name) ):
                 # not a collision with this robot
                 pass
-            if (state.collision1_name == model_name+"::gripper_leftfinger::gripper_leftfinger_collision") and (state.collision2_name == model_name+"::gripper_rightfinger::gripper_rightfinger_collision"):
+            elif (state.collision1_name == model_name+"::gripper_leftfinger::gripper_leftfinger_collision") and (state.collision2_name == model_name+"::gripper_rightfinger::gripper_rightfinger_collision"):
                 # don't consider self collisions between gripper jaws
                 pass
             elif (state.collision2_name == model_name+"al5d::gripper_leftfinger::gripper_leftfinger_collision") and (state.collision1_name == model_name+"::gripper_rightfinger::gripper_rightfinger_collision"):
