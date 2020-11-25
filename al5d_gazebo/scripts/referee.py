@@ -100,7 +100,8 @@ def score(names, poses,verbose=False):
         Winner = "Tie"
 
     if verbose:
-        print "Red Team: ", RedScore, " Blue Team: ", BlueScore, " Winner: ", Winner
+        print("\n[[ FINAL SCORES ]]\n")
+        print "[RED]: ", RedScore, " [BLUE]: ", BlueScore, " [WINNER]: ", Winner
 
     return RedScore, BlueScore, Winner
 
