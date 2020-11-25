@@ -8,7 +8,7 @@
     e.g. roslaunch al5d_gazebo referee red:=1 blue:=2
     The "MATLAB" and "Python" are default values because the TA test scripts
     are in folders named TeamMATLAB and TeamPython for the test version for
-    each language. -->
+    each language, while student code is in Team1, Team2, ... , Team20 -->
   <arg name="red" default="MATLAB" /> %
   <arg name="blue" default="Python" />
 
@@ -17,9 +17,6 @@
    it in the right language according to file extension -->
 
    <!-- TODO: IMPLEMENT THIS!  -->
-
-  <!-- <node name="red_team" pkg="al5d_gazebo" type="$(arg red)" output="screen" />
-  <node name="blue_team" pkg="al5d_gazebo" type="$(arg blue)" output="screen" /> -->
 
   <!-- The referee starts the game clock, displays it on the console, and waits
         60 simulation seconds before pausing the simulation and scoring the

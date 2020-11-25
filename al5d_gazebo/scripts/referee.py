@@ -105,8 +105,6 @@ def score(names, poses,verbose=False):
 
     return RedScore, BlueScore, Winner
 
-
-
 if __name__=='__main__':
 
     try:
