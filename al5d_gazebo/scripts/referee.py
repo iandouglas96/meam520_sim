@@ -117,8 +117,9 @@ if __name__=='__main__':
 
         start = rospy.Time.now()
 
-        allotted = rospy.Duration(10)
+        allotted = rospy.Duration(60)
         remaining = allotted
+        
         while remaining.to_sec() > 0:
 
             subprocess.call("clear")
