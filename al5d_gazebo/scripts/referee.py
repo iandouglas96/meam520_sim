@@ -108,27 +108,25 @@ def score(names, poses,verbose=False):
 
 if __name__=='__main__':
 
-    pause_physics_client=rospy.ServiceProxy('/gazebo/pause_physics',Empty)
-
-
     try:
+
+        pause_physics_client=rospy.ServiceProxy('/gazebo/pause_physics',Empty)
+
+        # connect to a robot for scoring purposes
         lynx = ArmController('red') # doesn't matter red or blue
         sleep(1)
 
+        # match clock initialization
         start = rospy.Time.now()
-
-        allotted = rospy.Duration(60)
+        allotted = rospy.Duration(5)
         remaining = allotted
-        
+
         while remaining.to_sec() > 0:
-
-            subprocess.call("clear")
-
-            [names, poses, twists] = lynx.get_object_state()
-            [red, blue, win] = score(names, poses)
 
             elapsed = rospy.Time.now() - start
             remaining = allotted - elapsed
+
+            subprocess.call("clear") # clear the command line
             print "Time Left:", max(remaining.to_sec(),0)
             sleep(.1)
 
@@ -137,9 +135,10 @@ if __name__=='__main__':
         pause_physics_client(EmptyRequest())
 
         subprocess.call("clear")
-        score(names, poses, verbose=True)
+        [names, poses, twists] = lynx.get_object_state()
+        score(names, poses, verbose=True) # print detailed score report
 
-        print('\n')
+        print('')
 
     except KeyboardInterrupt:
         lynx.stop()

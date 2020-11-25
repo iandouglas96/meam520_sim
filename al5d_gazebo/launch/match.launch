@@ -1,21 +1,29 @@
 <?xml version="1.0"?>
 <launch>
 
-  <!--
+  <!-- This launch file is used to actually start the match, after
+    final.launch sets up the environment. -->
 
-    (NOTE: most of this functionality is not yet implemented)
+  <!-- Argument to be filled with the team number of the appropriate team.
+    e.g. roslaunch al5d_gazebo referee red:=1 blue:=2
+    The "MATLAB" and "Python" are default values because the TA test scripts
+    are in folders named TeamMATLAB and TeamPython for the test version for
+    each language. -->
+  <arg name="red" default="MATLAB" /> %
+  <arg name="blue" default="Python" />
 
-    This launch file will be used to actually start the match, after
-    final.launch sets up the environment. It will launch each team's script,
-    wait 60 seconds of simulation time, and then pause gazebo physics and score
-    the match based on the final state of the objects.
+  <!-- Launch each team's code, using a bash script that locates the folder
+    on the mounted Google Drive that contains the right code, and then launches
+   it in the right language according to file extension -->
 
-  -->
+   <!-- TODO: IMPLEMENT THIS!  -->
 
-  <arg name="red_code" default="heartbeat.py" /> %
-  <arg name="blue_code" default="heartbeat.py" />
+  <!-- <node name="red_team" pkg="al5d_gazebo" type="$(arg red)" output="screen" />
+  <node name="blue_team" pkg="al5d_gazebo" type="$(arg blue)" output="screen" /> -->
 
-  <node name="red_team" pkg="al5d_gazebo" type="$(arg red_code)" output="screen" ns="red"/>
-  <node name="blue_team" pkg="al5d_gazebo" type="$(arg blue_code)" output="screen" ns="blue"/>
+  <!-- The referee starts the game clock, displays it on the console, and waits
+        60 simulation seconds before pausing the simulation and scoring the
+        game based on its end state. -->
+  <node name="referee" pkg="al5d_gazebo" type="referee.py" output="screen"/>
 
 </launch>
