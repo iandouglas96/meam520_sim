@@ -117,7 +117,7 @@ if __name__=='__main__':
 
         # match clock initialization
         start = rospy.Time.now()
-        allotted = rospy.Duration(5)
+        allotted = rospy.Duration(60)
         remaining = allotted
 
         while remaining.to_sec() > 0:
