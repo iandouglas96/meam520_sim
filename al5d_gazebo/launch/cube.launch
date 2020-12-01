@@ -4,7 +4,7 @@
   <!-- SCORABLE OBJECT -->
 
   <arg name="namespace" default="object" />
-  <arg name="delay" default="5"/>
+  <arg name="delay" default="3"/>
   <arg name="color" default=".5\ .5\ .5\ 1"/>
 
   <arg name="x" default="0"/>
