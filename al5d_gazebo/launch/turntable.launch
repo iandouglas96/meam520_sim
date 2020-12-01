@@ -26,7 +26,12 @@
 
 
   <arg name="speed" default="0.5"/>
-  <node pkg="rostopic" type="rostopic" name="spin_turntable" args="pub /turntable/turntable_controller/command std_msgs/Float64 'data: $(arg speed)' -r 1" />
+  <arg name="delay" default="7"/>
+  <node pkg="rostopic" 
+        type="rostopic" 
+        name="spin_turntable" 
+        args="pub /turntable/turntable_controller/command std_msgs/Float64 $(arg speed) -r 1" 
+        launch-prefix="bash -c 'sleep $(arg delay); $0 $@' "/>
 
 
 </launch>
