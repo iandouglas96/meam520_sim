@@ -67,47 +67,45 @@
 
   <include file="$(find al5d_gazebo)/launch/cube.launch" ns="static1">
     <arg name="namespace" value="static1" /> <!-- needed for Gazebo -->
-    <!-- <arg name="x" value="-.1"/>
-    <arg name="y" value=".25"/> -->
-    <arg name="x" value="-.08"/>
-    <arg name="y" value=".22"/>
+    <arg name="x" value="-.09"/>
+    <arg name="y" value=".23"/>
     <arg name="z" value=".1"/>
     <arg name="roll" value="0"/>
     <arg name="pitch" value="0"/>
-    <arg name="yaw" value="0.3"/>
+    <arg name="yaw" value="3.44"/>
     <arg name="color" value="0.1137\ 0.2078\ 0.3412\ 1" />
   </include>
 
   <include file="$(find al5d_gazebo)/launch/cube.launch" ns="static5">
     <arg name="namespace" value="static5" /> <!-- needed for Gazebo -->
-    <arg name="x" value="-.13"/>
-    <arg name="y" value=".28"/>
+    <arg name="x" value="-.12"/>
+    <arg name="y" value=".26"/>
     <arg name="z" value=".1"/>
     <arg name="roll" value="1.57"/>
     <arg name="pitch" value="0"/>
-    <arg name="yaw" value="-0.1"/>
+    <arg name="yaw" value="3.04"/>
     <arg name="color" value="0.1137\ 0.2078\ 0.3412\ 1" />
   </include>
 
   <include file="$(find al5d_gazebo)/launch/cube.launch" ns="static2">
     <arg name="namespace" value="static2" /> <!-- needed for Gazebo -->
-    <arg name="x" value="0.01"/>
+    <arg name="x" value=".01"/>
     <arg name="y" value=".376"/>
     <arg name="z" value=".1"/>
     <arg name="roll" value="0"/>
-    <arg name="pitch" value="1.57"/>
-    <arg name="yaw" value="-.1"/>
+    <arg name="pitch" value="0"/>
+    <arg name="yaw" value="3.04"/>
     <arg name="color" value="0.1137\ 0.2078\ 0.3412\ 1" />
   </include>
 
   <include file="$(find al5d_gazebo)/launch/cube.launch" ns="static6">
     <arg name="namespace" value="static6" /> <!-- needed for Gazebo -->
-    <arg name="x" value="-.04"/>
-    <arg name="y" value=".373"/>
+    <arg name="x" value="-.02"/>
+    <arg name="y" value=".374"/>
     <arg name="z" value=".1"/>
     <arg name="roll" value="0"/>
-    <arg name="pitch" value="0"/>
-    <arg name="yaw" value="-.1"/>
+    <arg name="pitch" value="1.57"/>
+    <arg name="yaw" value="3.04"/>
     <arg name="color" value="0.1137\ 0.2078\ 0.3412\ 1" />
   </include>
 
