@@ -58,9 +58,7 @@ def block_xml(id, pose, type):
 def get_random_pose(xyz, perturb_radius):
     noise = np.random.uniform(-perturb_radius, perturb_radius, size=2)
     rp = np.random.choice(4, 2) * pi / 2
-    #print(rp)
     yaw = np.random.uniform(0, pi)
-    print(yaw)
     return (xyz[0] + noise[0], xyz[1] + noise[1], xyz[2], rp[0], rp[1], yaw)
 
 # given a 6-DOF pose mirror across the x=y plane
