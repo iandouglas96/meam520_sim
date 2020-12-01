@@ -139,6 +139,9 @@ class ROSInterface:
             self.move_seq = 0
             self.vel_target = deepcopy(state[1])
             self.pos_target = deepcopy(self.pos)
+        elif state[0] == "setpoint":
+            self.move_seq = np.array([state[1]])
+            self.move_ind = 0
 
     # update the waypoint list or integrate the targeted pose due to target velocity
     def update_move(self):
@@ -257,6 +260,12 @@ class ArmController:
     # set a commanded position in joint space
     def set_pos(self, state):
         self.set_state(state)
+
+    # directly modify the PID setpoint
+    def command(self, state):
+        scaled_state = deepcopy(state)
+        scaled_state[-1] = (-scaled_state[-1]+30.)/45.*0.03
+        self.cmd_q.put(("setpoint", scaled_state))
 
     # handle joint limits and scaling for gripper. Note that we left this function
     # interface intact (despite "state" being a misnomer) for some level of
@@ -400,6 +409,10 @@ if __name__ == '__main__':
             vel = np.array(msg.velocity)
             lynx.set_vel(vel)
 
+        def setpoint(msg):
+            q = np.array(msg.position)
+            lynx.command(q)
+
         def torque(msg):
             tau = np.array(msg.effort)
             lynx.set_tau(tau)
@@ -414,6 +427,7 @@ if __name__ == '__main__':
 
         pos_sub = rospy.Subscriber(namespace + "arm_interface/position", JointState, position)
         vel_sub = rospy.Subscriber(namespace + "arm_interface/velocity", JointState, velocity)
+        command_sub = rospy.Subscriber(namespace + "arm_interface/setpoint", JointState, setpoint)
         torque_sub = rospy.Subscriber(namespace + "arm_interface/effort", JointState, torque)
         stop_sub = rospy.Subscriber(namespace + "arm_interface/stop", Empty, stop)
 

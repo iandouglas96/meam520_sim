@@ -12,15 +12,15 @@
   <arg name="red" default="MATLAB" /> %
   <arg name="blue" default="Python" />
 
-  <!-- Launch each team's code, using a bash script that locates the folder
+  <!-- Launch each team's code, using a python script that locates the folder
     on the mounted Google Drive that contains the right code, and then launches
-   it in the right language according to file extension -->
-
-   <!-- TODO: IMPLEMENT THIS!  -->
+    it in the right language according to file extension -->
+  <node name="red_team" pkg="al5d_gazebo" type="launch_student.py" output="log" args="$(arg red) red" />
+  <node name="blue_team" pkg="al5d_gazebo" type="launch_student.py" output="log" args="$(arg blue) blue" />
 
   <!-- The referee starts the game clock, displays it on the console, and waits
         60 simulation seconds before pausing the simulation and scoring the
-        game based on its end state. -->
-  <node name="referee" pkg="al5d_gazebo" type="referee.py" output="screen"/>
+        game based on its end state. Kills student code on exit. -->
+  <node name="referee" pkg="al5d_gazebo" type="referee.py" output="screen" required="true"/>
 
 </launch>

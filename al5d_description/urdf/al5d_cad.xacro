@@ -315,35 +315,35 @@
       <parent link="base"/>
       <child link="upper_base"/>
       <axis xyz="0 0 1"/>
-      <limit lower="-1.4" upper="1.4" effort="10" velocity="3.67"/>
+      <limit lower="-1.4" upper="1.4" effort=".5" velocity="3.67"/>
     </joint>
     <joint name="shoulder_tilt" type="revolute">
       <origin xyz="0 0 ${upper_arm_offset + upper_base_height}" rpy="${M_PI/2} -${M_PI/2} 0 "/>
       <parent link="upper_base"/>
       <child link="upper_arm"/>
       <axis xyz="0 0 -1"/>
-      <limit lower="-1.2" upper="1.4" effort="10" velocity="3.32"/>
+      <limit lower="-1.2" upper="1.4" effort="3" velocity="3.32"/>
     </joint>
     <joint name="elbow_tilt" type="revolute">
       <origin xyz="${upper_arm_length} 0 0" rpy="0 0 -${M_PI/2}" />
       <parent link="upper_arm"/>
       <child link="lower_arm"/>
       <axis xyz="0 0 -1"/>
-      <limit lower="-1.8" upper="1.7" effort="10" velocity="3.67"/>
+      <limit lower="-1.8" upper="1.7" effort="2" velocity="3.67"/>
     </joint>
     <joint name="wrist_tilt" type="revolute">
       <origin xyz="${lower_arm_length} 0 0" rpy="0 0 0"/>
       <parent link="lower_arm"/>
       <child link="wrist"/>
       <axis xyz="0 0 -1"/>
-      <limit lower="-1.9" upper="1.7" effort="10" velocity="6.98"/>
+      <limit lower="-1.9" upper="1.7" effort="1" velocity="6.98"/>
     </joint>
     <joint name="wrist_rotate" type="revolute">
       <origin xyz="${wrist_length} 0 0" rpy="${M_PI/2} 0 0"/>
       <parent link="wrist"/>
       <child link="gripper_base"/>
       <axis xyz="1 0 0"/>
-      <limit lower="-2" upper="1.5" effort="10" velocity="6.98"/>
+      <limit lower="-2" upper="1.5" effort="1" velocity="6.98"/>
     </joint>
     <joint name="open_gripperright" type="prismatic">
       <origin xyz="${gripper_height} 0 0.023" rpy="0 0 0"/>
