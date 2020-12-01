@@ -31,7 +31,7 @@ if __name__ == '__main__':
     elif mat:
         print("Running Team "+team+" as "+color+" in MATLAB")
         os.chdir(submission_path)
-        command = "matlab nodisplay -nosplash -nodesktop -r \"addpath('../Core'); pause(3); final('"+color+"'); rosshutdown; exit;\""
+        command = "matlab nodisplay -nosplash -nodesktop -r \"addpath('../Core'); final('"+color+"'); rosshutdown; exit;\""
         print(command)
         os.system(command)
 
