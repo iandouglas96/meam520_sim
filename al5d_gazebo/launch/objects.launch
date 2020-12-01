@@ -1,163 +1,162 @@
 <?xml version="1.0"?>
 <launch>
 
-  <arg name="delay" value="3" />
+    <arg name="delay" value="3" />
 
-
-  <!-- DYNAMIC BLOCKS -->
-
-  <include file="$(find al5d_gazebo)/launch/cube.launch" ns="dynamic1">
-    <arg name="namespace" value="dynamic1" /> <!-- needed for Gazebo -->
-    <arg name="x" value="-.05"/>
-    <arg name="y" value="-.03"/>
-    <arg name="z" value=".15"/>
-    <arg name="roll" value="0"/>
-    <arg name="pitch" value="1.57"/>
-    <arg name="yaw" value="0.1"/>
-    <arg name="color" default=".133\ .043\ .212\ 1"/>
-  </include>
-
-  <include file="$(find al5d_gazebo)/launch/cube.launch" ns="dynamic2">
-    <arg name="namespace" value="dynamic2" /> <!-- needed for Gazebo -->
-    <arg name="x" value=".05"/>
-    <arg name="y" value=".06"/>
-    <arg name="z" value=".15"/>
-    <arg name="roll" value="-1.57"/>
-    <arg name="pitch" value="0"/>
-    <arg name="yaw" value="0.4"/>
-    <arg name="color" default=".133\ .043\ .212\ 1"/>
-  </include>
-
-  <include file="$(find al5d_gazebo)/launch/cube.launch" ns="dynamic3">
-    <arg name="namespace" value="dynamic3" /> <!-- needed for Gazebo -->
-    <arg name="x" value="-.03"/>
-    <arg name="y" value=".05"/>
-    <arg name="z" value=".15"/>
-    <arg name="roll" value="0"/>
-    <arg name="pitch" value="0"/>
-    <arg name="yaw" value="0.6"/>
-    <arg name="color" default=".133\ .043\ .212\ 1"/>
-  </include>
-
-  <include file="$(find al5d_gazebo)/launch/cube.launch" ns="dynamic4">
-    <arg name="namespace" value="dynamic4" /> <!-- needed for Gazebo -->
-    <arg name="x" value=".04"/>
-    <arg name="y" value="-.03"/>
-    <arg name="z" value=".15"/>
-    <arg name="roll" value="3.14"/>
-    <arg name="pitch" value="0"/>
-    <arg name="yaw" value="1.5"/>
-    <arg name="color" default=".133\ .043\ .212\ 1"/>
-  </include>
-
-  <include file="$(find al5d_gazebo)/launch/cube.launch" ns="dynamic5">
-    <arg name="namespace" value="dynamic5" /> <!-- needed for Gazebo -->
-    <arg name="x" value="0"/>
-    <arg name="y" value="0"/>
-    <arg name="z" value=".15"/>
-    <arg name="roll" value="0"/>
-    <arg name="pitch" value="0"/>
-    <arg name="yaw" value="-1"/>
-    <arg name="color" default=".133\ .043\ .212\ 1"/>
-  </include>
-
-
-
-  <!-- STATIC BLOCKS: BLUE TEAM -->
-
-  <include file="$(find al5d_gazebo)/launch/cube.launch" ns="static1">
-    <arg name="namespace" value="static1" /> <!-- needed for Gazebo -->
-    <arg name="x" value="-.09"/>
-    <arg name="y" value=".23"/>
-    <arg name="z" value=".1"/>
-    <arg name="roll" value="0"/>
-    <arg name="pitch" value="0"/>
-    <arg name="yaw" value="3.44"/>
-    <arg name="color" value="0.1137\ 0.2078\ 0.3412\ 1" />
-  </include>
-
-  <include file="$(find al5d_gazebo)/launch/cube.launch" ns="static5">
-    <arg name="namespace" value="static5" /> <!-- needed for Gazebo -->
-    <arg name="x" value="-.12"/>
-    <arg name="y" value=".26"/>
-    <arg name="z" value=".1"/>
-    <arg name="roll" value="1.57"/>
-    <arg name="pitch" value="0"/>
-    <arg name="yaw" value="3.04"/>
-    <arg name="color" value="0.1137\ 0.2078\ 0.3412\ 1" />
-  </include>
-
-  <include file="$(find al5d_gazebo)/launch/cube.launch" ns="static2">
-    <arg name="namespace" value="static2" /> <!-- needed for Gazebo -->
-    <arg name="x" value=".01"/>
-    <arg name="y" value=".376"/>
-    <arg name="z" value=".1"/>
-    <arg name="roll" value="0"/>
-    <arg name="pitch" value="0"/>
-    <arg name="yaw" value="3.04"/>
-    <arg name="color" value="0.1137\ 0.2078\ 0.3412\ 1" />
-  </include>
-
-  <include file="$(find al5d_gazebo)/launch/cube.launch" ns="static6">
-    <arg name="namespace" value="static6" /> <!-- needed for Gazebo -->
-    <arg name="x" value="-.02"/>
-    <arg name="y" value=".374"/>
-    <arg name="z" value=".1"/>
-    <arg name="roll" value="0"/>
-    <arg name="pitch" value="1.57"/>
-    <arg name="yaw" value="3.04"/>
-    <arg name="color" value="0.1137\ 0.2078\ 0.3412\ 1" />
-  </include>
-
-
-  <!-- STATIC BLOCKS: RED TEAM -->
-
-  <include file="$(find al5d_gazebo)/launch/cube.launch" ns="static3">
-    <arg name="namespace" value="static3" /> <!-- needed for Gazebo -->
-    <arg name="x" value=".09"/>
-    <arg name="y" value="-.23"/>
-    <arg name="z" value=".1"/>
-    <arg name="roll" value="0"/>
-    <arg name="pitch" value="0"/>
-    <arg name="yaw" value="0.3"/>
-    <arg name="color" value="0.5725\ 0.0667\ 0.109\ 1" />
-  </include>
-
-
-  <include file="$(find al5d_gazebo)/launch/cube.launch" ns="static7">
-    <arg name="namespace" value="static7" /> <!-- needed for Gazebo -->
-    <arg name="x" value=".12"/>
-    <arg name="y" value="-.26"/>
-    <arg name="z" value=".1"/>
-    <arg name="roll" value="1.57"/>
-    <arg name="pitch" value="0"/>
-    <arg name="yaw" value="-0.1"/>
-    <arg name="color" value="0.5725\ 0.0667\ 0.109\ 1" />
-  </include>
-
-
-  <include file="$(find al5d_gazebo)/launch/cube.launch" ns="static4">
-    <arg name="namespace" value="static4" /> <!-- needed for Gazebo -->
-    <arg name="x" value="-.01"/>
-    <arg name="y" value="-.376"/>
-    <arg name="z" value=".1"/>
-    <arg name="roll" value="0"/>
-    <arg name="pitch" value="0"/>
-    <arg name="yaw" value="-.1"/>
-    <arg name="color" value="0.5725\ 0.0667\ 0.109\ 1" />
-  </include>
-
-
-
-  <include file="$(find al5d_gazebo)/launch/cube.launch" ns="static8">
-    <arg name="namespace" value="static8" /> <!-- needed for Gazebo -->
-    <arg name="x" value=".02"/>
-    <arg name="y" value="-.374"/>
-    <arg name="z" value=".1"/>
-    <arg name="roll" value="0"/>
-    <arg name="pitch" value="1.57"/>
-    <arg name="yaw" value="-.1"/>
-    <arg name="color" value="0.5725\ 0.0667\ 0.109\ 1" />
-  </include>
-
+	<!-- DYNAMIC BLOCK -->
+    <include file="$(find al5d_gazebo)/launch/cube.launch" ns="dynamic1">
+        <arg name="namespace" value="dynamic1" />
+        <arg name="x" value="-0.064"/>
+        <arg name="y" value="0.003"/>
+        <arg name="z" value="0.150"/>
+        <arg name="roll" value="1.571"/>
+        <arg name="pitch" value="1.571"/>
+        <arg name="yaw" value="0.833"/>
+        <arg name="color" default=".133\ .043\ .212\ 1"/>
+    </include>
+    
+	<!-- DYNAMIC BLOCK -->
+    <include file="$(find al5d_gazebo)/launch/cube.launch" ns="dynamic2">
+        <arg name="namespace" value="dynamic2" />
+        <arg name="x" value="0.063"/>
+        <arg name="y" value="-0.016"/>
+        <arg name="z" value="0.150"/>
+        <arg name="roll" value="3.142"/>
+        <arg name="pitch" value="3.142"/>
+        <arg name="yaw" value="0.872"/>
+        <arg name="color" default=".133\ .043\ .212\ 1"/>
+    </include>
+    
+	<!-- DYNAMIC BLOCK -->
+    <include file="$(find al5d_gazebo)/launch/cube.launch" ns="dynamic3">
+        <arg name="namespace" value="dynamic3" />
+        <arg name="x" value="0.006"/>
+        <arg name="y" value="0.073"/>
+        <arg name="z" value="0.150"/>
+        <arg name="roll" value="1.571"/>
+        <arg name="pitch" value="1.571"/>
+        <arg name="yaw" value="1.281"/>
+        <arg name="color" default=".133\ .043\ .212\ 1"/>
+    </include>
+    
+	<!-- DYNAMIC BLOCK -->
+    <include file="$(find al5d_gazebo)/launch/cube.launch" ns="dynamic4">
+        <arg name="namespace" value="dynamic4" />
+        <arg name="x" value="0.008"/>
+        <arg name="y" value="-0.063"/>
+        <arg name="z" value="0.150"/>
+        <arg name="roll" value="4.712"/>
+        <arg name="pitch" value="0.000"/>
+        <arg name="yaw" value="3.038"/>
+        <arg name="color" default=".133\ .043\ .212\ 1"/>
+    </include>
+    
+	<!-- DYNAMIC BLOCK -->
+    <include file="$(find al5d_gazebo)/launch/cube.launch" ns="dynamic5">
+        <arg name="namespace" value="dynamic5" />
+        <arg name="x" value="-0.001"/>
+        <arg name="y" value="0.007"/>
+        <arg name="z" value="0.150"/>
+        <arg name="roll" value="4.712"/>
+        <arg name="pitch" value="3.142"/>
+        <arg name="yaw" value="1.381"/>
+        <arg name="color" default=".133\ .043\ .212\ 1"/>
+    </include>
+    
+	<!-- STATIC BLOCK: BLUE TEAM -->
+    <include file="$(find al5d_gazebo)/launch/cube.launch" ns="static1">
+        <arg name="namespace" value="static1" />
+        <arg name="x" value="-0.121"/>
+        <arg name="y" value="0.270"/>
+        <arg name="z" value="0.100"/>
+        <arg name="roll" value="4.712"/>
+        <arg name="pitch" value="3.142"/>
+        <arg name="yaw" value="0.285"/>
+        <arg name="color" default="0.1137\ 0.2078\ 0.3412\ 1"/>
+    </include>
+    
+	<!-- STATIC BLOCK: RED TEAM -->
+    <include file="$(find al5d_gazebo)/launch/cube.launch" ns="static2">
+        <arg name="namespace" value="static2" />
+        <arg name="x" value="0.121"/>
+        <arg name="y" value="-0.270"/>
+        <arg name="z" value="0.100"/>
+        <arg name="roll" value="4.712"/>
+        <arg name="pitch" value="3.142"/>
+        <arg name="yaw" value="3.427"/>
+        <arg name="color" default="0.5725\ 0.0667\ 0.109\ 1"/>
+    </include>
+    
+	<!-- STATIC BLOCK: BLUE TEAM -->
+    <include file="$(find al5d_gazebo)/launch/cube.launch" ns="static3">
+        <arg name="namespace" value="static3" />
+        <arg name="x" value="-0.079"/>
+        <arg name="y" value="0.216"/>
+        <arg name="z" value="0.100"/>
+        <arg name="roll" value="0.000"/>
+        <arg name="pitch" value="1.571"/>
+        <arg name="yaw" value="1.641"/>
+        <arg name="color" default="0.1137\ 0.2078\ 0.3412\ 1"/>
+    </include>
+    
+	<!-- STATIC BLOCK: RED TEAM -->
+    <include file="$(find al5d_gazebo)/launch/cube.launch" ns="static4">
+        <arg name="namespace" value="static4" />
+        <arg name="x" value="0.079"/>
+        <arg name="y" value="-0.216"/>
+        <arg name="z" value="0.100"/>
+        <arg name="roll" value="0.000"/>
+        <arg name="pitch" value="1.571"/>
+        <arg name="yaw" value="4.783"/>
+        <arg name="color" default="0.5725\ 0.0667\ 0.109\ 1"/>
+    </include>
+    
+	<!-- STATIC BLOCK: BLUE TEAM -->
+    <include file="$(find al5d_gazebo)/launch/cube.launch" ns="static5">
+        <arg name="namespace" value="static5" />
+        <arg name="x" value="-0.017"/>
+        <arg name="y" value="0.395"/>
+        <arg name="z" value="0.100"/>
+        <arg name="roll" value="1.571"/>
+        <arg name="pitch" value="1.571"/>
+        <arg name="yaw" value="3.066"/>
+        <arg name="color" default="0.1137\ 0.2078\ 0.3412\ 1"/>
+    </include>
+    
+	<!-- STATIC BLOCK: RED TEAM -->
+    <include file="$(find al5d_gazebo)/launch/cube.launch" ns="static6">
+        <arg name="namespace" value="static6" />
+        <arg name="x" value="0.017"/>
+        <arg name="y" value="-0.395"/>
+        <arg name="z" value="0.100"/>
+        <arg name="roll" value="1.571"/>
+        <arg name="pitch" value="1.571"/>
+        <arg name="yaw" value="6.207"/>
+        <arg name="color" default="0.5725\ 0.0667\ 0.109\ 1"/>
+    </include>
+    
+	<!-- STATIC BLOCK: BLUE TEAM -->
+    <include file="$(find al5d_gazebo)/launch/cube.launch" ns="static7">
+        <arg name="namespace" value="static7" />
+        <arg name="x" value="0.033"/>
+        <arg name="y" value="0.400"/>
+        <arg name="z" value="0.100"/>
+        <arg name="roll" value="0.000"/>
+        <arg name="pitch" value="4.712"/>
+        <arg name="yaw" value="0.673"/>
+        <arg name="color" default="0.1137\ 0.2078\ 0.3412\ 1"/>
+    </include>
+    
+	<!-- STATIC BLOCK: RED TEAM -->
+    <include file="$(find al5d_gazebo)/launch/cube.launch" ns="static8">
+        <arg name="namespace" value="static8" />
+        <arg name="x" value="-0.033"/>
+        <arg name="y" value="-0.400"/>
+        <arg name="z" value="0.100"/>
+        <arg name="roll" value="0.000"/>
+        <arg name="pitch" value="4.712"/>
+        <arg name="yaw" value="3.815"/>
+        <arg name="color" default="0.5725\ 0.0667\ 0.109\ 1"/>
+    </include>
+    
 </launch>

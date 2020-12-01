@@ -7,9 +7,16 @@ from arm_controller import ArmController
 
 import subprocess
 from std_srvs.srv    import Empty, EmptyRequest
+import os
 
 STATIC = 1
 DYNAMIC = 3
+
+def kill(idx):
+    print(i)
+    os.system(" tmux send-keys -t ta_view:kernels."+str(idx)+" C-c")
+    # '"+command+"' && tmux send-keys -t ta_view:kernels."+str(idx)+" Enter"
+    # tmux send-keys C-c;
 
 def score(names, poses,verbose=False):
 
@@ -137,7 +144,9 @@ if __name__=='__main__':
         [names, poses, twists] = lynx.get_object_state()
         score(names, poses, verbose=True) # print detailed score report
 
-        print('')
+        # kill student code
+        [kill(i) for i in range(4)]
+
 
     except KeyboardInterrupt:
         lynx.stop()
