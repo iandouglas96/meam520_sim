@@ -4,6 +4,16 @@ import sys
 import yaml
 import shutil
 
+def matlab_kernel(color,command):
+    idx = 0 if color == 'blue' else 1
+    command = " tmux send-keys -t ta_view:kernels."+str(idx)+" '"+command+"' && tmux send-keys -t ta_view:kernels."+str(idx)+" Enter"
+    os.system(command)
+
+def python_kernel(color,command):
+    idx = 2 + (0 if color == 'blue' else 1)
+    command = " tmux send-keys -t ta_view:kernels."+str(idx)+" '"+command+"' && tmux send-keys -t ta_view:kernels."+str(idx)+" Enter"
+    os.system(command)
+
 if __name__ == '__main__':
     if len(sys.argv) < 3:
         print("Error: expected team number and color")
@@ -23,17 +33,22 @@ if __name__ == '__main__':
         raise Exception('ERROR: Team '+team +' submitted in 2 languages, cannot run')
     if py:
         print("Running Team "+team+" as "+color+" in Python")
-        os.chdir(submission_path)
-        command = 'python final.py '+color
-        print(command)
-        os.system(command)
+
+        python_kernel(color, 'cd "'+submission_path+'" ' )
+        python_kernel(color, 'clear' )
+        python_kernel(color, 'python final.py '+color )
 
     elif mat:
         print("Running Team "+team+" as "+color+" in MATLAB")
-        os.chdir(submission_path)
-        command = "matlab nodisplay -nosplash -nodesktop -r \"addpath('../Core'); final('"+color+"'); rosshutdown; exit;\""
-        print(command)
-        os.system(command)
+
+        # WARNING: YOU MUST BE RUNNING MATLAB IN THE BACKGROUND FOR BOTH TEAMS
+        # USING ta.sh FOR THIS TO WORK
+
+        matlab_kernel(color, 'cd("'+submission_path+'")' )
+        matlab_kernel(color, 'clear; clc' )
+        matlab_kernel(color, 'addpath("../Core")' )
+        matlab_kernel(color, 'final("'+color+'")' )
+        matlab_kernel(color, 'rosshutdown' )
 
     else:
         print("No MATLAB or Python code submitted")
