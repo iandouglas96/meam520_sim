@@ -27,6 +27,10 @@ google-drive-ocamlfuse ~/GoogleDrive
 ```
 Now your Google Drive folders will be accessible from your computer. The submission folder should automatically be located at `~/GoogleDrive/.shared/MEAM 520 F20/FinalProjectSubmissions/`.
 
+To unmount the Google Drive folder run:
+```
+sudo umount -f ~/GoogleDrive
+```
 ## Running Tournament
 
 Below are the steps to run each round. Here is the [tournament spreadsheet](https://docs.google.com/spreadsheets/d/1fW7A1DUgbDhKYgeo7QxdiVG7dADTGSHZWH_2BnEvoRM/edit?usp=sharing).
