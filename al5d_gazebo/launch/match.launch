@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
 
-  <!-- This launch file is used to actually start the match, after
+  <!-- This launch file is used to actually launch the team code, after
     final.launch sets up the environment. -->
 
   <!-- Argument to be filled with the team number of the appropriate team.
@@ -17,10 +17,5 @@
     it in the right language according to file extension -->
   <node name="red_team" pkg="al5d_gazebo" type="launch_student.py" output="log" args="$(arg red) red" />
   <node name="blue_team" pkg="al5d_gazebo" type="launch_student.py" output="log" args="$(arg blue) blue" />
-
-  <!-- The referee starts the game clock, displays it on the console, and waits
-        60 simulation seconds before pausing the simulation and scoring the
-        game based on its end state. Kills student code on exit. -->
-  <node name="referee" pkg="al5d_gazebo" type="referee.py" output="screen" required="true"/>
 
 </launch>
