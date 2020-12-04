@@ -4,6 +4,7 @@
   <!-- BASIC ENVIRONMENT -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(find al5d_gazebo)/worlds/final.world"/>
+    <arg name="paused" value="true" />
   </include>
 
   <!-- MOVING TURNTABLE -->
@@ -35,5 +36,11 @@
     <arg name="pitch" value="0"/>
     <arg name="yaw" value="3.141592"/>
   </include>
+
+  <!-- unpause Gazebo physics after initialization -->
+  <arg name="physics_delay" default="15"/>
+  <node pkg="rosservice" type="rosservice" name="unpause"
+    args="call /gazebo/unpause_physics"
+    launch-prefix="bash -c 'sleep $(arg physics_delay); $0 $@' "/>
 
 </launch>

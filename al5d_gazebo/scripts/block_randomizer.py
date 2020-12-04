@@ -4,21 +4,21 @@ from random import shuffle
 from os.path import dirname, abspath, join
 
 # nominal block positions (x, y, z)
-turntable_block_nom_xyz = np.array([[-0.06, 0.00, 0.15],
-                                    [0.06, 0.00, 0.15],
-                                    [-0.00, 0.06, 0.15],
-                                    [0.00, -0.06, 0.15],
-                                    [0.00, 0.00, 0.15]])
+turntable_block_nom_xyz = np.array([[-0.06, 0.00, 0.07],
+                                    [0.06, 0.00, 0.07],
+                                    [-0.00, 0.06, 0.07],
+                                    [0.00, -0.06, 0.07],
+                                    [0.00, 0.00, 0.07]])
 
-platform_a_block_nom_xyz = np.array([[-0.125, 0.275, 0.10],
-                                     [-0.075, 0.275, 0.10],
-                                     [-0.125, 0.225, 0.10],
-                                     [-0.075, 0.225, 0.10]])
+platform_a_block_nom_xyz = np.array([[-0.125, 0.275, 0.07],
+                                     [-0.075, 0.275, 0.07],
+                                     [-0.125, 0.225, 0.07],
+                                     [-0.075, 0.225, 0.07]])
 
-platform_b_block_nom_xyz = np.array([[-0.025, 0.4, 0.10],
-                                     [-0.025, 0.35, 0.10],
-                                     [0.025, 0.4, 0.10],
-                                     [0.025, 0.35, 0.10]])
+platform_b_block_nom_xyz = np.array([[-0.025, 0.4, 0.07],
+                                     [-0.025, 0.35, 0.07],
+                                     [0.025, 0.4, 0.07],
+                                     [0.025, 0.35, 0.07]])
 
 
 # launch file boilerplate
