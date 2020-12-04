@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- This launch file is used to fire the start gun, keep time, and score teams. -->
+
+  <!-- The referee fires the start fun, starts the game clock,
+       displays it on the console, and wait 60 simulation seconds
+       before pausing the simulation and scoring the game based on
+       its end state. Kills student code on exit. -->
+  <node name="referee" pkg="al5d_gazebo" type="referee.py" output="screen"/>
+
+</launch>

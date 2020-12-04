@@ -6,7 +6,9 @@ import sys
 from arm_controller import ArmController
 
 import subprocess
-from std_srvs.srv    import Empty, EmptyRequest
+from std_srvs.srv import EmptyRequest
+from std_srvs.srv import Empty as EmptySrv
+from std_msgs.msg import Empty as EmptyMsg
 import os
 
 STATIC = 1
@@ -113,11 +115,15 @@ if __name__=='__main__':
 
     try:
 
-        pause_physics_client=rospy.ServiceProxy('/gazebo/pause_physics',Empty)
+        pause_physics_client=rospy.ServiceProxy('/gazebo/pause_physics',EmptySrv)
 
         # connect to a robot for scoring purposes
         lynx = ArmController('red') # doesn't matter red or blue
         sleep(1)
+
+        # fire start gun
+        start_pub = rospy.Publisher("/start", EmptyMsg, queue_size=1, latch=True)
+        start_pub.publish(EmptyMsg())
 
         # match clock initialization
         start = rospy.Time.now()

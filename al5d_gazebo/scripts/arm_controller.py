@@ -45,6 +45,8 @@ class ROSInterface:
                                       [-2, 1.5],
                                       [-15, 30]]).T
 
+        self.start = False # for wait_for_start Start Gun
+
 
 
     def state_cb(self, state):
@@ -71,6 +73,9 @@ class ROSInterface:
 
     def model_cb(self, msg):
         self.model_data = msg;
+
+    def start_cb(self, msg):
+        self.start = True
 
     def opponent_cb(self, msg):
         self.q_opponent = msg.position;
@@ -176,7 +181,7 @@ class ROSInterface:
         self.gripper_pubs[1].publish(Float64(state[-1]))
 
     def loop(self):
-        self.node = rospy.init_node('arm_controller', disable_signals=True)
+        self.node = rospy.init_node(self.namespace[2:-2]+'_arm_controller', disable_signals=True)
         self.rate = rospy.Rate(50)
         self.pos_pubs = []
         self.gripper_pubs = []
@@ -193,6 +198,7 @@ class ROSInterface:
         pose_sub = rospy.Subscriber(self.namespace+"joint_poses", TransformStampedList, self.pose_cb)
         contact_sub = rospy.Subscriber("/collision", ContactsState, self.contact_cb)
 
+        start_sub = rospy.Subscriber("/start", Empty, self.start_cb)
 
         self.model_sub = rospy.Subscriber('/gazebo/model_states', ModelStates, self.model_cb);
 
@@ -332,6 +338,12 @@ class ArmController:
             self.cur_pose = self.pose_q.queue[0]
 
         return np.around(self.cur_pose, decimals=3)
+
+    def wait_for_start(self):
+        print("\n\n\nWaiting for start gun...")
+        while not self.ros.start:
+            sleep(.05)
+        print("\nGo!\n\n\n")
 
     # halt ROS interface so script can terminate
     def stop(self):

@@ -24,7 +24,7 @@
   -x $(arg x) -y $(arg y) -z $(arg z)
   -R $(arg roll) -P $(arg pitch) -Y $(arg yaw)
   -J  shoulder_tilt 0
-  -J  elbow_tilt -1.57
+  -J  elbow_tilt 0
   -robot_namespace $(arg namespace)
   " />
 
