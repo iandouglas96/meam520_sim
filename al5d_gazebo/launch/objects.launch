@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
 
-    <arg name="delay" value="3" />
+    <arg name="delay" value="10" />
 
 	<!-- DYNAMIC BLOCK -->
     <include file="$(find al5d_gazebo)/launch/cube.launch" ns="dynamic1">
@@ -14,7 +14,7 @@
         <arg name="yaw" value="0.833"/>
         <arg name="color" default=".133\ .043\ .212\ 1"/>
     </include>
-    
+
 	<!-- DYNAMIC BLOCK -->
     <include file="$(find al5d_gazebo)/launch/cube.launch" ns="dynamic2">
         <arg name="namespace" value="dynamic2" />
@@ -26,7 +26,7 @@
         <arg name="yaw" value="0.872"/>
         <arg name="color" default=".133\ .043\ .212\ 1"/>
     </include>
-    
+
 	<!-- DYNAMIC BLOCK -->
     <include file="$(find al5d_gazebo)/launch/cube.launch" ns="dynamic3">
         <arg name="namespace" value="dynamic3" />
@@ -38,7 +38,7 @@
         <arg name="yaw" value="1.281"/>
         <arg name="color" default=".133\ .043\ .212\ 1"/>
     </include>
-    
+
 	<!-- DYNAMIC BLOCK -->
     <include file="$(find al5d_gazebo)/launch/cube.launch" ns="dynamic4">
         <arg name="namespace" value="dynamic4" />
@@ -50,7 +50,7 @@
         <arg name="yaw" value="3.038"/>
         <arg name="color" default=".133\ .043\ .212\ 1"/>
     </include>
-    
+
 	<!-- DYNAMIC BLOCK -->
     <include file="$(find al5d_gazebo)/launch/cube.launch" ns="dynamic5">
         <arg name="namespace" value="dynamic5" />
@@ -62,7 +62,7 @@
         <arg name="yaw" value="1.381"/>
         <arg name="color" default=".133\ .043\ .212\ 1"/>
     </include>
-    
+
 	<!-- STATIC BLOCK: BLUE TEAM -->
     <include file="$(find al5d_gazebo)/launch/cube.launch" ns="static1">
         <arg name="namespace" value="static1" />
@@ -74,7 +74,7 @@
         <arg name="yaw" value="0.285"/>
         <arg name="color" default="0.1137\ 0.2078\ 0.3412\ 1"/>
     </include>
-    
+
 	<!-- STATIC BLOCK: RED TEAM -->
     <include file="$(find al5d_gazebo)/launch/cube.launch" ns="static2">
         <arg name="namespace" value="static2" />
@@ -86,7 +86,7 @@
         <arg name="yaw" value="3.427"/>
         <arg name="color" default="0.5725\ 0.0667\ 0.109\ 1"/>
     </include>
-    
+
 	<!-- STATIC BLOCK: BLUE TEAM -->
     <include file="$(find al5d_gazebo)/launch/cube.launch" ns="static3">
         <arg name="namespace" value="static3" />
@@ -98,7 +98,7 @@
         <arg name="yaw" value="1.641"/>
         <arg name="color" default="0.1137\ 0.2078\ 0.3412\ 1"/>
     </include>
-    
+
 	<!-- STATIC BLOCK: RED TEAM -->
     <include file="$(find al5d_gazebo)/launch/cube.launch" ns="static4">
         <arg name="namespace" value="static4" />
@@ -110,7 +110,7 @@
         <arg name="yaw" value="4.783"/>
         <arg name="color" default="0.5725\ 0.0667\ 0.109\ 1"/>
     </include>
-    
+
 	<!-- STATIC BLOCK: BLUE TEAM -->
     <include file="$(find al5d_gazebo)/launch/cube.launch" ns="static5">
         <arg name="namespace" value="static5" />
@@ -122,7 +122,7 @@
         <arg name="yaw" value="3.066"/>
         <arg name="color" default="0.1137\ 0.2078\ 0.3412\ 1"/>
     </include>
-    
+
 	<!-- STATIC BLOCK: RED TEAM -->
     <include file="$(find al5d_gazebo)/launch/cube.launch" ns="static6">
         <arg name="namespace" value="static6" />
@@ -134,7 +134,7 @@
         <arg name="yaw" value="6.207"/>
         <arg name="color" default="0.5725\ 0.0667\ 0.109\ 1"/>
     </include>
-    
+
 	<!-- STATIC BLOCK: BLUE TEAM -->
     <include file="$(find al5d_gazebo)/launch/cube.launch" ns="static7">
         <arg name="namespace" value="static7" />
@@ -146,7 +146,7 @@
         <arg name="yaw" value="0.673"/>
         <arg name="color" default="0.1137\ 0.2078\ 0.3412\ 1"/>
     </include>
-    
+
 	<!-- STATIC BLOCK: RED TEAM -->
     <include file="$(find al5d_gazebo)/launch/cube.launch" ns="static8">
         <arg name="namespace" value="static8" />
@@ -158,5 +158,5 @@
         <arg name="yaw" value="3.815"/>
         <arg name="color" default="0.5725\ 0.0667\ 0.109\ 1"/>
     </include>
-    
+
 </launch>

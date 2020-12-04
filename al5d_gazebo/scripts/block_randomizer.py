@@ -4,18 +4,18 @@ from random import shuffle
 from os.path import dirname, abspath, join
 
 # nominal block positions (x, y, z)
-turntable_block_nom_xyz = np.array([[-0.06, 0.00, 0.15], 
+turntable_block_nom_xyz = np.array([[-0.06, 0.00, 0.15],
                                     [0.06, 0.00, 0.15],
                                     [-0.00, 0.06, 0.15],
                                     [0.00, -0.06, 0.15],
                                     [0.00, 0.00, 0.15]])
 
-platform_a_block_nom_xyz = np.array([[-0.125, 0.275, 0.10], 
+platform_a_block_nom_xyz = np.array([[-0.125, 0.275, 0.10],
                                      [-0.075, 0.275, 0.10],
                                      [-0.125, 0.225, 0.10],
                                      [-0.075, 0.225, 0.10]])
 
-platform_b_block_nom_xyz = np.array([[-0.025, 0.4, 0.10], 
+platform_b_block_nom_xyz = np.array([[-0.025, 0.4, 0.10],
                                      [-0.025, 0.35, 0.10],
                                      [0.025, 0.4, 0.10],
                                      [0.025, 0.35, 0.10]])
@@ -26,7 +26,7 @@ header = \
 """<?xml version="1.0"?>
 <launch>
 
-    <arg name="delay" value="3" />
+    <arg name="delay" value="10" />
 """
 
 footer = \
@@ -75,11 +75,11 @@ with open(join(parent_directory, 'launch', 'objects.launch'), 'w') as f:
         random_pose = get_random_pose(turntable_block_nom_xyz[i], 0.018)
         f.write("\n\t<!-- DYNAMIC BLOCK -->")
         f.write(block_xml(i + 1, random_pose, "dynamic"))
-    
+
     # generate platform xml
     np.random.shuffle(platform_a_block_nom_xyz)
     np.random.shuffle(platform_b_block_nom_xyz)
-    platform_block_nom_xyz = np.vstack((platform_a_block_nom_xyz[:2], 
+    platform_block_nom_xyz = np.vstack((platform_a_block_nom_xyz[:2],
                                         platform_b_block_nom_xyz[:2]))
     for i in range(len(platform_block_nom_xyz)):
         random_pose = get_random_pose(platform_block_nom_xyz[i], 0.013)
