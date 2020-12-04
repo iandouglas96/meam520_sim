@@ -13,10 +13,7 @@ STATIC = 1
 DYNAMIC = 3
 
 def kill(idx):
-    print(i)
     os.system(" tmux send-keys -t ta_view:kernels."+str(idx)+" C-c")
-    # '"+command+"' && tmux send-keys -t ta_view:kernels."+str(idx)+" Enter"
-    # tmux send-keys C-c;
 
 def score(names, poses,verbose=False):
 
@@ -127,6 +124,7 @@ if __name__=='__main__':
         allotted = rospy.Duration(60)
         remaining = allotted
 
+
         while remaining.to_sec() > 0:
 
             elapsed = rospy.Time.now() - start
@@ -149,4 +147,9 @@ if __name__=='__main__':
 
 
     except KeyboardInterrupt:
+        print("Aborted round, pausing physics and killing student code...")
+        pause_physics_client(EmptyRequest())
+
+        [kill(i) for i in range(4)]
+
         lynx.stop()
